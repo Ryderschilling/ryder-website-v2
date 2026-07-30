@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Designer &amp; Developer, Ryder Schilling | RYDER&reg;</title>
+  <meta name="description" content="Ryder Schilling. Websites, done properly: custom sites and AI systems for local businesses that want to look incredible and perform.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#d5cfbe">
+
+  <link rel="stylesheet" href="css/vendor-swiper.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-loading">
+
+  <!-- fixed background portrait layer -->
+  <div class="portrait-layer" aria-hidden="true">
+    <img class="portrait-img" src="assets/img/portrait.webp" alt="">
+  </div>
+
+  <!-- giant brand letters: preloader + hero, morphs into the sidebar chip -->
+  <div class="brandmark" aria-hidden="true">
+    <div class="brandmark-inner">
+      <span>R</span><span>Y</span><span>D</span><span>E</span><span>R</span>
+    </div>
+    <span class="brandmark-reg">&reg;</span>
+  </div>
+
+  <!-- hero morph stage: fixed pieces that fly into the sidebar -->
+  <div class="hero-stage" aria-hidden="false">
+    <nav class="hero-navrow">
+      <div class="hero-navrow-left">
+        <a data-fly="home" href="#hero">Home</a>
+        <a data-fly="work" href="#work">Projects</a>
+        <a data-fly="about" href="#about">About Me</a>
+      </div>
+      <div class="hero-navrow-right">
+        <a data-fly="overview" href="#overview">What You Get</a>
+        <a data-fly="services" href="#services">Services</a>
+        <a data-fly="testimonial" href="#testimonial">Clients</a>
+        <a data-fly="faq" href="#faq">FAQ</a>
+      </div>
+    </nav>
+
+    <h1 class="hero-title">Websites,<br>Done<br>Properly.</h1>
+
+    <div class="hero-btns">
+      <a class="btn btn-accent hero-book" href="tel:+13094158793">Call Now</a>
+      <a class="btn btn-accent hero-about" href="#about">About Me</a>
+    </div>
+
+    <p class="hero-corner hero-corner-l">The Web Guy</p>
+    <p class="hero-corner hero-corner-r">Custom websites and AI systems for local businesses: built to look incredible and quietly run the place.</p>
+  </div>
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <header class="sidebar" id="sidebar">
+    <div class="side-card side-top">
+      <div class="side-top-row">
+        <a class="side-chip" href="#hero">RYDER<sup>&reg;</sup></a>
+        <div class="side-socials">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.1h4.56V23H.22zM8.34 8.1h4.37v2.03h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 7v8.24h-4.55v-7.3c0-1.74-.03-3.98-2.42-3.98-2.43 0-2.8 1.9-2.8 3.86V23H8.34z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/ryderschillingofficial" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.36 1 .42 2.2.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.17-1 .36-2.2.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.17-.42-.36-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.42A6.38 6.38 0 1 0 18.38 12 6.38 6.38 0 0 0 12 5.62zm0 10.52A4.14 4.14 0 1 1 16.14 12 4.14 4.14 0 0 1 12 16.14zM19.85 5.4a1.49 1.49 0 1 1-1.49-1.49 1.49 1.49 0 0 1 1.49 1.49z"/></svg>
+          </a>
+        </div>
+      </div>
+      <p class="side-desc">Custom websites and AI systems for local businesses: built to look incredible and quietly run the place.</p>
+    </div>
+
+    <div class="side-card side-stats">
+      <div class="stat-cell" data-slot="stat-left">
+        <span class="stat-mark">R</span>
+        <span class="stat-label"><b>15+</b><br>Projects</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-cell" data-slot="stat-right">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Months of<br>building</span>
+      </div>
+    </div>
+
+    <nav class="side-card side-nav" aria-label="Sections">
+      <a class="nav-pill" data-nav="hero" data-slot="home" href="#hero"><svg class="nico" viewBox="0 0 24 24"><path d="M12 2.5L23 12h-3v9.5h-6.2V15h-3.6v6.5H4V12H1z"/></svg><span>Home</span></a>
+      <a class="nav-pill" data-nav="work" data-slot="work" href="#work"><svg class="nico" viewBox="0 0 24 24"><path d="M9 4h6a1.5 1.5 0 0 1 1.5 1.5V7H21a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4.5V5.5A1.5 1.5 0 0 1 9 4zm.7 3h4.6V6.2H9.7z"/></svg><span>Projects</span></a>
+      <a class="nav-pill" data-nav="about" data-slot="about" href="#about"><svg class="nico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10L12 12z"/></svg><span>About Me</span></a>
+      <a class="nav-pill" data-nav="overview" data-slot="overview" href="#overview"><svg class="nico" viewBox="0 0 24 24"><path d="M12 2l10 5.2L12 12.4 2 7.2z"/><path d="M2 11.6l10 5.2 10-5.2v3.2L12 20 2 14.8z"/></svg><span>What You Get</span></a>
+      <a class="nav-pill" data-nav="services" data-slot="services" href="#services"><svg class="nico" viewBox="0 0 24 24"><path d="M13.5 2L4 14h6l-1.5 8L18 10h-6z"/></svg><span>Services</span></a>
+      <a class="nav-pill" data-nav="testimonial" data-slot="testimonial" href="#testimonial"><svg class="nico" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4.5"/><path d="M3.5 21c.8-4.3 4.3-7 8.5-7s7.7 2.7 8.5 7z"/></svg><span>Clients</span></a>
+      <a class="nav-pill" data-nav="faq" data-slot="faq" href="#faq"><svg class="nico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path class="q-glyph" d="M12.1 17.9a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 0 0 0 2.6zM9.2 8.7c.2-1.5 1.3-2.5 2.9-2.5 1.7 0 3 1.1 3 2.7 0 1.1-.5 1.8-1.5 2.5-.9.6-1.2 1-1.2 1.9v.4h-1.7v-.6c0-1.3.5-2 1.5-2.7.8-.6 1.1-1 1.1-1.6 0-.7-.5-1.2-1.3-1.2-.7 0-1.2.4-1.3 1.1z"/></svg><span>FAQ</span></a>
+    </nav>
+
+    <div class="side-card side-logos" aria-hidden="true">
+      <div class="logo-track">
+        <span class="lg lg-5">NLH&nbsp;MEDIA</span>
+        <span class="lg lg-2">Elias&nbsp;Collective</span>
+        <span class="lg lg-3">SOURCE&nbsp;A&nbsp;TRADE</span>
+        <span class="lg lg-4">Found&nbsp;Community</span>
+        <span class="lg lg-1">COASTAL&nbsp;HOME</span>
+        <span class="lg lg-6">Fit&nbsp;Flour</span>
+        <span class="lg lg-1">HYDROWILD</span>
+        <span class="lg lg-5">NLH&nbsp;MEDIA</span>
+        <span class="lg lg-2">Elias&nbsp;Collective</span>
+        <span class="lg lg-3">SOURCE&nbsp;A&nbsp;TRADE</span>
+        <span class="lg lg-4">Found&nbsp;Community</span>
+        <span class="lg lg-1">COASTAL&nbsp;HOME</span>
+        <span class="lg lg-6">Fit&nbsp;Flour</span>
+        <span class="lg lg-1">HYDROWILD</span>
+      </div>
+    </div>
+
+    <button class="side-card side-mail" id="openMail" type="button" aria-label="Email me">
+      <span class="mail-text">Email me</span>
+      <svg class="mail-ico" viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6l9 6.5L21 6"/></svg>
+    </button>
+
+    <a class="btn btn-accent side-book" data-slot="book" href="tel:+13094158793">Call Now</a>
+  </header>
+
+  <!-- mobile top bar -->
+  <div class="mobile-bar">
+    <a class="side-chip" href="#hero">RYDER<sup>&reg;</sup></a>
+    <button class="mobile-burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu"></div>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main">
+
+    <section class="hero-space" id="hero" aria-label="Intro">
+      <div class="m-hero">
+        <h1 class="m-hero-title">Websites,<br>Done<br>Properly.</h1>
+        <div class="m-hero-cta">
+          <a class="btn btn-accent" href="tel:+13094158793">Call Now</a>
+          <a class="btn btn-accent" href="#about">About Me</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section work" id="work">
+      <div class="work-sticky">
+        <div class="work-head">
+          <div>
+            <span class="chip-outline chip-on-dark reveal">Selected Work</span>
+            <h2 class="h-lg on-white reveal">Built by Hand,<br>Made to Perform</h2>
+          </div>
+          <p class="work-intro reveal">Fifteen-plus builds since January: local businesses, platforms, and two ecommerce brands. Every one custom coded, no templates. Here's the live work.</p>
+        </div>
+        <div class="work-drag" id="workDrag">
+          <div class="work-track" id="workTrack">
+
+            <a class="work-card" href="https://nlh-media.vercel.app" target="_blank" rel="noopener" data-n="01">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">nlh-media.vercel.app</span>
+                <span class="wc-tags"><span class="w-label">Brand</span><span class="w-label">Motion</span><span class="w-label">GSAP</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-1.jpg" alt="NLH Media website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">01</span>
+                  <h3>NLH Media</h3>
+                  <p>Sports videography brand for the Florida Panhandle: fast cuts, big type, real energy.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+            <a class="work-card" href="https://eliascollective.com" target="_blank" rel="noopener" data-n="02">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">eliascollective.com</span>
+                <span class="wc-tags"><span class="w-label">Real Estate</span><span class="w-label">CMS</span><span class="w-label">Brand</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-2.jpg" alt="Elias Collective website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">02</span>
+                  <h3>Elias Collective</h3>
+                  <p>Private equity real estate firm across the Southeast and Midwest: clean, credible, institutional.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+            <a class="work-card" href="https://sourceatrade.com" target="_blank" rel="noopener" data-n="03">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">sourceatrade.com</span>
+                <span class="wc-tags"><span class="w-label">Platform</span><span class="w-label">Directory</span><span class="w-label">SEO</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-3.jpg" alt="Source A Trade website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">03</span>
+                  <h3>Source A Trade</h3>
+                  <p>Local trade directory for 30A and NW Florida. Find the right pro, fast.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+            <a class="work-card" href="https://found.community" target="_blank" rel="noopener" data-n="04">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">found.community</span>
+                <span class="wc-tags"><span class="w-label">Platform</span><span class="w-label">Members</span><span class="w-label">CMS</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-4.jpg" alt="Found Community website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">04</span>
+                  <h3>Found Community</h3>
+                  <p>A community platform built for real connection, with member accounts and events.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+            <a class="work-card" href="https://coastalhomemngt30a.com" target="_blank" rel="noopener" data-n="05">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">coastalhomemngt30a.com</span>
+                <span class="wc-tags"><span class="w-label">Local</span><span class="w-label">Booking</span><span class="w-label">SEO</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-5.jpg" alt="Coastal Home Management website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">05</span>
+                  <h3>Coastal Home Management</h3>
+                  <p>My own property company on 30A. The build that started all of this.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+            <a class="work-card" href="https://fitflour.shop" target="_blank" rel="noopener" data-n="06">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">fitflour.shop</span>
+                <span class="wc-tags"><span class="w-label">Ecommerce</span><span class="w-label">Headless</span><span class="w-label">Brand</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-6.jpg" alt="Fit Flour website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">06</span>
+                  <h3>Fit Flour</h3>
+                  <p>Protein-baking brand with a custom storefront and a checkout that converts.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+            <a class="work-card" href="https://hydrowild.com" target="_blank" rel="noopener" data-n="07">
+              <div class="wc-bar" aria-hidden="true">
+                <span class="wc-dots"><i></i><i></i><i></i></span>
+                <span class="wc-url">hydrowild.com</span>
+                <span class="wc-tags"><span class="w-label">Ecommerce</span><span class="w-label">Headless</span><span class="w-label">GSAP</span></span>
+              </div>
+              <div class="wc-shot">
+                <img src="assets/img/work-7.jpg" alt="HydroWild website" loading="lazy">
+              </div>
+              <div class="wc-bottom">
+                <span class="wc-num">07</span>
+                  <h3>HydroWild</h3>
+                  <p>Headless storefront for a kids' hydration brand. Fast, playful, and it sells.</p>
+                  <span class="wc-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+              </div>
+              </span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORK -->
+    <section class="section about" id="about">
+      <div class="section-head">
+        <span class="chip-outline reveal">Step by Step</span>
+        <h2 class="h-lg reveal">About Me (&amp;)<br>The Journey</h2>
+        <p class="lead reveal">I started building for real on January 1st. What happened since is easier to show than explain.</p>
+      </div>
+
+      <div class="timeline">
+        <svg class="tl-svg" viewBox="0 0 1060 2350" fill="none" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
+          <path class="tl-path" d="M 210 60 C 640 90, 900 140, 880 330 C 862 500, 420 470, 300 640 C 200 790, 700 780, 830 960 C 940 1110, 420 1120, 300 1290 C 210 1430, 760 1430, 850 1610 C 930 1770, 400 1780, 330 1960 C 285 2090, 640 2160, 780 2230"/>
+          <g class="tl-dots">
+            <circle cx="880" cy="330" r="6"/><circle cx="300" cy="640" r="6"/><circle cx="830" cy="960" r="6"/><circle cx="300" cy="1290" r="6"/><circle cx="850" cy="1610" r="6"/><circle cx="780" cy="2230" r="6"/>
+          </g>
+        </svg>
+
+        <article class="tl-card t-1 reveal">
+          <span class="tl-year">01</span>
+          <h3>Start where you stand</h3>
+          <p>Already running my property company on 30A. The sites I could buy were never good enough, so I decided to build my own.</p>
+          <div class="tl-foot">
+            <span class="tl-avatars"><img src="assets/img/person-1.png" alt=""><img src="assets/img/avatar-1.png" alt=""></span>
+            <span class="tl-handle">@chm30a<br><em>the beginning</em></span>
+            <a class="pill-btn" href="#faq">Read more</a>
+          </div>
+        </article>
+
+        <article class="tl-card t-2 reveal">
+          <span class="tl-year">02</span>
+          <h3>Teach yourself the tools</h3>
+          <p>No bootcamp, no course. The editor, the docs, and every night after work until the builds started working.</p>
+          <div class="tl-foot">
+            <span class="tl-avatars"><img src="assets/img/avatar-2.png" alt=""><img src="assets/img/person-2.png" alt=""></span>
+            <span class="tl-handle">@selftaught<br><em>late nights</em></span>
+            <a class="pill-btn" href="#faq">Read more</a>
+          </div>
+        </article>
+
+        <article class="tl-card t-3 reveal">
+          <span class="tl-year">03</span>
+          <h3>Prove it on your own business</h3>
+          <p>My company's site went first. Cleaner, faster, booking real work within the week. Proof before I ever sold a build.</p>
+          <div class="tl-foot">
+            <span class="tl-avatars"><img src="assets/img/avatar-3.png" alt=""><img src="assets/img/avatar-4.png" alt=""></span>
+            <span class="tl-handle">@coastalhome<br><em>first win</em></span>
+            <a class="pill-btn" href="#faq">Read more</a>
+          </div>
+        </article>
+
+        <article class="tl-card t-4 reveal">
+          <span class="tl-year">04</span>
+          <h3>Make one business better</h3>
+          <p>First outside builds: a videographer, a trade directory, a real estate firm. Every build has one job: make that business better.</p>
+          <div class="tl-foot">
+            <span class="tl-avatars"><img src="assets/img/person-3.png" alt=""><img src="assets/img/person-4.png" alt=""></span>
+            <span class="tl-handle">@wordofmouth<br><em>first clients</em></span>
+            <a class="pill-btn" href="#faq">Read more</a>
+          </div>
+        </article>
+
+        <article class="tl-card t-5 reveal">
+          <span class="tl-year">05</span>
+          <h3>Ship things that sell</h3>
+          <p>Fit Flour and HydroWild launched: two storefronts live and selling in the same month. Pages became products.</p>
+          <div class="tl-foot">
+            <span class="tl-avatars"><img src="assets/img/avatar-5.png" alt=""><img src="assets/img/avatar-6.png" alt=""></span>
+            <span class="tl-handle">@launchseason<br><em>launch season</em></span>
+            <a class="pill-btn" href="#faq">Read more</a>
+          </div>
+        </article>
+
+        <article class="tl-card t-6 reveal">
+          <span class="tl-year">NOW</span>
+          <h3>Stack the systems</h3>
+          <p>Fifteen-plus builds later, every site can carry AI receptionists, follow-ups, and automations on top. Still going.</p>
+          <div class="tl-foot">
+            <span class="tl-avatars is-live"><img src="assets/img/person-5.png" alt=""></span>
+            <span class="tl-handle">@ryder<br><em>right now</em></span>
+            <a class="pill-btn" href="#faq">Read more</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SITE SCAN -->
+    <section class="section scan" id="scan">
+      <div class="section-head">
+        <span class="chip-outline reveal">Free Instant Check</span>
+        <h2 class="h-lg reveal">Scan Your Site,<br>See What's Costing You</h2>
+        <p class="lead reveal">Paste your address. I run the same first-pass checks I run before quoting any rebuild: speed, mobile, how Google reads you, and whether visitors can actually reach you. Takes about ten seconds.</p>
+      </div>
+
+      <form class="scan-form reveal" id="scanForm" novalidate>
+        <label class="scan-field" for="scanUrl">
+          <span class="scan-proto">https://</span>
+          <input id="scanUrl" name="url" type="text" inputmode="url" autocomplete="url"
+                 spellcheck="false" placeholder="yourbusiness.com" aria-label="Your website address">
+        </label>
+        <button class="btn btn-accent scan-go" type="submit" id="scanBtn">
+          <span class="scan-go-text">Scan My Site</span>
+          <span class="scan-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+      <p class="scan-hint reveal" id="scanHint">Nothing is stored and no email is needed. Just the check.</p>
+
+      <div class="scan-result" id="scanResult" hidden>
+        <div class="scan-score">
+          <div class="score-dial">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="dial-bg" cx="60" cy="60" r="52"></circle>
+              <circle class="dial-fg" cx="60" cy="60" r="52" id="dialFg"></circle>
+            </svg>
+            <div class="score-num"><span><b id="scoreNum">0</b><i>/100</i></span></div>
+          </div>
+          <div class="score-copy">
+            <span class="chip-outline" id="scoreGrade">Scanning</span>
+            <h3 id="scoreSite">yoursite.com</h3>
+            <p id="scoreLine">Running the checks.</p>
+            <div class="score-tally" id="scoreTally"></div>
+          </div>
+        </div>
+
+        <div class="scan-checks" id="scanChecks"></div>
+
+        <div class="tier-strip scan-strip">
+          <span class="tier-ico"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8L21 10h-7z"/></svg></span>
+          <div class="strip-copy">
+            <h3>Want the fixes, not just the flags?</h3>
+            <p>Send it over and I'll reply with what I'd change first, in plain English, in priority order.</p>
+          </div>
+          <a class="btn btn-accent" href="#contact" id="scanToContact">Get My Fix List</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="section overview" id="overview">
+      <h2 class="h-giant" id="giantHead">What<br>You Get?</h2>
+      <div class="overview-body">
+        <span class="chip-outline reveal">Capabilities Overview</span>
+        <p class="fill-text" id="fillText">Design, strategy, and code working as <a class="inline-chip" data-pop href="#about" aria-label="Learn more about my story"><b>R</b><svg class="chip-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a> one: your idea shaped into a fast, sharp <a class="inline-chip alt" data-pop href="#work" aria-label="See a live build"><svg class="chip-arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="chip-pop chip-pop-shot"><span class="cp-bar"><i></i><i></i><i></i><em>fitflour.shop</em></span><img src="assets/img/work-6.jpg" alt="" loading="lazy"><span class="cp-foot">Live and selling. See the rest.</span></span></a> experience that people remember and businesses grow on.</p>
+        <div class="cap-grid">
+          <span class="cap reveal">Custom Design</span>
+          <span class="cap reveal">Development</span>
+          <span class="cap reveal">Ecommerce</span>
+          <span class="cap reveal">Technical SEO</span>
+          <span class="cap reveal">Animations</span>
+          <span class="cap reveal">AI Automations</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section services" id="services">
+      <div class="section-head">
+        <h2 class="h-lg reveal">Solutions<br>That Deliver</h2>
+        <p class="lead reveal">Same quality, same attention to detail. The only difference is the size of the project and what you need right now.</p>
+      </div>
+
+      <div class="price-panel reveal">
+        <div class="tier tier-inset">
+          <div class="tier-head"><span class="tier-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M19.4 4.6l-2.1 2.1M6.7 17.3l-2.1 2.1"/></svg></span><h3>Custom Website</h3></div>
+          <div class="tier-price">The Foundation</div>
+          <p class="tier-desc">One-time build. The front door for everything else: designed, written, and coded around how you actually get customers.</p>
+          <ul>
+            <li>Custom design, zero templates</li>
+            <li>Copy, pages, and SEO structure included</li>
+            <li>Mobile-perfect and fast everywhere</li>
+            <li>Launch in one to two weeks</li>
+          </ul>
+          <p class="tier-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>For businesses that want the foundation done right, once.</p>
+        </div>
+
+        <div class="tier">
+          <div class="tier-head"><span class="tier-ico"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8L21 10h-7z"/></svg></span><h3>Power-Ups</h3></div>
+          <div class="tier-price">Bolt-Ons</div>
+          <p class="tier-desc">Stack onto your site as you grow. Each one has a single job: turn more of your visitors into booked work.</p>
+          <ul>
+            <li>Lead capture</li>
+            <li>Conversion package (CRO)</li>
+            <li>In-site booking</li>
+            <li>Local SEO push</li>
+          </ul>
+          <p class="tier-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>For sites that are live and ready to convert harder.</p>
+        </div>
+
+        <div class="tier">
+          <div class="tier-head"><span class="tier-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span><h3>The AI Upgrade</h3></div>
+          <div class="tier-price">The Multiplier</div>
+          <p class="tier-desc">Recurring systems that work while you don't. Three lanes, no overlap, all running under your brand.</p>
+          <ul>
+            <li>AI Receptionist: answers and books 24/7</li>
+            <li>AI Follow-Up Engine: reviews, reactivation, repeat sales</li>
+            <li>Back-office automations: admin and finance busywork, handled</li>
+            <li>Runs under your brand, month to month</li>
+          </ul>
+          <p class="tier-note"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>For owners who want the phone answered and the follow-up handled.</p>
+        </div>
+
+        <div class="tier-strip">
+          <span class="tier-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H8l-4 4V6a1 1 0 0 1 1-1z"/></svg></span>
+          <div class="strip-copy">
+            <h3>Not sure where to start? AI Strategy Call.</h3>
+            <p>One hour on the phone. You leave with a map of exactly what your business needs, whether we build it together or not.</p>
+          </div>
+          <a class="btn btn-accent" href="tel:+13094158793">Call Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA / JOURNEY -->
+    <section class="section cta" id="journey">
+      <h2 class="h-lg cta-head">
+        <span class="line reveal">Upgrade Your</span>
+        <span class="line reveal">Whole Web</span>
+        <span class="line ghost reveal">Presence</span>
+        <span class="line ghost reveal">Journey</span>
+      </h2>
+      <p class="lead reveal">Every site has room to grow. You get a clear view of what works, what holds you back, and how to move toward a setup that feels faster, lighter, and easier to manage.</p>
+
+      <div class="chat" id="chat">
+        <div class="chat-row">
+          <img class="chat-ava" src="assets/img/person-5.png" alt="">
+          <div class="chat-bubble">Have a project in mind?</div>
+        </div>
+        <div class="chat-row indent">
+          <div class="chat-bubble typing" id="chatTyping"><span></span><span></span><span></span></div>
+          <a class="btn btn-accent chat-btn" id="chatBtn" href="#contact">Let's Talk</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials" id="testimonial">
+      <div class="testi-head">
+        <span class="chip-outline reveal">Testimonials</span>
+        <h2 class="h-lg" id="testiHead">From People<br>I've Worked with</h2>
+        <div class="seg-pagination" id="segPag" aria-hidden="true"></div>
+      </div>
+
+      <div class="swiper" id="testiSwiper">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide testi-card">
+            <div class="tc-top"><h3>Obsessed<br>on arrival.</h3><span class="tc-quote"><svg viewBox="0 0 24 24"><path d="M4 5h6l-3.2 7H10v7H2v-6.4zM14 5h6l-3.2 7H20v7h-8v-6.4z"/></svg></span></div>
+            <p>"Im obsessed. Can't stop looking at it lol."</p>
+            <div class="tc-foot"><img src="assets/img/person-2.png" alt=""><div><b>Jacob H.</b><span>Fit Flour</span><a href="https://fitflour.shop" target="_blank" rel="noopener">fitflour.shop</a></div></div>
+          </div>
+
+          <div class="swiper-slide testi-card">
+            <div class="tc-top"><h3>Launch day<br>energy.</h3><span class="tc-quote"><svg viewBox="0 0 24 24"><path d="M4 5h6l-3.2 7H10v7H2v-6.4zM14 5h6l-3.2 7H20v7h-8v-6.4z"/></svg></span></div>
+            <p>"Merry Christmas to me!"</p>
+            <div class="tc-foot"><img src="assets/img/person-3.png" alt=""><div><b>CJ Britton</b><span>HydroWild</span><a href="https://hydrowild.com" target="_blank" rel="noopener">hydrowild.com</a></div></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT: lead form + email me -->
+    <section class="section contact" id="contact">
+      <div class="section-head">
+        <span class="chip-outline reveal">Start Here</span>
+        <h2 class="h-lg reveal">Tell Me What<br>You're Building</h2>
+        <p class="lead reveal">One message is enough. I read every one myself and reply within a day, usually the same afternoon.</p>
+      </div>
+
+      <div class="contact-panel reveal">
+        <!-- left: lead form -->
+        <div class="contact-form-wrap">
+          <form class="lead-form" id="leadForm" novalidate>
+            <div class="field">
+              <label for="lfName">Your name</label>
+              <input id="lfName" name="name" type="text" autocomplete="name" required placeholder="Ryder Schilling">
+            </div>
+            <div class="field">
+              <label for="lfEmail">Email</label>
+              <input id="lfEmail" name="email" type="email" autocomplete="email" required placeholder="you@yourbusiness.com">
+            </div>
+            <div class="field">
+              <label for="lfBiz">Business <span class="opt">(or the site you have now)</span></label>
+              <input id="lfBiz" name="business" type="text" autocomplete="organization" placeholder="Coastal Home Management 30A">
+            </div>
+            <div class="field">
+              <label for="lfProject">What do you need?</label>
+              <textarea id="lfProject" name="project" rows="4" required placeholder="A new site, a rebuild, the AI receptionist, or something you can't name yet. Rough is fine."></textarea>
+            </div>
+
+            <!-- honeypot: bots fill this, people never see it -->
+            <input class="hp-field" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button class="btn btn-accent lead-go" type="submit" id="leadBtn">
+              <span class="lead-go-text">Send It</span>
+              <span class="scan-spinner" aria-hidden="true"></span>
+            </button>
+            <p class="lead-status" id="leadStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <!-- right: email me + the direct routes -->
+        <aside class="contact-direct">
+          <h3>Or skip the form.</h3>
+          <p class="direct-lead">Call, text, or find me online. All of it reaches me the same day.</p>
+
+          <a class="direct-row is-call" href="tel:+13094158793">
+            <span class="direct-ico"><svg viewBox="0 0 24 24"><path d="M6.6 3h3l1.5 4-2 1.4a13 13 0 0 0 6.5 6.5l1.4-2 4 1.5v3a2 2 0 0 1-2.2 2A18 18 0 0 1 4.6 5.2 2 2 0 0 1 6.6 3z"/></svg></span>
+            <span class="direct-copy"><b>(309) 415-8793</b><span>Call or text me now</span></span>
+            <span class="direct-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+          </a>
+
+          <a class="direct-row" href="https://www.linkedin.com/in/ryder-schilling-2160b3359/" target="_blank" rel="noopener">
+            <span class="direct-ico"><svg viewBox="0 0 24 24" class="fill"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.1h4.56V23H.22zM8.34 8.1h4.37v2.03h.06c.61-1.15 2.1-2.37 4.32-2.37 4.62 0 5.47 3.04 5.47 7v8.24h-4.55v-7.3c0-1.74-.03-3.98-2.42-3.98-2.43 0-2.8 1.9-2.8 3.86V23H8.34z"/></svg></span>
+            <span class="direct-copy"><b>LinkedIn</b><span>Where I post the work</span></span>
+            <span class="direct-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+          </a>
+
+          <a class="direct-row" href="https://www.instagram.com/ryderschillingofficial" target="_blank" rel="noopener">
+            <span class="direct-ico"><svg viewBox="0 0 24 24" class="fill"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.36 1 .42 2.2.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.17-1 .36-2.2.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.17-.42-.36-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.42A6.38 6.38 0 1 0 18.38 12 6.38 6.38 0 0 0 12 5.62zm0 10.52A4.14 4.14 0 1 1 16.14 12 4.14 4.14 0 0 1 12 16.14zM19.85 5.4a1.49 1.49 0 1 1-1.49-1.49 1.49 1.49 0 0 1 1.49 1.49z"/></svg></span>
+            <span class="direct-copy"><b>Instagram</b><span>Builds in progress</span></span>
+            <span class="direct-arrow"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+          </a>
+
+          <div class="direct-foot">
+            <span class="direct-dot" aria-hidden="true"></span>
+            <p>Based on 30A, Florida. Building for local businesses anywhere.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- GIANT MARK + FAQ -->
+    <section class="outro">
+      <div class="giant-mark" id="giantMark">
+        <svg viewBox="0 0 1320 330" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <clipPath id="markClip">
+              <text class="mark-text" x="50%" y="272" text-anchor="middle">RYDER</text>
+            </clipPath>
+          </defs>
+          <text class="mark-text mark-fill" x="50%" y="272" text-anchor="middle">RYDER</text>
+          <g id="trailGroup" clip-path="url(#markClip)"></g>
+          <text class="mark-reg" x="1284" y="60" text-anchor="middle">&reg;</text>
+        </svg>
+      </div>
+
+      <div class="faq-zone" id="faq">
+        <span class="chip-outline reveal">FAQ</span>
+        <h2 class="h-lg" id="faqHead">Got any<br>questions?</h2>
+
+        <div class="faq-grid">
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>Why a custom site instead of a template?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Templates get you online. Custom gets you chosen. Your site is shaped around your offer, your customers, and how you actually sell, so it loads faster, ranks better, and feels like nobody else's.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>Do you handle design, or only development?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Both. Most projects start as a blank page and leave as a finished brand experience: layout, type, color, motion, and the code underneath it all.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>Already have a site that needs work?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Happens all the time. I audit what's there, keep what works, rebuild what doesn't, and migrate everything without losing your rankings or your mind.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>What happens after launch?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Power-Ups cover hosting and light monthly care. The AI Upgrade is the recurring layer: a receptionist that answers 24/7, follow-ups that bring customers back, and automations that kill busywork.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>What's the process from start to launch?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Call, plan, design, build, launch. You see progress at every step, and nothing goes live until it looks right on every screen size and loads fast everywhere.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>How do revisions and feedback work?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Simple: you point, I polish. Feedback rounds are built into every project, and small tweaks after launch are usually same-day.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>Do you work with businesses outside 30A?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Yes. Most of my work is local to the Gulf Coast, but the process is fully remote-friendly and I've shipped for clients in four time zones.</p></div></div>
+          <div class="faq-item"><button class="faq-toggle" type="button"><span>Not sure which option fits your project?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Book a call. Fifteen minutes, no pitch. You'll leave knowing exactly what your site needs, whether we build it together or not.</p></div></div>
+        </div>
+
+        <p class="footer-line">&copy; 2026 Ryder Schilling LLC. Built by <a href="https://ryderschilling.com" target="_blank" rel="noopener">Ryder Schilling</a>.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="js/vendor/gsap.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/vendor/swiper-bundle.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
