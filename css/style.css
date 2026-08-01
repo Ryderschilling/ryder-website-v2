@@ -168,12 +168,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero-navrow a:hover::before { opacity: 1; transform: scale(1); }
 
 .hero-title {
-  position: absolute; left: 0; right: 0; top: 56.5vh;
+  position: absolute; left: 0; right: 0; top: 70vh;
   text-align: center;
   font-family: var(--display); font-weight: 780;
-  /* capped by height too, so 3 lines can never crash into the buttons */
-  font-size: min(4.6vw, 8.2vh); line-height: 1.02; letter-spacing: -0.022em;
+  /* ONE line. Width is the binding constraint: the string measures 14.7em,
+     and 14.7 x 5.9vw = 87vw. The vh cap keeps it off the buttons on short
+     windows the same way the old 3-line cap did. */
+  white-space: nowrap;
+  font-size: min(5.9vw, 11.3vh); line-height: 1.02; letter-spacing: -0.03em;
   color: var(--white);
+  /* No shadow, no keyline: Ryder wants the type clean. Trade-off is that the
+     first and last words sit on the bone ground, where white loses contrast.
+     If that ever needs fixing, fade the BOTTOM of the hero to ink instead of
+     putting an effect on the type. */
   will-change: transform, opacity;
 }
 
@@ -386,7 +393,7 @@ body.hero-live .sidebar { pointer-events: none; }
 /* About + timeline                                            */
 /* ---------------------------------------------------------- */
 .about { padding: 12vw 0 8vw var(--content-l); }
-.timeline { position: relative; margin-top: 4vw; height: 172vw; margin-right: var(--content-r); }
+.timeline { position: relative; margin-top: -1vw; height: 172vw; margin-right: var(--content-r); }
 .tl-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .tl-path {
   stroke: #17170f; stroke-width: 2.5; fill: none;
@@ -875,6 +882,13 @@ body.hero-live .sidebar { pointer-events: none; }
 .testi-card > p { color: var(--ink-2); }
 .tc-foot { display: flex; align-items: center; gap: 1vw; margin-top: auto; padding-top: 2vw; }
 .tc-foot img { width: 3.6vw; height: 3.6vw; border-radius: 50%; object-fit: cover; }
+/* real client logos instead of a stock avatar: a wide chip, because a wordmark
+   inside a circle renders too small to read. contain, never cover. */
+.tc-foot img.tc-logo {
+  width: 4.8vw; height: 3.6vw; border-radius: 0.55vw;
+  background: var(--inset); border: 1px solid var(--line);
+  object-fit: contain; padding: 0.5vw;
+}
 .tc-foot b { font-family: var(--text); font-weight: 700; font-size: 1.1vw; display: block; }
 .tc-foot span { display: block; font-size: var(--fs-sm); color: var(--gray); }
 .tc-foot a { font-size: var(--fs-sm); color: var(--gray); text-decoration: underline; }
@@ -1479,6 +1493,7 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .tc-top h3 { font-size: 21px; }
   .tc-quote { width: 26px; height: 26px; border-radius: 6px; font-size: 20px; padding-top: 9px; }
   .tc-foot img { width: 44px; height: 44px; }
+  .tc-foot img.tc-logo { width: 58px; height: 44px; border-radius: 8px; padding: 6px; }
   .tc-foot b { font-size: 15px; }
 
   .outro { padding-top: 12vw; }

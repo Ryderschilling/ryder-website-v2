@@ -71,7 +71,12 @@ const server = http.createServer(async (req, res) => {
 
   fs.readFile(file, (err, buf) => {
     if (err) { res.writeHead(404, { 'Content-Type': 'text/plain' }); return res.end('Not found'); }
-    res.writeHead(200, { 'Content-Type': TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream' });
+    res.writeHead(200, {
+      'Content-Type': TYPES[path.extname(file).toLowerCase()] || 'application/octet-stream',
+      // dev only: without this Chrome serves a cached style.css and edits
+      // look like they did not happen until a hard reload
+      'Cache-Control': 'no-store, must-revalidate'
+    });
     res.end(buf);
   });
 });
