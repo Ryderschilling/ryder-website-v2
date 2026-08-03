@@ -5,6 +5,12 @@
    Accent tokens live in :root as --accent / --accent-on / --accent-inv.
    ============================================================ */
 
+/* the UA rule for [hidden] is display:none at the weakest possible
+   specificity, so ANY class that sets display (flex, grid, block)
+   silently beats it and the element stays on screen. Bit the scan
+   gate: #scoreTally and #scanStrip both kept rendering while hidden. */
+[hidden] { display: none !important; }
+
 @font-face {
   font-family: 'ArchivoVar';
   src: url('../assets/fonts/archivo-latin-wght-normal.woff2') format('woff2-variations');
@@ -462,7 +468,22 @@ body.hero-live .sidebar { pointer-events: none; }
 }
 .work-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 4vw; }
 .chip-on-dark { color: #dddbd2; }
-.work-intro { max-width: 25.5vw; color: rgba(248, 247, 243, 0.9); margin-top: 1vw; }
+.work-aside { max-width: 25.5vw; }
+.work-intro { max-width: 100%; color: rgba(248, 247, 243, 0.9); margin-top: 1vw; }
+
+/* client pull quote: the feeling the work is aiming for, said by a client */
+.work-pull { margin: 1.7vw 0 0; padding: 1.3vw 0 0; border-top: 1px solid rgba(248, 247, 243, 0.2); }
+.work-pull blockquote {
+  margin: 0; font-family: var(--display); font-weight: 600;
+  font-size: 1.4vw; line-height: 1.25; color: #f8f7f3;
+}
+.work-pull figcaption { display: flex; align-items: center; gap: 0.75vw; margin-top: 1vw; }
+.work-pull figcaption img {
+  width: 3.6vw; height: 2.7vw; border-radius: 0.45vw; flex: none;
+  background: rgba(248, 247, 243, 0.92); object-fit: contain; padding: 0.35vw;
+}
+.work-pull figcaption span { font-size: var(--fs-sm); line-height: 1.35; color: rgba(248, 247, 243, 0.6); }
+.work-pull figcaption b { display: block; font-weight: 600; color: rgba(248, 247, 243, 0.92); }
 
 .work-drag { flex: 1; display: flex; align-items: stretch; cursor: grab; margin-top: 3vh; min-height: 0; }
 .work-drag.dragging { cursor: grabbing; }
@@ -953,7 +974,7 @@ body.hero-live .sidebar { pointer-events: none; }
 /* ---------------------------------------------------------- */
 .mobile-bar { display: none; }
 .mobile-menu { display: none; }
-.m-hero { display: none; }
+.m-hero, .m-hero-eyebrow { display: none; }
 
 /* ---------------------------------------------------------- */
 /* Reveal defaults (JS drives; settled without JS)             */
@@ -1352,7 +1373,12 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .work { height: auto; }
   .work-sticky { position: static; height: auto; padding: 14vw var(--content-r) 12vw var(--content-l); overflow: visible; }
   .work-head { flex-direction: column; gap: 4vw; }
+  .work-aside { max-width: 100%; }
   .work-intro { max-width: 100%; margin-top: 0; }
+  .work-pull { margin-top: 20px; padding-top: 16px; }
+  .work-pull blockquote { font-size: 19px; }
+  .work-pull figcaption { gap: 10px; margin-top: 14px; }
+  .work-pull figcaption img { width: 48px; height: 36px; border-radius: 8px; padding: 5px; }
   .work-drag { margin-top: 8vw; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4vw; cursor: default; }
   .work-track { gap: 14px; }
   .work-card {
@@ -1517,3 +1543,257 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
    cursor and let the cards sit centered instead of pinned left */
 .swiper.is-static { cursor: default; }
 .swiper.is-static .swiper-wrapper { justify-content: center; }
+
+/* ==============================================================
+   WORK RAIL SWIPE AFFORDANCE  (mobile only)
+   Desktop scrubs the rail from page scroll, so it needs no hint.
+   On a phone the rail is a native scroller and nothing said so.
+   ============================================================== */
+.rail-hint, .rail-progress { display: none; }
+
+/* ==============================================================
+   SCAN LEAD GATE
+   The score is free, the report is not. Sits between the score
+   card and the "want the fixes" strip inside #scanResult.
+   ============================================================== */
+.scan-gate {
+  grid-column: 1 / -1;
+  background: var(--inset);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 1.8vw 2vw;
+}
+.gate-locked {
+  display: flex; align-items: center; gap: 0.7vw;
+  padding: 0.85vw 1.1vw; margin-bottom: 1.4vw;
+  background: var(--card-solid);
+  border: 1px dashed var(--line);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-sm); color: var(--gray);
+}
+.gate-lock-ico svg {
+  width: 1.1vw; height: 1.1vw; display: block;
+  fill: none; stroke: var(--gray); stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.scan-gate h3 {
+  font-family: var(--display); font-weight: 680;
+  font-size: 1.5vw; letter-spacing: -0.02em;
+}
+.scan-gate > p { color: var(--ink-2); margin-top: 0.4vw; max-width: 40vw; }
+
+.gate-form { display: flex; align-items: flex-end; gap: 0.8vw; margin-top: 1.4vw; flex-wrap: wrap; }
+.gate-field { display: flex; flex-direction: column; gap: 0.35vw; flex: 1 1 14vw; min-width: 0; }
+.gate-field > span {
+  font-size: var(--fs-sm); font-weight: 600; color: var(--ink-2);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.gate-field input {
+  width: 100%; font: inherit; font-size: var(--fs-sm);
+  color: var(--ink); background: var(--card-solid);
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  padding: 0.75vw 0.9vw;
+}
+.gate-field input:focus { outline: none; border-color: var(--accent); }
+.gate-field.is-invalid input { border-color: #c9503c; }
+.gate-go { flex: none; position: relative; }
+.gate-go[disabled] { opacity: 0.75; cursor: progress; transform: none !important; }
+.gate-status { font-size: var(--fs-sm); color: var(--ink-2); margin-top: 0.6vw; min-height: 1.2em; }
+.gate-status.is-error { color: #9a3412; }
+.gate-status.is-done { color: #3f6f31; font-weight: 600; }
+.gate-fine { font-size: var(--fs-sm); color: var(--gray); margin-top: 0.2vw; }
+
+/* ==============================================================
+   MOBILE HARDENING
+   Phone and tablet only (<=991px). Desktop rules above are
+   untouched. Grouped by what it fixes so it stays editable.
+   ============================================================== */
+@media (max-width: 991px) {
+
+  /* --- 1. nothing scrolls sideways ---------------------------
+     The testimonial rail is meant to bleed past the right edge on
+     desktop, where body{overflow-x:hidden} absorbs it. On a phone
+     that bleed made the document 671px wide inside a 390px screen,
+     which also threw the fixed top bar (and its burger) off screen.
+     clip on <html> instead of hidden: clip does not create a scroll
+     container, so no sticky or fixed descendant is affected. */
+  html { overflow-x: clip; }
+  .testimonials { overflow: hidden; }
+
+  /* --- 2. legible floor -------------------------------------
+     Nothing under 12px, and nothing that carries meaning under 13. */
+  :root { --fs-sm: clamp(13px, 3.4vw, 15px); }
+  .w-label, .wc-bar .w-label { font-size: 12px; }
+  .wc-url { font-size: 12px; }
+  .tl-handle, .tl-handle em { font-size: 13px; }
+  .cp-foot, .chip-pop em { font-size: 12px; }
+  .tier-note { font-size: 13px; }
+  .tier-note svg { width: 15px; height: 15px; margin-top: 2px; flex: none; }
+  .footer-line, .footer-line a { font-size: 13px; }
+  .field label, .field .opt { font-size: 13px; }
+  .scan-hint { font-size: 13px; }
+
+  /* --- 3. buttons that were still on desktop vw sizing --------
+     .btn is sized in vw for the desktop layout. Any .btn that never
+     got a mobile override rendered at 4-5px: the AI Strategy Call
+     button and the "Let's Talk" button at the end of the chat.
+     Set a floor for every .btn; the specific rules below still win. */
+  .btn {
+    font-size: 16px; padding: 14px 22px; min-height: 48px;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  .tier-strip .btn {
+    font-size: 16px; padding: 15px 22px; min-height: 52px;
+    width: 100%; display: inline-flex; align-items: center; justify-content: center;
+  }
+
+  /* --- 4. 44px minimum on anything you tap ------------------- */
+  .mobile-bar { padding-top: calc(12px + env(safe-area-inset-top)); }
+  .mobile-bar .side-chip { min-height: 44px; display: inline-flex; align-items: center; }
+  .mobile-burger { width: 44px; height: 44px; }
+  .mobile-burger span { left: 10px; right: 10px; }
+  .mobile-burger span:nth-child(1) { top: 17px; }
+  .mobile-burger span:nth-child(2) { top: 25px; }
+  body.menu-open .mobile-burger span:nth-child(1),
+  body.menu-open .mobile-burger span:nth-child(2) { top: 21px; }
+
+  .m-hero-cta .btn { min-height: 50px; display: inline-flex; align-items: center; justify-content: center; }
+  .pill-btn { min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; padding: 0 16px; }
+  .inline-chip { min-height: 32px; }
+  .scan-go { min-height: 52px; }
+  .lead-go { min-height: 52px; }
+  .side-socials a, .direct-row { min-height: 44px; }
+
+  /* inline links inside prose: grow the hit area without moving
+     a single pixel of text (negative margin cancels the padding) */
+  .tc-foot a, .footer-line a, .work-pull a {
+    display: inline-block; padding: 15px 0; margin: -15px 0;
+  }
+
+  /* the little inline pop chips sit mid-sentence, so the visible chip
+     has to stay small. Grow an invisible 44px hit area around it
+     instead of resizing the chip and breaking the line. */
+  .inline-chip { position: relative; }
+  .inline-chip::before {
+    content: ''; position: absolute; left: 0; right: 0;
+    top: 50%; height: 44px; transform: translateY(-50%);
+    min-width: 44px; margin: 0 auto;
+  }
+
+  /* --- 5. stop iOS zooming the page on field focus -----------
+     Safari zooms in on any focused input under 16px. */
+  .field input, .field textarea, .scan-field input, select { font-size: 16px; }
+
+  /* --- 6. touch feel ----------------------------------------
+     manipulation kills the 300ms tap delay and double-tap zoom
+     without blocking scroll or pinch. */
+  a, button, input, textarea, select,
+  [role="button"], .nav-pill, .faq-toggle, .direct-row {
+    -webkit-tap-highlight-color: rgba(20, 17, 13, 0.08);
+    touch-action: manipulation;
+  }
+  .work-drag {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .work-drag::-webkit-scrollbar { display: none; }
+
+  /* --- 7. anchor jumps must clear the fixed top bar ----------
+     JS handles the smooth path; this covers native jumps and any
+     browser where the smooth scroller is off. */
+  section[id], .outro [id], #faq { scroll-margin-top: 84px; }
+
+  /* the next card peeks, so it reads as a swipeable rail */
+  .work-card { width: 84vw; }
+
+  /* --- work rail: say out loud that it swipes ------------------ */
+  .rail-hint {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 14px; margin: 7vw 0 3vw;
+  }
+  .rail-cue {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: rgba(248, 247, 243, 0.62);
+  }
+  .rail-cue svg {
+    width: 20px; height: 20px; flex: none;
+    fill: none; stroke: currentColor; stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round;
+    animation: rail-nudge 1.8s var(--ease) infinite;
+  }
+  .rail-hint.is-moved .rail-cue svg { animation: none; }
+  @keyframes rail-nudge {
+    0%, 55%, 100% { transform: translateX(0); }
+    25% { transform: translateX(5px); }
+  }
+  .rail-count {
+    font-family: var(--display); font-weight: 600; font-size: 13px;
+    letter-spacing: 0.04em; color: rgba(248, 247, 243, 0.45);
+    font-variant-numeric: tabular-nums; flex: none;
+  }
+  .rail-count b { font-weight: 700; color: #f8f7f3; }
+  .rail-count i { font-style: normal; }
+
+  .rail-progress {
+    display: block; height: 2px; margin-top: 5vw;
+    background: rgba(248, 247, 243, 0.16); border-radius: 2px; overflow: hidden;
+  }
+  .rail-progress span {
+    display: block; height: 100%; width: 14%;
+    background: #f8f7f3; border-radius: 2px;
+    transition: width 0.18s linear;
+  }
+
+  /* the rail itself starts right under the hint now */
+  .work-drag { margin-top: 0; }
+
+  /* --- scan lead gate ---------------------------------------- */
+  .scan-gate { padding: 20px; border-radius: 12px; }
+  .gate-locked { gap: 9px; padding: 11px 13px; margin-bottom: 16px; border-radius: 9px; }
+  .gate-lock-ico svg { width: 15px; height: 15px; }
+  .scan-gate h3 { font-size: 20px; }
+  .scan-gate > p { font-size: 15px; margin-top: 6px; max-width: 100%; }
+  .gate-form { flex-direction: column; align-items: stretch; gap: 12px; margin-top: 16px; }
+  .gate-field { flex: 1 1 auto; gap: 6px; }
+  .gate-field > span { font-size: 12px; }
+  .gate-field input { font-size: 16px; padding: 13px 14px; border-radius: 10px; }
+  .gate-go { width: 100%; min-height: 52px; }
+  .gate-status, .gate-fine { font-size: 13px; margin-top: 8px; }
+
+  /* --- 8. giant RYDER wordmark sits lower in the hero --------
+     padding-top pushes the wordmark down; the matching negative
+     margin-bottom takes the same amount back out of the flow, so
+     the headline and buttons underneath do not move at all. */
+  .m-hero-eyebrow {
+    display: block; order: -1;          /* flex order puts it above the ::before wordmark */
+    text-align: center; padding: 20vw 6vw 0;
+    font-family: var(--display); font-weight: 600;
+    font-size: 13px; letter-spacing: 0.26em; text-transform: uppercase;
+    color: var(--gray);
+  }
+  /* the negative margin pulls the eyebrow + wordmark block back out of the
+     flow, so the headline and buttons underneath sit exactly where they did
+     before either was added. vw covers the padding, the px covers the
+     eyebrow's own line box. */
+  /* ⚠️ .main is position:relative z-index:4 and .portrait-layer is z-index:2,
+     so EVERY bit of page content, the wordmark included, was painting on top
+     of the photo. Dark letters over dark hair hid it. Lift the portrait above
+     main so his head genuinely occludes the type. The layer is already
+     pointer-events:none, and the headline and buttons sit below the photo,
+     so nothing that needs tapping ends up underneath it. */
+  .portrait-layer { z-index: 5; }
+  .hero-space::before { padding-top: 11.5vw; margin-bottom: calc(-30vw - 11px); }
+
+  /* --- 9. clear the home indicator --------------------------- */
+  .footer-line { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+  .mobile-menu { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
+}
+
+/* a finger has no hover: drop the lift effects so nothing sticks
+   in a hovered state after a tap on iOS */
+@media (hover: none) {
+  .btn-accent:hover, .pill-btn:hover, .work-card:hover .wc-shot img { transform: none; }
+  .direct-row:hover { transform: none; }
+}

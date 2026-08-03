@@ -48,7 +48,26 @@
     });
   }
 
-  /* -------------------------------------- anchor scroll ---- */
+  /* -------------------------------------- anchor scroll ----
+     On phones a fixed top bar covers the first ~68px of the
+     viewport, so an un-offset jump buries the section heading
+     underneath it. Measure the bar instead of hard-coding. */
+  function navOffset() {
+    var bar = document.querySelector('.mobile-bar');
+    if (!bar) return 0;
+    if (getComputedStyle(bar).display === 'none') return 0;
+    return -(bar.getBoundingClientRect().height + 14);
+  }
+
+  /* Lenis already honours CSS scroll-margin-top, so the smooth path
+     needs no extra offset. The native fallback does not, so it gets
+     the measured bar height instead. */
+  function goTo(el, duration) {
+    if (lenis && !reduced) { lenis.scrollTo(el, { offset: 0, duration: duration }); return; }
+    var y = el.getBoundingClientRect().top + window.pageYOffset + navOffset();
+    window.scrollTo({ top: y, behavior: reduced ? 'auto' : 'smooth' });
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var id = a.getAttribute('href');
@@ -56,8 +75,7 @@
       var el = document.querySelector(id);
       if (!el) return;
       e.preventDefault();
-      if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.4 });
-      else el.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+      goTo(el, 1.4);
     });
   });
 
@@ -398,6 +416,33 @@
     document.fonts.ready.then(function () { sizeWorkCards(); ScrollTrigger.refresh(); });
   }
 
+  /* ---- mobile: drive the swipe hint from the rail's own scroll ----
+     Desktop scrubs this rail from page scroll and shows no hint, so
+     none of this runs there. */
+  var railBar = document.getElementById('railBar');
+  var railNow = document.getElementById('railNow');
+  var railTotal = document.getElementById('railTotal');
+  var railHint = document.getElementById('railHint');
+  if (workDrag && railBar && railNow) {
+    var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+    var cardCount = workDrag.querySelectorAll('.work-card').length;
+    if (railTotal) railTotal.textContent = pad2(cardCount);
+
+    var syncRail = function () {
+      var max = workDrag.scrollWidth - workDrag.clientWidth;
+      var pct = max > 0 ? workDrag.scrollLeft / max : 0;
+      railBar.style.width = Math.max(100 / Math.max(cardCount, 1), pct * 100) + '%';
+      var step = cardCount > 0 ? workDrag.scrollWidth / cardCount : 1;
+      var idx = Math.min(cardCount, Math.round(workDrag.scrollLeft / step) + 1);
+      railNow.textContent = pad2(idx);
+      /* once they have actually moved it, stop waving the arrow */
+      if (railHint && workDrag.scrollLeft > 12) railHint.classList.add('is-moved');
+    };
+    workDrag.addEventListener('scroll', syncRail, { passive: true });
+    window.addEventListener('resize', syncRail);
+    syncRail();
+  }
+
   if (track && !isMobile && !reduced) {
     var workST = gsap.to(track, {
       x: function () {
@@ -690,8 +735,7 @@
     var section = document.getElementById('contact');
     var form = document.getElementById('leadForm');
     if (!section) return;
-    if (lenis) lenis.scrollTo(section, { offset: 0, duration: 1.2 });
-    else section.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth' });
+    goTo(section, 1.2);
     setTimeout(function () {
       var name = document.getElementById('lfName');
       if (name) name.focus({ preventScroll: true });
@@ -782,10 +826,79 @@
       scanBtn.querySelector('.scan-go-text').textContent = on ? 'Scanning' : 'Scan My Site';
     };
 
+    /* ---- lead gate -------------------------------------------
+       Nobody gets the whole report for free. A healthy site (80+)
+       sees only the number and the one-line verdict. A site with
+       real problems also sees its three worst, because that is the
+       hook. Everything else is behind a name and an email.
+       Once they hand it over the unlock sticks for the session, so
+       a second scan is not a second wall. */
+    var GATE_AT = 80;
+    var unlocked = false;
+    var lastScan = null;
+
+    var checkHtml = function (c) {
+      return '<div class="check s-' + c.state + '">' +
+        '<span class="check-ico">' + ICONS[c.state] + '</span>' +
+        '<div class="check-body">' +
+          '<span class="check-group">' + esc(c.group) + '</span>' +
+          '<h4>' + esc(c.label) + '</h4>' +
+          '<p>' + esc(c.detail) + '</p>' +
+        '</div></div>';
+    };
+
+    /* worst first: anything actively costing them, then the warnings */
+    var worstFirst = function (checks) {
+      var rank = { fail: 0, warn: 1, pass: 2 };
+      return checks.slice().sort(function (a, b) { return rank[a.state] - rank[b.state]; });
+    };
+
+    var paint = function (data, showAll) {
+      var tally = document.getElementById('scoreTally');
+      var checksEl = document.getElementById('scanChecks');
+      var gate = document.getElementById('scanGate');
+      var locked = document.getElementById('gateLocked');
+      var strip = document.getElementById('scanStrip');
+      var healthy = data.score >= GATE_AT;
+
+      if (showAll) {
+        tally.hidden = false;
+        checksEl.innerHTML = data.checks.map(checkHtml).join('');
+        gate.hidden = true;
+        strip.hidden = false;
+        return;
+      }
+
+      /* healthy site: the number and the verdict, nothing itemised */
+      var preview = healthy ? [] : worstFirst(data.checks).filter(function (c) {
+        return c.state !== 'pass';
+      }).slice(0, 3);
+
+      tally.hidden = healthy;
+      checksEl.innerHTML = preview.map(checkHtml).join('');
+      strip.hidden = true;
+
+      var hidden = data.checks.length - preview.length;
+      locked.hidden = hidden < 1;
+      document.getElementById('gateLockedText').textContent =
+        hidden + (hidden === 1 ? ' more check' : ' more checks') + ' on this page, plus what I would fix first';
+
+      document.getElementById('gateHead').textContent = healthy
+        ? 'Solid score. Here is what is still leaking.'
+        : 'That is ' + preview.length + ' of ' + data.checks.length + '. Want the rest?';
+      document.getElementById('gateLine').textContent = healthy
+        ? 'A ' + data.score + ' means the basics are right, so the wins left are the ones your competitors have not found either. Tell me where to send them.'
+        : 'The full list plus what I would fix first, in plain English, in the order that matters. Opens right here.';
+
+      gate.hidden = false;
+    };
+
     var render = function (data) {
       scannedUrl = data.finalUrl || data.url;
+      lastScan = data;
       var host = scannedUrl;
       try { host = new URL(scannedUrl).host; } catch (e) { /* keep raw */ }
+      lastScan.host = host;
 
       scanResult.classList.toggle('is-low', data.score < 75 && data.score >= 55);
       scanResult.classList.toggle('is-bad', data.score < 55);
@@ -798,15 +911,7 @@
         '<span class="tally t-warn">' + data.counts.warn + ' worth a look</span>' +
         '<span class="tally t-fail">' + data.counts.fail + ' costing you</span>';
 
-      document.getElementById('scanChecks').innerHTML = data.checks.map(function (c) {
-        return '<div class="check s-' + c.state + '">' +
-          '<span class="check-ico">' + ICONS[c.state] + '</span>' +
-          '<div class="check-body">' +
-            '<span class="check-group">' + esc(c.group) + '</span>' +
-            '<h4>' + esc(c.label) + '</h4>' +
-            '<p>' + esc(c.detail) + '</p>' +
-          '</div></div>';
-      }).join('');
+      paint(data, unlocked);
 
       scanResult.hidden = false;
 
@@ -858,13 +963,95 @@
       });
     });
 
+    /* ---- gate submit: unlock the page AND send Ryder the lead ----
+       FORM_ENDPOINT / INBOX are declared further down in this same
+       scope. This handler only ever runs on a click, long after that
+       assignment, so referencing them here is safe. */
+    var gateForm = document.getElementById('gateForm');
+    if (gateForm) {
+      var gateBtn = document.getElementById('gateBtn');
+      var gateStatus = document.getElementById('gateStatus');
+
+      var gateSay = function (msg, kind) {
+        gateStatus.textContent = msg || '';
+        gateStatus.classList.toggle('is-error', kind === 'error');
+        gateStatus.classList.toggle('is-done', kind === 'done');
+      };
+
+      var gateBusy = function (on) {
+        gateBtn.disabled = on;
+        gateBtn.classList.toggle('is-busy', on);
+        gateBtn.querySelector('.gate-go-text').textContent = on ? 'Unlocking' : 'Unlock My Full Report';
+      };
+
+      var openReport = function () {
+        unlocked = true;
+        if (lastScan) paint(lastScan, true);
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+      };
+
+      gateForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (document.getElementById('gateHp').value) { openReport(); return; }
+
+        var nameEl = document.getElementById('gateName');
+        var mailEl = document.getElementById('gateEmail');
+        var name = nameEl.value.trim();
+        var email = mailEl.value.trim();
+
+        gateForm.querySelectorAll('.gate-field').forEach(function (f) { f.classList.remove('is-invalid'); });
+        if (!name) {
+          nameEl.closest('.gate-field').classList.add('is-invalid'); nameEl.focus();
+          gateSay('Put a name in so I know who I am talking to.', 'error'); return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          mailEl.closest('.gate-field').classList.add('is-invalid'); mailEl.focus();
+          gateSay('That email address does not look right.', 'error'); return;
+        }
+
+        var d = lastScan || {};
+        var flagged = (d.checks || []).filter(function (c) { return c.state !== 'pass'; })
+          .map(function (c) { return c.label + ' (' + c.state + ')'; }).join(', ');
+
+        var payload = {
+          _subject: 'Site scan: ' + (d.host || 'a site') + ' scored ' + (d.score == null ? '?' : d.score),
+          _template: 'table',
+          _captcha: 'false',
+          name: name,
+          email: email,
+          site: d.host || scannedUrl || '(unknown)',
+          score: (d.score == null ? '?' : d.score) + '/100 (' + (d.grade || '') + ')',
+          issues: flagged || 'none flagged'
+        };
+
+        gateBusy(true);
+        gateSay('Unlocking.', null);
+        fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(payload)
+        }).then(function (r) { return r.json(); }).then(function () {
+          gateBusy(false);
+          gateSay('');
+          openReport();
+        }).catch(function () {
+          /* their report is the deal: never hold it hostage to my inbox */
+          gateBusy(false);
+          gateSay('');
+          openReport();
+        });
+      });
+    }
+
     /* carry the scanned URL into the lead form */
     var scanToContact = document.getElementById('scanToContact');
     if (scanToContact) {
       scanToContact.addEventListener('click', function () {
         var proj = document.getElementById('lfProject');
         if (proj && scannedUrl && !proj.value.trim()) {
-          proj.value = 'I scanned ' + scannedUrl + ' on your site. Send me the fix list.';
+          proj.value = 'I scanned ' + scannedUrl + ' on your site' +
+            (lastScan && lastScan.score != null ? ' and got ' + lastScan.score + '/100' : '') +
+            '. Send me the fix list.';
         }
       });
     }
