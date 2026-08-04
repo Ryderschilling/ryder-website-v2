@@ -7,15 +7,37 @@
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 991px)').matches;
+  /* A finger, not a mouse. Separate from isMobile on purpose: isMobile is a
+     LAYOUT question (<=991px), isTouch is an INPUT question. A small desktop
+     window is isMobile but not isTouch; an iPad in landscape is the reverse. */
+  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   var vw = function () { return window.innerWidth; };
   var vh = function () { return window.innerHeight; };
 
   gsap.registerPlugin(ScrollTrigger);
   if (reduced) document.documentElement.classList.add('no-motion');
 
-  /* ------------------------------------------------ Lenis -- */
+  /* ⚠️ Phones and tablets fire a window resize every time the browser's
+     address bar slides away, which is CONSTANTLY while you scroll. Left alone
+     that resize triggers a full ScrollTrigger.refresh mid-swipe, the page
+     hitches, and the scroll reads as "stuck". ignoreMobileResize makes
+     ScrollTrigger ignore a height-only resize on touch devices. */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* ------------------------------------------------ Lenis --
+     ⚠️ Lenis is DESKTOP ONLY, and that is deliberate.
+     Even with syncTouch off (the default), Lenis binds touchstart/touchmove/
+     touchend with { passive: false } on the window, and on every single
+     touchmove it walks event.composedPath() looking for opt-out attributes.
+     iOS cannot start its native scroll until that handler returns, so the
+     first ~100ms of every swipe is dead and the momentum flick feels like it
+     snags. Native touch scrolling is already smooth; there is nothing for
+     Lenis to improve here, only latency to add. Desktop keeps the smooth
+     wheel because a mouse wheel genuinely is steppy without it.
+     lagSmoothing stays ON for touch: with it off, a dropped frame makes every
+     scrubbed animation catch up in one giant jump, which reads as a glitch. */
   var lenis = null;
-  if (!reduced) {
+  if (!reduced && !isTouch) {
     lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 1, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
@@ -339,7 +361,21 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         revealIO.unobserve(entry.target);
-        gsap.to(entry.target, { y: 0, opacity: 1, duration: 1.05, ease: 'expo.out' });
+        gsap.to(entry.target, {
+          y: 0, opacity: 1, duration: 1.05, ease: 'expo.out',
+          /* ⚠️ .reveal carries will-change:transform,opacity in the CSS, which
+             pins every one of these ~38 elements to its own GPU layer FOREVER.
+             On a phone that is a lot of layer memory held for an animation
+             that runs once, and it starves the compositor during scroll.
+             Hand the layer back the moment the reveal is done. */
+          onComplete: function () {
+            /* clearProps drops GSAP's inline transform so CSS :hover rules on
+               .reveal elements still work; the inline will-change then beats
+               the .reveal rule that clearProps just re-exposed. */
+            gsap.set(entry.target, { clearProps: 'transform' });
+            entry.target.style.willChange = 'auto';
+          }
+        });
       });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.01 });
     revealEls.forEach(function (el) { revealIO.observe(el); });
@@ -416,32 +452,52 @@
     document.fonts.ready.then(function () { sizeWorkCards(); ScrollTrigger.refresh(); });
   }
 
-  /* ---- mobile: drive the swipe hint from the rail's own scroll ----
-     Desktop scrubs this rail from page scroll and shows no hint, so
-     none of this runs there. */
-  var railBar = document.getElementById('railBar');
-  var railNow = document.getElementById('railNow');
-  var railTotal = document.getElementById('railTotal');
-  var railHint = document.getElementById('railHint');
-  if (workDrag && railBar && railNow) {
-    var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
-    var cardCount = workDrag.querySelectorAll('.work-card').length;
-    if (railTotal) railTotal.textContent = pad2(cardCount);
+  /* ---- mobile swipe rails ----------------------------------------
+     One controller for every horizontal rail on the page: keeps the
+     "01 / 07" counter and the progress bar in step with the rail's own
+     scrollLeft, and stops the arrow nudging once they have swiped.
+     Desktop scrubs the work rail from page scroll and hides the hints,
+     so the maths simply never shows up there. */
+  function wireRail(scroller, itemSel, ids) {
+    var bar = document.getElementById(ids.bar);
+    var now = document.getElementById(ids.now);
+    var total = document.getElementById(ids.total);
+    var hint = document.getElementById(ids.hint);
+    if (!scroller || !bar || !now) return;
 
-    var syncRail = function () {
-      var max = workDrag.scrollWidth - workDrag.clientWidth;
-      var pct = max > 0 ? workDrag.scrollLeft / max : 0;
-      railBar.style.width = Math.max(100 / Math.max(cardCount, 1), pct * 100) + '%';
-      var step = cardCount > 0 ? workDrag.scrollWidth / cardCount : 1;
-      var idx = Math.min(cardCount, Math.round(workDrag.scrollLeft / step) + 1);
-      railNow.textContent = pad2(idx);
-      /* once they have actually moved it, stop waving the arrow */
-      if (railHint && workDrag.scrollLeft > 12) railHint.classList.add('is-moved');
+    var pad2 = function (n) { return (n < 10 ? '0' : '') + n; };
+    var count = scroller.querySelectorAll(itemSel).length;
+    if (!count) return;
+    if (total) total.textContent = pad2(count);
+
+    var sync = function () {
+      var max = scroller.scrollWidth - scroller.clientWidth;
+      var pct = max > 0 ? scroller.scrollLeft / max : 0;
+      bar.style.width = Math.max(100 / count, pct * 100) + '%';
+      var step = scroller.scrollWidth / count;
+      var idx = Math.min(count, Math.round(scroller.scrollLeft / step) + 1);
+      now.textContent = pad2(idx);
+      if (hint && scroller.scrollLeft > 12) hint.classList.add('is-moved');
     };
-    workDrag.addEventListener('scroll', syncRail, { passive: true });
-    window.addEventListener('resize', syncRail);
-    syncRail();
+    /* ⚠️ sync() reads scrollWidth/clientWidth, which forces a synchronous
+       layout. Firing it raw on every scroll and resize event means a forced
+       layout in the middle of a swipe, which is exactly what makes a phone
+       stutter. rAF-throttle it so it runs at most once a frame. */
+    var queued = false;
+    var syncSoon = function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; sync(); });
+    };
+    scroller.addEventListener('scroll', syncSoon, { passive: true });
+    window.addEventListener('resize', syncSoon, { passive: true });
+    sync();
   }
+
+  wireRail(workDrag, '.work-card',
+    { bar: 'railBar', now: 'railNow', total: 'railTotal', hint: 'railHint' });
+  wireRail(document.getElementById('tierRail'), '.tier',
+    { bar: 'tierBar', now: 'tierNow', total: 'tierTotal', hint: 'tierHint' });
 
   if (track && !isMobile && !reduced) {
     var workST = gsap.to(track, {
@@ -594,18 +650,31 @@
       /* a link that is already open: let it through, but tidy up */
       close(chip);
     }, true);
-    window.addEventListener('resize', function () { closeAll(null); });
+    /* only a real width change should slam the panels shut. On a phone the
+       address bar sliding away fires resize, and an open chip panel used to
+       vanish the instant you nudged the page. */
+    var chipW = window.innerWidth;
+    window.addEventListener('resize', function () {
+      if (window.innerWidth === chipW) return;
+      chipW = window.innerWidth;
+      closeAll(null);
+    }, { passive: true });
 
     /* keep the flip honest while the page moves under an open panel */
+    /* only pay for this while a panel is actually open. place() reads
+       getBoundingClientRect + offsetWidth, so running it on every scroll
+       frame with nothing open was a forced layout for no reason. */
     var placing = false;
     window.addEventListener('scroll', function () {
       if (placing) return;
+      var live = chips.filter(function (c) {
+        return c.classList.contains('is-open') || (!isTouch && c.matches(':hover'));
+      });
+      if (!live.length) return;
       placing = true;
       requestAnimationFrame(function () {
         placing = false;
-        chips.forEach(function (c) {
-          if (c.matches(':hover') || c.classList.contains('is-open')) place(c);
-        });
+        live.forEach(place);
       });
     }, { passive: true });
 
@@ -1176,11 +1245,18 @@
   /* ============================================================
      Refresh on resize (targets recompute via function values)
      ============================================================ */
-  var rT;
+  /* ⚠️ On a phone the address bar collapsing mid-scroll fires resize, so a
+     naive handler runs a full ScrollTrigger.refresh() while your finger is
+     still on the glass. Only the WIDTH changing is a real layout change worth
+     refreshing for; a height-only resize on touch is just browser chrome. */
+  var rT, lastW = window.innerWidth;
   window.addEventListener('resize', function () {
+    var w = window.innerWidth;
+    if (isTouch && w === lastW) return;
+    lastW = w;
     clearTimeout(rT);
     rT = setTimeout(function () { sizeWorkCards(); ScrollTrigger.refresh(); }, 250);
-  });
+  }, { passive: true });
 
   if (isMobile || reduced) document.body.classList.remove('is-loading');
 })();

@@ -892,15 +892,22 @@ body.hero-live .sidebar { pointer-events: none; }
   padding: 2.35vw;
   display: flex; flex-direction: column;
 }
-.tc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.6vw; }
-.tc-top h3 { font-family: var(--display); font-weight: 600; font-size: 1.95vw; line-height: 1.12; }
 .tc-quote {
   width: 1.95vw; height: 1.95vw; flex: none;
   background: var(--accent); border-radius: var(--r-sm);
   display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5vw;
 }
 .tc-quote svg { width: 0.95vw; height: 0.95vw; fill: var(--accent-on); }
-.testi-card > p { color: var(--ink-2); }
+/* the client's own words are the point of this card, so they get the
+   display face and the size. No invented headline above them. */
+.testi-card > blockquote {
+  margin: 0; font-family: var(--display); font-weight: 600;
+  font-size: 1.72vw; line-height: 1.24; letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.testi-card > blockquote::before { content: '\201C'; }
+.testi-card > blockquote::after { content: '\201D'; }
 .tc-foot { display: flex; align-items: center; gap: 1vw; margin-top: auto; padding-top: 2vw; }
 .tc-foot img { width: 3.6vw; height: 3.6vw; border-radius: 50%; object-fit: cover; }
 /* real client logos instead of a stock avatar: a wide chip, because a wordmark
@@ -1275,12 +1282,17 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .sidebar, .hero-stage, .brandmark { display: none; }
   body.hero-live .sidebar { opacity: 1; }
 
+  /* ⚠️ NO backdrop-filter on this bar. It is position:fixed and full width, so
+     a blurred backdrop makes the browser re-sample and re-blur the strip of
+     page behind it on EVERY scroll frame. On iOS that is about the most
+     expensive thing you can put on a phone screen, and it is a big part of why
+     scrolling felt like it was catching. The page behind it is the bone
+     background anyway, so a solid fill looks the same and costs nothing. */
   .mobile-bar {
     position: fixed; top: 0; left: 0; right: 0; z-index: 30;
     display: flex; align-items: center; justify-content: space-between;
     padding: 12px 16px;
-    background: rgba(213, 207, 190, 0.85);
-    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    background: rgb(213, 207, 190);
     border-bottom: 1px solid var(--line);
   }
   .mobile-bar .side-chip { font-size: 17px; padding: 8px 10px; border-radius: 6px; }
@@ -1294,15 +1306,25 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   body.menu-open .mobile-burger span:nth-child(1) { top: 19px; transform: rotate(45deg); }
   body.menu-open .mobile-burger span:nth-child(2) { top: 19px; transform: rotate(-45deg); }
 
+  /* ⚠️ Same reason, worse: this one is inset:0, so it is a FULL SCREEN blurred
+     backdrop that sits over the page at opacity 0 the whole time the menu is
+     shut. It cannot be display:none (it fades), so Safari kept a full-viewport
+     blur layer alive during every scroll. It was already 96% opaque, so the
+     blur was doing nothing visible. Solid fill, and visibility:hidden so the
+     browser can skip it entirely while it is closed. */
   .mobile-menu {
     position: fixed; inset: 0; z-index: 29; display: block;
-    background: rgba(213, 207, 190, 0.96);
-    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    background: rgb(213, 207, 190);
     padding: 84px 20px 24px;
-    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    opacity: 0; pointer-events: none; visibility: hidden;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
-  body.menu-open .mobile-menu { opacity: 1; pointer-events: auto; }
+  body.menu-open .mobile-menu {
+    opacity: 1; pointer-events: auto; visibility: visible;
+    transition: opacity 0.3s, visibility 0s;
+  }
   .mobile-menu .nav-pill {
     width: 100%; height: 52px; margin-bottom: 8px;
     background: var(--card-solid); border-radius: 10px; padding: 0 16px;
@@ -1516,8 +1538,9 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .seg.is-active { width: 30px; }
   .swiper { margin-top: 6vw; }
   .testi-card { width: 82vw; border-radius: 16px; padding: 22px; }
-  .tc-top h3 { font-size: 21px; }
-  .tc-quote { width: 26px; height: 26px; border-radius: 6px; font-size: 20px; padding-top: 9px; }
+  .testi-card > blockquote { font-size: 21px; }
+  .tc-quote { width: 30px; height: 30px; border-radius: 8px; margin-bottom: 16px; }
+  .tc-quote svg { width: 14px; height: 14px; }
   .tc-foot img { width: 44px; height: 44px; }
   .tc-foot img.tc-logo { width: 58px; height: 44px; border-radius: 8px; padding: 6px; }
   .tc-foot b { font-size: 15px; }
@@ -1550,6 +1573,10 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
    On a phone the rail is a native scroller and nothing said so.
    ============================================================== */
 .rail-hint, .rail-progress { display: none; }
+/* the wrapper only exists to become a swipe rail on phones. display:contents
+   removes it from the box tree so .price-panel's 3-column grid still sees
+   the three .tier children directly. */
+.tier-rail { display: contents; }
 
 /* ==============================================================
    SCAN LEAD GATE
@@ -1619,6 +1646,42 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
      container, so no sticky or fixed descendant is affected. */
   html { overflow-x: clip; }
   .testimonials { overflow: hidden; }
+  /* body was overflow-x:hidden, which in Safari can promote <body> to its own
+     scroll container and break momentum / rubber-band on fixed children.
+     <html> already clips above, so body only needs the same non-container
+     clip. hidden stays first as the fallback for anything without clip. */
+  body { overflow-x: hidden; overflow-x: clip; }
+
+  /* --- 1b. keep the compositor free during a swipe ------------
+     will-change permanently pins an element to its own GPU layer. It is a
+     promise you are about to animate that property, and it is DESKTOP sizing
+     of the problem: on a phone a handful of permanent full-width layers eats
+     the memory the browser wants for scrolling, and the scroll stutters.
+     Everything below is either static on mobile or animated once, so none of
+     it should hold a layer. ~38 elements carry .reveal, so that one rule alone
+     was 38 permanent layers held from page load; the browser promotes an
+     element on its own for the second the tween is actually running, which is
+     all that was ever needed. (main.js also hands the layer back on complete,
+     which is what covers desktop, where the rule above still applies.) */
+  .reveal { will-change: auto; }
+  .portrait-img { will-change: auto; }
+  .work-track { will-change: auto; }
+  #trailGroup image { will-change: auto; }
+
+  /* --- 1c. no frosted glass below the hero -------------------
+     ⚠️ These cards are frosted glass for the DESKTOP layout, where the
+     portrait is position:fixed behind the whole page and the blur genuinely
+     samples the photo. On a phone the portrait is position:absolute inside
+     the hero, so every one of these cards sits on a flat background colour
+     and the blur has literally nothing to blur. It is invisible, and it is
+     not free: a backdrop-filter element has to re-sample and re-blur the
+     content behind it on every frame the content behind it moves, which is
+     every frame of a scroll. 27 of them down one page is a stuttering phone.
+     Verified by pixel-diffing the full page at 390px: layout identical.
+     The card backgrounds are semi-transparent, so they still read as glass. */
+  .tl-card, .cap, .chat-bubble, .seg-pagination, .testi-card, .faq-item {
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
 
   /* --- 2. legible floor -------------------------------------
      Nothing under 12px, and nothing that carries meaning under 13. */
@@ -1748,6 +1811,28 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
 
   /* the rail itself starts right under the hint now */
   .work-drag { margin-top: 0; }
+
+  /* --- services plans: swipe instead of five scrolls ----------- */
+  .tier-rail {
+    display: flex; gap: 10px;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .tier-rail::-webkit-scrollbar { display: none; }
+  /* % not vw: the rail sits inside the panel's padding, so a viewport
+     unit left no room for the next card to peek */
+  .tier-rail .tier {
+    flex: 0 0 88%; scroll-snap-align: start; scroll-snap-stop: always;
+  }
+  /* every plan card the same height so the rail does not jump on swipe */
+  .tier-rail .tier { min-height: 100%; }
+  .tier-hint { margin: 14px 0 0; }
+  .tier-hint .rail-cue { color: var(--ink-2); }
+  .tier-hint .rail-count { color: var(--gray); }
+  .tier-hint .rail-count b { color: var(--ink); }
+  .tier-progress { margin-top: 12px; background: var(--line); }
+  .tier-progress span { background: var(--accent); }
 
   /* --- scan lead gate ---------------------------------------- */
   .scan-gate { padding: 20px; border-radius: 12px; }
