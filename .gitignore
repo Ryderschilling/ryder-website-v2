@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 *.log
 __pycache__/
+# stale copies left behind when an editor saves over a file on a FUSE
+# mount (iCloud Drive). Never source, never worth committing.
+.fuse_hidden*
