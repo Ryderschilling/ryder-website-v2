@@ -1882,3 +1882,148 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .btn-accent:hover, .pill-btn:hover, .work-card:hover .wc-shot img { transform: none; }
   .direct-row:hover { transform: none; }
 }
+
+/* ============================================================
+   WATCH: the video section
+   Dark band between the About timeline and the site scanner.
+   Deliberately bare: headline, one line of copy, one link, and the
+   clip itself with no frame and no chrome on top of it.
+   ============================================================ */
+.watch {
+  background: var(--dark); color: var(--white); z-index: 5;
+  padding: 7vw var(--content-r) 7vw var(--content-l);
+  overflow: hidden;
+}
+.watch-inner {
+  display: grid; grid-template-columns: 1fr 27vw;
+  gap: 4.5vw; align-items: center;
+}
+/* the whole copy column sits a touch right of the section gutter, the clip a
+   touch left of the right edge, so neither one is pinned to its own margin */
+.watch-copy { padding-left: 2.6vw; }
+.watch-lead {
+  max-width: 30vw; margin-top: 1.7vw;
+  color: rgba(248, 247, 243, 0.82);
+}
+
+/* the one link out */
+.watch-links { margin-top: 2.4vw; max-width: 26vw; }
+.plat {
+  display: flex; align-items: center; gap: 1vw;
+  padding: 1vw 1.2vw;
+  border: 1px solid rgba(248, 247, 243, 0.18);
+  border-radius: var(--r-lg);
+  background: rgba(248, 247, 243, 0.03);
+  transition: background-color var(--dur), border-color var(--dur), transform var(--dur) var(--ease);
+}
+.plat:hover {
+  background: rgba(248, 247, 243, 0.09);
+  border-color: rgba(248, 247, 243, 0.4);
+  transform: translateY(-2px);
+}
+.plat-ico { flex: none; display: grid; place-items: center; width: 2.4vw; height: 2.4vw; border-radius: 50%; background: rgba(248, 247, 243, 0.1); }
+.plat-ico svg { width: 1.25vw; height: 1.25vw; fill: #f8f7f3; }
+.plat-copy { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.plat-copy b { font-family: var(--display); font-weight: 650; font-size: 1.15vw; }
+.plat-copy span { font-size: var(--fs-sm); color: rgba(248, 247, 243, 0.6); }
+.plat-tag {
+  margin-left: auto; flex: none;
+  font-family: var(--display); font-weight: 600;
+  font-size: 0.78vw; letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid rgba(248, 247, 243, 0.3); border-radius: 999px;
+  padding: 0.22vw 0.7vw; color: rgba(248, 247, 243, 0.78);
+}
+.plat-arrow { flex: none; }
+.plat-arrow svg { width: 1.1vw; height: 1.1vw; fill: none; stroke: #f8f7f3; stroke-width: 2; stroke-linecap: round; }
+
+/* the clip: no frame, no border, no shadow. The height cap is what keeps a
+   9:16 clip from running taller than the screen on a short laptop. */
+.watch-stage { position: relative; width: 100%; }
+.phone {
+  position: relative; margin: 0 2.6vw 0 auto;
+  width: min(100%, calc(76vh * 9 / 16));
+  border-radius: 1.1vw; overflow: hidden;
+  background: #0a0908;
+}
+.phone-screen { position: relative; aspect-ratio: 9 / 16; }
+.phone-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  background: #0a0908;
+}
+/* just enough darkness at the bottom for the two controls to read */
+.phone-scrim {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0) 22%);
+  opacity: 1; transition: opacity var(--dur);
+}
+.phone.is-playing .phone-scrim { opacity: 0.55; }
+
+/* centre play button, only while paused */
+.phone-play {
+  position: absolute; top: 50%; left: 50%;
+  width: 4.6vw; height: 4.6vw; margin: -2.3vw 0 0 -2.3vw;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(12, 11, 9, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: transform var(--dur) var(--ease), opacity var(--dur), background-color var(--dur);
+}
+.phone-play svg { width: 1.5vw; height: 1.5vw; fill: #f8f7f3; }
+.phone-play .ico-pause { display: none; }
+.phone-play:hover { background: rgba(12, 11, 9, 0.72); transform: scale(1.06); }
+.phone.is-playing .phone-play { opacity: 0; pointer-events: none; transform: scale(0.85); }
+.phone.is-playing:hover .phone-play { opacity: 1; pointer-events: auto; transform: scale(1); }
+.phone.is-playing .phone-play .ico-play { display: none; }
+.phone.is-playing .phone-play .ico-pause { display: block; }
+
+/* sound toggle, icon only */
+.phone-sound {
+  position: absolute; left: 1vw; bottom: 1.4vw;
+  display: grid; place-items: center;
+  width: 2.4vw; height: 2.4vw;
+  border-radius: 50%;
+  background: rgba(12, 11, 9, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: background-color var(--dur), border-color var(--dur);
+}
+.phone-sound:hover { background: rgba(12, 11, 9, 0.8); border-color: rgba(255, 255, 255, 0.5); }
+.phone-sound svg { width: 1vw; height: 1vw; fill: none; stroke: #f8f7f3; stroke-width: 1.6; stroke-linecap: round; }
+.phone-sound svg path:first-child { fill: #f8f7f3; stroke: none; }
+.phone-sound .ico-on { display: none; }
+.phone-sound.is-on .ico-off { display: none; }
+.phone-sound.is-on .ico-on { display: block; }
+
+/* hairline progress */
+.phone-bar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 2px; background: rgba(255, 255, 255, 0.18);
+}
+.phone-bar span { display: block; height: 100%; width: 0; background: #f8f7f3; }
+
+/* ---- watch, phones and tablets ---------------------------- */
+@media (max-width: 991px) {
+  .watch { padding: 16vw var(--content-r) 14vw var(--content-l); }
+  .watch-inner { display: block; }
+  .watch-lead, .watch-links { max-width: 100%; }
+  .watch-lead { margin-top: 16px; }
+  .watch-links { margin-top: 24px; }
+  .plat { padding: 14px 16px; gap: 12px; border-radius: 14px; }
+  .plat-ico { width: 42px; height: 42px; }
+  .plat-ico svg { width: 20px; height: 20px; }
+  .plat-copy b { font-size: 16px; }
+  .plat-tag { font-size: 10px; padding: 3px 9px; }
+  .plat-arrow svg { width: 18px; height: 18px; }
+
+  .watch-copy { padding-left: 0; }
+  .watch-stage { margin-top: 34px; }
+  .phone { margin: 0 auto; width: min(100%, calc(72vh * 9 / 16)); border-radius: 16px; }
+  .phone-play { width: 66px; height: 66px; margin: -33px 0 0 -33px; }
+  .phone-play svg { width: 22px; height: 22px; }
+  /* a finger has no hover, so the button must not need one to come back */
+  .phone.is-playing .phone-play { opacity: 0; }
+  .phone-sound { left: 14px; bottom: 18px; width: 40px; height: 40px; }
+  .phone-sound svg { width: 17px; height: 17px; }
+}

@@ -315,6 +315,7 @@
     { id: 'hero', pill: 'hero' },
     { id: 'work', pill: 'work' },
     { id: 'about', pill: 'about' },
+    { id: 'watch', pill: 'about' },
     { id: 'scan', pill: 'work' },
     { id: 'overview', pill: 'overview' },
     { id: 'services', pill: 'services' },
@@ -1259,4 +1260,110 @@
   }, { passive: true });
 
   if (isMobile || reduced) document.body.classList.remove('is-loading');
+})();
+
+/* ============================================================
+   WATCH: the video section
+   Self-hosted vertical clip. It loads nothing until the section is
+   near the screen, plays muted while it is in view, pauses when it
+   leaves, and only pulls the big file on wide screens.
+   ============================================================ */
+(function () {
+  var phone = document.getElementById('watchPhone');
+  var video = document.getElementById('watchVideo');
+  if (!phone || !video) return;
+
+  var playBtn = document.getElementById('watchPlay');
+  var soundBtn = document.getElementById('watchSound');
+  var soundTxt = soundBtn ? soundBtn.querySelector('.phone-sound-txt') : null;
+  var bar = document.getElementById('watchBar');
+  var timeEl = document.getElementById('watchTime');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var loaded = false;
+  var userPaused = false;
+
+  /* ⚠️ The <source> child is the no-JS fallback and is the small file.
+     Setting video.src wins over any child <source>, so this is where the
+     desktop upgrade happens, once, before the first byte is fetched. */
+  function load() {
+    if (loaded) return;
+    loaded = true;
+    var big = window.innerWidth >= 700;
+    var src = big ? video.getAttribute('data-hi') : video.getAttribute('data-lo');
+    if (src) { video.setAttribute('src', src); video.load(); }
+  }
+
+  function fmt(s) {
+    if (!isFinite(s)) return '0:00';
+    var m = Math.floor(s / 60), r = Math.floor(s % 60);
+    return m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  function tryPlay() {
+    load();
+    var p = video.play();
+    if (p && p.catch) p.catch(function () { phone.classList.remove('is-playing'); });
+  }
+
+  video.addEventListener('play', function () { phone.classList.add('is-playing'); });
+  video.addEventListener('pause', function () { phone.classList.remove('is-playing'); });
+  video.addEventListener('loadedmetadata', function () {
+    if (timeEl) timeEl.textContent = fmt(video.duration);
+  });
+  video.addEventListener('timeupdate', function () {
+    if (bar && video.duration) bar.style.width = (video.currentTime / video.duration * 100) + '%';
+    if (timeEl && video.duration) timeEl.textContent = fmt(video.duration - video.currentTime);
+  });
+
+  /* play only while it is actually on screen */
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          load();
+          if (!reduced && !userPaused) tryPlay();
+        } else if (!video.paused) {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.45 });
+    io.observe(phone);
+  } else {
+    load();
+  }
+
+  /* tapping the screen toggles playback */
+  phone.addEventListener('click', function (e) {
+    if (e.target.closest('.phone-sound')) return;
+    if (video.paused) { userPaused = false; tryPlay(); }
+    else { userPaused = true; video.pause(); }
+  });
+
+  if (playBtn) {
+    playBtn.addEventListener('click', function (e) { e.stopPropagation(); phone.click(); });
+  }
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      video.muted = !video.muted;
+      soundBtn.classList.toggle('is-on', !video.muted);
+      soundBtn.setAttribute('aria-pressed', String(!video.muted));
+      soundBtn.setAttribute('aria-label', video.muted ? 'Turn the sound on' : 'Turn the sound off');
+      if (soundTxt) soundTxt.textContent = video.muted ? 'Tap for sound' : 'Sound on';
+      /* unmuting is a real user gesture, so this is the one moment the
+         browser will let an audible play through */
+      if (!video.muted && video.paused) { userPaused = false; tryPlay(); }
+    });
+  }
+
+  /* the sidebar inverts over dark sections, same as it does over the work rail */
+  if (window.ScrollTrigger) {
+    ScrollTrigger.create({
+      trigger: '#watch',
+      start: 'top 50%',
+      end: 'bottom 50%',
+      onToggle: function (self) { document.body.classList.toggle('over-dark', self.isActive); }
+    });
+  }
 })();
