@@ -10,6 +10,8 @@ first, then `01-changelog`. Anything not written down here did not happen.
 | `02-ai-search-prompts.md` | The 3 AI-search prompts to track, plus the result log. |
 | `03-scoreboard.md` | Before / after score table. Fill the "after" column post re-audit. |
 | `04-next-moves.md` | What is still open, in priority order. |
+| `05-results-2026-08-17.md` | Round 1 post-deploy results, the hallucination-watch read, and the ⚠️ Boca Raton address problem. |
+| `06-changelog-round2-2026-08-17.md` | Round 2: the three MISSING AI-intent signals, agents.md, and LocalBusiness. |
 | `reports/` | The raw platform exports each round. Never edit these. |
 
 ## Rules for this folder

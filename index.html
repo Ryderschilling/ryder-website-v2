@@ -12,6 +12,7 @@
   <meta name="google-site-verification" content="BC5KmzDt3l1SCHpghgY7UjfcWIQ5-yFuewYvj2fjQpg">
   <meta name="geo.region" content="US-FL">
   <meta name="geo.placename" content="Santa Rosa Beach, Florida">
+  <meta name="tdm-reservation" content="0">
 
   <!-- AI / agent access: clean twins of this page for engines that would rather not parse HTML -->
   <link rel="alternate" type="text/markdown" href="https://ryderschilling.com/index.md" title="Markdown version of this page">
@@ -54,6 +55,7 @@
     {
       "@type": [
         "ProfessionalService",
+        "LocalBusiness",
         "Organization"
       ],
       "@id": "https://ryderschilling.com/#business",
@@ -227,6 +229,17 @@
             }
           }
         ]
+      },
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 30.3799,
+          "longitude": -86.2455,
+          "name": "Santa Rosa Beach, Florida"
+        },
+        "geoRadius": "120000",
+        "description": "Santa Rosa Beach and the 30A corridor out to Destin and Panama City Beach. Remote clients served nationwide."
       }
     },
     {
@@ -294,6 +307,13 @@
       },
       "mainEntity": {
         "@id": "https://ryderschilling.com/#business"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          ".hero-title",
+          ".side-desc"
+        ]
       }
     },
     {
@@ -1157,7 +1177,9 @@
           <div class="faq-item"><button class="faq-toggle" type="button"><span>Not sure which option fits your project?</span><span class="faq-ico"><i class="h"></i><i class="v"></i></span></button><div class="faq-answer"><p>Call me. Fifteen minutes, no pitch. You'll leave knowing exactly what your site needs, whether we build it together or not.</p></div></div>
         </div>
 
-        <p class="footer-line">&copy; 2026 Ryder Schilling LLC. Built by <a href="https://ryderschilling.com" target="_blank" rel="noopener">Ryder Schilling</a>.</p>
+        <footer>
+          <p class="footer-line">&copy; 2026 Ryder Schilling LLC. Built by <a href="https://ryderschilling.com" target="_blank" rel="noopener">Ryder Schilling</a>.</p>
+        </footer>
       </div>
     </section>
 

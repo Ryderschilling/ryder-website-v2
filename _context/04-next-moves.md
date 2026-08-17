@@ -4,7 +4,15 @@ Everything above the line is worth more than everything below it.
 
 ---
 
-## 1. Google Business Profile — Santa Rosa Beach, FL  <-- biggest lever left
+## 0. ⚠️ Correct the "owner-verified" address inside AI Syndicate  <-- DO THIS FIRST
+
+The platform believes Ryder Schilling's verified address is **7800 Congress Ave, Suite 108,
+Boca Raton, FL 33487**. It is not. Do not press "Fix this now" or "Fix all 26" in
+Hallucination watch until that record says Santa Rosa Beach, FL 32459 — those buttons
+publish the platform's facts to the engines, and a conflicting address is exactly what
+knocks Identity (NAP) back down from 85. Full detail in `05-results-2026-08-17.md`.
+
+## 1. Google Business Profile — Santa Rosa Beach, FL  <-- CONFIRMED NOT FOUND (08-17 probe)
 
 Nothing on-page moves Identity (NAP) or local AI answers as much as a verified GBP. It is
 the record the engines cross-reference against the schema now on the site. Service-area
@@ -24,7 +32,7 @@ https://ryderschilling.com
 When it's live, add its Maps URL and the profile URL to the `sameAs` array in the
 `#business` JSON-LD node.
 
-## 2. One real LinkedIn URL
+## 2. One real LinkedIn URL + a LinkedIn Company Page (both CONFIRMED NOT FOUND 08-17)
 
 The sidebar link in `index.html` still points at `https://www.linkedin.com/` — a generic
 link that is a dead trust signal. LinkedIn is also the business channel. Hand over the
@@ -48,7 +56,11 @@ week, before the traffic this round earns is unmeasurable in hindsight.
 Import the Search Console property in two clicks. Bing's index feeds Copilot and parts of
 ChatGPT search, so this is a genuine AI-visibility channel, not an afterthought.
 
-## 5. Directory citations
+## 5. Directory citations — Yelp, BBB, Clutch.co, Foursquare, OpenStreetMap, Bing Places all NOT FOUND
+
+> Clutch.co first: the platform notes Clutch profiles specifically feed AI answers to
+> "best [service] in [city]" — which is tracked prompt 2, word for word.
+
 
 Same NAP, character for character, everywhere: Bing Places, Apple Business Connect, Yelp,
 Clutch, plus local Walton County and 30A business directories. This is the grind that

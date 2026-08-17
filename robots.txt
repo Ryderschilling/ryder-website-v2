@@ -54,10 +54,53 @@ User-agent: MistralAI-User
 Allow: /
 User-agent: YouBot
 Allow: /
+User-agent: AISyndicateBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: Meta-ExternalFetcher
+Allow: /
+User-agent: Diffbot
+Allow: /
+User-agent: AI2Bot
+Allow: /
+User-agent: AI2Bot-Dolma
+Allow: /
+User-agent: Omgilibot
+Allow: /
+User-agent: cohere-training-data-crawler
+Allow: /
+User-agent: ia_archiver
+Allow: /
+User-agent: archive.org_bot
+Allow: /
+User-agent: PetalBot
+Allow: /
+User-agent: DeepSeek
+Allow: /
+User-agent: xAI-Bot
+Allow: /
+User-agent: Baiduspider
+Allow: /
+User-agent: Yeti
+Allow: /
+
+# ---- Answer engines tied to search ----
+User-agent: DuckAssistBot
+Allow: /
+User-agent: Kagibot
+Allow: /
+User-agent: iaskspider/2.0
+Allow: /
+User-agent: Timpibot
+Allow: /
+User-agent: YandexBot
+Allow: /
 
 # ---- Guides for machines ----
 # /llms.txt        short, structured summary of this business
 # /llms-full.txt   the full site as one plain-text document
 # /index.md        clean Markdown twin of the homepage
+# /agents.md      what AI agents may do here, and how to cite this business
 
 Sitemap: https://ryderschilling.com/sitemap.xml
