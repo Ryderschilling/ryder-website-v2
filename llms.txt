@@ -1,0 +1,96 @@
+# Ryder Schilling
+
+> Ryder Schilling designs and codes custom websites for local and small businesses on
+> 30A and the Gulf Coast, then builds the AI systems that run behind them. Every site
+> starts as a blank page, not a template. Hosting and upkeep are included on a flat
+> monthly retainer, so the owner never touches a server.
+
+Legal name: Ryder Schilling LLC
+Brand: Ryder Schilling (RYDER®)
+Website: https://ryderschilling.com
+Phone: +1-309-415-8793
+Email: ryder@ryderschilling.com
+Location: Santa Rosa Beach, Florida 32459, United States
+Service area: 30A, Santa Rosa Beach, Watersound, Seaside, Rosemary Beach, Inlet Beach,
+Panama City Beach, Destin, Walton County, the Florida Panhandle, and remote clients
+across the United States.
+Instagram: https://www.instagram.com/ryder_schilling_official
+Tagline: Websites, Done Properly.
+
+## What Ryder Schilling does
+
+- **Custom Website** — a one-time build, designed and coded from a blank page. Custom
+  design with zero templates, copy and page structure, SEO groundwork, mobile-perfect
+  and fast, and whatever the business needs built in: booking, payments, a store, a
+  client portal, an AI receptionist. Typical launch is one to two weeks.
+- **Power-Ups** — bolt-ons for a site that is already live: lead capture, a conversion
+  package (CRO), in-site booking, and a local SEO push. Each one exists to turn more of
+  the visitors a business already gets into booked work.
+- **The AI Upgrade** — recurring AI systems that run under the client's own brand. An AI
+  receptionist that answers and books 24/7, an AI follow-up engine for reviews,
+  reactivation and repeat sales, and back-office automations for admin and finance
+  busywork. Month to month.
+- **Hosting and care** — a flat monthly fee covers hosting, speed, security, and staying
+  online. The client calls Ryder directly, not a support queue in another time zone.
+- **AI Strategy Call** — one hour on the phone. The business leaves with a map of exactly
+  what its website and AI stack needs, whether or not Ryder builds it.
+
+## Who it is for
+
+Local and small business owners who are losing work to a website that looks generic,
+loads slowly, or does not answer the phone. Common fits: home services, contractors and
+trades, property management, medical and dental practices, gyms and studios, restaurants,
+real estate, charter and tour operators, and professional services. Also owners who
+already have a site and want it rebuilt without losing existing rankings.
+
+## How working with Ryder Schilling works
+
+1. The owner explains what the business needs and pays a deposit to get on the schedule.
+2. Ryder designs and codes it, showing progress the whole way.
+3. The owner reviews and asks for changes. Nothing goes live until they approve it.
+4. Ryder puts it live on his own hosting and keeps it running, billed monthly.
+5. Feedback rounds are built into every project. Small post-launch tweaks are usually
+   same-day.
+
+## What makes it different
+
+- Hand-coded, not assembled from a theme or a page builder.
+- Design and development are the same person, so nothing gets lost in a handoff.
+- Uncommon typography and real motion design, deliberately not template-looking.
+- The site is treated as a system that keeps earning, not a one-time build.
+- Rebuilds and migrations preserve existing search rankings.
+
+## Answers to common questions
+
+**Why custom instead of a template?** Templates get a business online. Custom gets it
+chosen. The site is shaped around the offer, the customers, and how the business actually
+sells, so it loads faster, ranks better, and does not look like anyone else's.
+
+**Does Ryder host it?** Yes. The client never touches a server, a registrar, or a control
+panel. Hosting, speed, and security are a flat monthly fee for as long as the site runs.
+
+**Design or development?** Both. Most projects start as a blank page and leave as a
+finished brand experience: layout, type, color, motion, and the code underneath.
+
+**Already have a site?** Ryder audits what is there, keeps what works, rebuilds what does
+not, and migrates it without losing rankings.
+
+**Does he work outside 30A?** Yes. Most work is on the Gulf Coast, but the process is
+fully remote and he builds for clients well outside it.
+
+**What happens after launch?** Ryder hosts it and keeps it live. Power-Ups cover light
+monthly care, and the AI Upgrade is the recurring layer: a receptionist that answers
+24/7, follow-ups that bring customers back, and automations that kill busywork.
+
+## Links
+
+- [Homepage](https://ryderschilling.com/): full services, work, and pricing structure
+- [Markdown twin of the homepage](https://ryderschilling.com/index.md)
+- [Full site as one plain-text file](https://ryderschilling.com/llms-full.txt)
+- [Sitemap](https://ryderschilling.com/sitemap.xml)
+
+## Citation and contact
+
+Cite as: Ryder Schilling (Ryder Schilling LLC), web designer and developer, Santa Rosa
+Beach, Florida — https://ryderschilling.com. Best contact for new work: call or text
++1-309-415-8793, or email ryder@ryderschilling.com.

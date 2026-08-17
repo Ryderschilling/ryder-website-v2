@@ -1,0 +1,216 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Security hygiene report — ryderschilling.com</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f1f5f9; color: #0a2245; font: 14px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .report { max-width: 820px; margin: 0 auto; padding: 40px 28px 64px; }
+  .rpt-head { display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #0a2245; padding-bottom: 12px; }
+  .wordmark { font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+  .wordmark .ai { color: #7c5cff; } .wordmark .syn { color: #0a2245; }
+  .confidential { font: 700 11px/1 ui-monospace, Menlo, monospace; letter-spacing: 0.12em; color: #b91c1c; border: 1px solid #fecaca; background: #fef2f2; padding: 5px 9px; border-radius: 6px; }
+  h1 { font-size: 26px; margin: 24px 0 16px; letter-spacing: -0.02em; }
+  h2 { font-size: 16px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid #e2e8f0; }
+  .h2note { font-weight: 400; font-size: 12px; color: #64748b; }
+  .meta { display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 18px; }
+  .meta .k { display: block; font: 700 10px/1.4 ui-monospace, monospace; letter-spacing: 0.08em; text-transform: uppercase; color: #64748b; }
+  .meta .v { font-weight: 600; }
+  .scorebox { display: flex; align-items: center; gap: 20px; padding: 18px 22px; background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; }
+  .score { font-size: 48px; font-weight: 800; line-height: 1; }
+  .grade { font-size: 18px; margin-left: 8px; }
+  .scoretitle { font-size: 17px; font-weight: 700; }
+  .scoresub { color: #475569; font-size: 13px; text-transform: capitalize; margin-top: 2px; }
+  .notpentest { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px; padding: 12px 14px; font-size: 13px; color: #475569; }
+  .partial { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 10px 14px; font-size: 13px; color: #78350f; }
+  .finding { background: #fff; border: 1px solid #e2e8f0; border-left: 3px solid #94a3b8; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; page-break-inside: avoid; }
+  .finding-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .finding-head h3 { font-size: 15px; margin: 0; }
+  .sev { color: #fff; font: 800 9px/1 ui-monospace, monospace; letter-spacing: 0.06em; padding: 4px 7px; border-radius: 4px; }
+  .cat { margin-left: auto; font: 700 10px/1 ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #94a3b8; }
+  .msg { color: #475569; margin: 8px 0 0; }
+  .occ { margin: 10px 0 0; padding: 0; list-style: none; }
+  .occ li { display: flex; gap: 8px; flex-wrap: wrap; align-items: baseline; margin-bottom: 4px; }
+  .occ-where { font: 11px ui-monospace, monospace; color: #94a3b8; }
+  .occ code, .fixtag + .code { font: 11.5px ui-monospace, monospace; }
+  .occ code { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 5px; padding: 1px 6px; word-break: break-all; }
+  .steps { margin: 10px 0 0; padding-left: 20px; color: #475569; }
+  .steps li { margin-bottom: 5px; }
+  .fixwhy { display: block; margin-top: 6px; color: #475569; }
+  .fix { margin-top: 12px; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; padding: 10px 12px; font-size: 13px; color: #475569; }
+  .fixlabel { display: inline-block; font: 800 10px/1 ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #7c5cff; margin-right: 8px; }
+  .fixtag { margin-top: 10px; font: 800 10px/1 ui-monospace, monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #64748b; }
+  .code { margin: 6px 0 0; background: #0a1530; color: #c4b5fd; border-radius: 8px; padding: 12px 14px; font-size: 11.5px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; overflow-x: auto; }
+  .note { margin-top: 6px; font-size: 12px; color: #64748b; }
+  .rotate { margin-top: 10px; font-size: 13px; color: #b91c1c; }
+  .rotate a { color: #b91c1c; }
+  .clean { color: #047857; }
+  .coverage { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .cov-group { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 14px; page-break-inside: avoid; }
+  .cov-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .cov-cat { font: 800 9.5px/1 ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; }
+  .cov-tag { font: 800 9px/1 ui-monospace, monospace; letter-spacing: 0.04em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; }
+  .cov-tag.ok { color: #047857; background: #ecfdf5; border: 1px solid #a7f3d0; }
+  .cov-tag.bad { color: #b91c1c; background: #fef2f2; border: 1px solid #fecaca; }
+  .cov-list { margin: 0; padding: 0; list-style: none; }
+  .cov-list li { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; color: #0a2245; margin-bottom: 5px; }
+  .cov-mark { flex: none; width: 15px; text-align: center; font-weight: 800; }
+  .cov-pass .cov-mark, .cov-dismissed .cov-mark { color: #047857; }
+  .cov-fail .cov-mark { color: #dc2626; }
+  .cov-na .cov-mark { color: #94a3b8; }
+  .cov-na, .cov-dismissed { color: #94a3b8; }
+  .cov-dismissed { text-decoration: line-through; text-decoration-color: #cbd5e1; }
+  .rpt-foot { margin-top: 40px; padding-top: 14px; border-top: 1px solid #e2e8f0; font-size: 11.5px; color: #94a3b8; }
+  @media print { body { background: #fff; } .finding, .scorebox { border-color: #cbd5e1; } }
+</style></head><body>
+<div class="report">
+  <header class="rpt-head">
+    <div class="wordmark"><span class="ai">AI</span><span class="syn">&nbsp;SYNDICATE</span></div>
+    <span class="confidential">CONFIDENTIAL</span>
+  </header>
+  <h1>Security hygiene report</h1>
+  <div class="meta">
+    <div><span class="k">Site</span><span class="v">ryderschilling.com</span></div>
+    <div><span class="k">Scanned</span><span class="v">1 page(s) + 4 script bundle(s)</span></div>
+    <div><span class="k">Date</span><span class="v">8/17/2026, 8:28:35 AM</span></div>
+  </div>
+  
+  <div class="scorebox">
+    <div class="score" style="color:#ea580c">69<span class="grade">D</span></div>
+    <div class="scoremeta">
+      <div class="scoretitle">6 open issues to fix</div>
+      <div class="scoresub">1 high · 2 medium · 3 low</div>
+    </div>
+  </div>
+  <p class="notpentest"><strong>This is not a penetration test.</strong> It is a passive, read-only check of what the site already exposes to any visitor — response headers, the HTML/JS it ships, cookies, and a few commonly-public files. No exploitation or attacks were performed.</p>
+
+  <h2>Issues</h2>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#ef4444">HIGH</span>
+        <h3>Content-Security-Policy set</h3>
+        <span class="cat">Security headers</span>
+      </div>
+      <p class="msg">No Content-Security-Policy — the main defense against injected/3rd-party scripts is missing.</p>
+      
+      <div class="fix"><span class="fixlabel">How to fix</span><span class="fixwhy">A Content-Security-Policy is your main defense against XSS — it controls which scripts and styles are allowed to run.</span><ol class="steps"><li>Add the Content-Security-Policy header using the starter config below.</li><li>Ship it as Content-Security-Policy-Report-Only first and watch the violation reports.</li><li>Widen the script/style/connect sources to the ones your site actually uses, then switch from Report-Only to enforcing.</li></ol></div>
+      <div class="fixtag">Config — Vercel</div><pre class="code">// vercel.json → &quot;headers&quot;: [{ &quot;source&quot;: &quot;/(.*)&quot;, &quot;headers&quot;: [ … ] }]
+{ &quot;key&quot;: &quot;Content-Security-Policy&quot;, &quot;value&quot;: &quot;default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'&quot; }</pre><div class="note">Starter policy — widen the script/style/connect sources to the ones your site really uses, or it'll block them. Test in report-only first.</div>
+      
+    </section>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#d97706">MEDIUM</span>
+        <h3>Clickjacking protection</h3>
+        <span class="cat">Security headers</span>
+      </div>
+      <p class="msg">No X-Frame-Options and no CSP frame-ancestors — the site can be framed for clickjacking.</p>
+      
+      <div class="fix"><span class="fixlabel">How to fix</span><span class="fixwhy">Without it, your pages can be embedded in an attacker's invisible iframe for clickjacking.</span><ol class="steps"><li>Add X-Frame-Options: DENY (config below), or `frame-ancestors 'none'` in your CSP if you already send one.</li><li>If you embed your own pages, use SAMEORIGIN / an explicit `frame-ancestors` allowlist instead.</li><li>Re-scan.</li></ol></div>
+      <div class="fixtag">Config — Vercel</div><pre class="code">// vercel.json → &quot;headers&quot;: [{ &quot;source&quot;: &quot;/(.*)&quot;, &quot;headers&quot;: [ … ] }]
+{ &quot;key&quot;: &quot;X-Frame-Options&quot;, &quot;value&quot;: &quot;DENY&quot; }</pre>
+      
+    </section>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#d97706">MEDIUM</span>
+        <h3>MIME-sniffing disabled</h3>
+        <span class="cat">Security headers</span>
+      </div>
+      <p class="msg">No X-Content-Type-Options: nosniff header.</p>
+      
+      <div class="fix"><span class="fixlabel">How to fix</span><span class="fixwhy">Without nosniff, a browser may guess a response's type and execute something you served as plain data.</span><ol class="steps"><li>Add X-Content-Type-Options: nosniff (config below).</li><li>Make sure your responses send correct Content-Type headers so nothing breaks.</li><li>Re-scan.</li></ol></div>
+      <div class="fixtag">Config — Vercel</div><pre class="code">// vercel.json → &quot;headers&quot;: [{ &quot;source&quot;: &quot;/(.*)&quot;, &quot;headers&quot;: [ … ] }]
+{ &quot;key&quot;: &quot;X-Content-Type-Options&quot;, &quot;value&quot;: &quot;nosniff&quot; }</pre>
+      
+    </section>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#64748b">LOW</span>
+        <h3>Referrer-Policy set</h3>
+        <span class="cat">Security headers</span>
+      </div>
+      <p class="msg">No Referrer-Policy header — full URLs may leak to third parties.</p>
+      
+      <div class="fix"><span class="fixlabel">How to fix</span><span class="fixwhy">A leaky referrer policy can hand full URLs (with tokens or IDs in them) to third-party sites.</span><ol class="steps"><li>Add Referrer-Policy: strict-origin-when-cross-origin (config below).</li><li>Tighten to `no-referrer` if you never need referrer data at all.</li><li>Re-scan.</li></ol></div>
+      <div class="fixtag">Config — Vercel</div><pre class="code">// vercel.json → &quot;headers&quot;: [{ &quot;source&quot;: &quot;/(.*)&quot;, &quot;headers&quot;: [ … ] }]
+{ &quot;key&quot;: &quot;Referrer-Policy&quot;, &quot;value&quot;: &quot;strict-origin-when-cross-origin&quot; }</pre>
+      
+    </section>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#64748b">LOW</span>
+        <h3>Permissions-Policy set</h3>
+        <span class="cat">Security headers</span>
+      </div>
+      <p class="msg">No Permissions-Policy header to lock down camera/mic/geolocation access.</p>
+      
+      <div class="fix"><span class="fixlabel">How to fix</span><span class="fixwhy">Without it, embedded third-party code can quietly request camera, microphone, or geolocation.</span><ol class="steps"><li>Add a Permissions-Policy header that denies the features you don't use (config below).</li><li>Allow only what your own site needs (e.g. geolocation=(self)).</li><li>Re-scan.</li></ol></div>
+      <div class="fixtag">Config — Vercel</div><pre class="code">// vercel.json → &quot;headers&quot;: [{ &quot;source&quot;: &quot;/(.*)&quot;, &quot;headers&quot;: [ … ] }]
+{ &quot;key&quot;: &quot;Permissions-Policy&quot;, &quot;value&quot;: &quot;camera=(), microphone=(), geolocation=()&quot; }</pre>
+      
+    </section>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#64748b">LOW</span>
+        <h3>DKIM signing detected</h3>
+        <span class="cat">Email authentication</span>
+      </div>
+      <p class="msg">No DKIM key found at common selectors. (A custom selector may still exist — this is informational, not a confirmed gap.)</p>
+      <ul class="occ"><li><span class="occ-where">DKIM (_domainkey)</span> <code>No DKIM key found at common selectors. (A custom selector may still exist — this is informational, not a confirmed gap.)</code></li></ul>
+      <div class="fix"><span class="fixlabel">How to fix</span><span class="fixwhy">DKIM is what keeps DMARC passing when your mail is forwarded.</span><ol class="steps"><li>Enable DKIM in your email provider (Google Workspace, Microsoft 365, your ESP).</li><li>Publish the selector TXT record they give you.</li><li>Send a test message and confirm DKIM=pass in the headers. (A custom selector we don't probe may already exist.)</li></ol></div>
+      
+      
+    </section>
+  <h2>Advisories <span class="h2note">(action items we can't auto-verify)</span></h2>
+    <section class="finding">
+      <div class="finding-head">
+        <span class="sev" style="background:#64748b">ADVISORY</span>
+        <h3>DMARC is enforcing (p=quarantine) — confirm every sending tool is authorized</h3>
+        <span class="cat">Email authentication</span>
+      </div>
+      <p class="msg">With an enforcing DMARC policy, mail from any service that sends as this domain but isn't listed in SPF (or DKIM-signed) is quarantined or bounced. DNS can't see which tools you use, so this check stays visible until you confirm it yourself, then mark it complete.</p>
+      
+      <div class="fix"><span class="fixlabel">How to fix</span><ol class="steps"><li>List every tool that sends mail as &quot;@your-domain&quot;: Google Workspace, lead-nurture (Instantly, Smartlead, Lemlist), CRM/marketing (HubSpot, Mailchimp, Customer.io), helpdesks (Intercom, Zendesk, Front), transactional senders (Resend, SendGrid, Postmark, Supabase Auth, Stripe receipts), and form/booking notifications.</li><li>From each tool, send a test message to a Gmail address you control.</li><li>In Gmail, open the message → ⋮ menu → &quot;Show original.&quot; Look for SPF, DKIM, and DMARC — each should end in PASS. Any FAIL / SOFTFAIL means that tool isn't covered.</li><li>For any tool that didn't pass: open its domain settings, copy the SPF include and DKIM record it gives you, and publish them at your DNS provider. Re-test until all three say PASS.</li><li>Strongly recommended: move cold / bulk outreach to a SEPARATE sending domain so its reputation can't drag down signup verifications and password resets on your primary domain.</li><li>When every sender passes, mark this complete. It will keep showing until you do — and if you add a new tool later, come back and re-verify.</li></ol></div>
+      
+      
+    </section>
+  <h2>What we checked <span class="h2note">(23 passed · 6 to fix · 5 N/A)</span></h2><div class="coverage"><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Security headers</span><span class="cov-tag bad">5 to fix</span></div>
+      <ul class="cov-list"><li class="cov-fail"><span class="cov-mark" aria-hidden="true">✕</span>Content-Security-Policy set</li><li class="cov-fail"><span class="cov-mark" aria-hidden="true">✕</span>Clickjacking protection</li><li class="cov-fail"><span class="cov-mark" aria-hidden="true">✕</span>MIME-sniffing disabled</li><li class="cov-fail"><span class="cov-mark" aria-hidden="true">✕</span>Referrer-Policy set</li><li class="cov-fail"><span class="cov-mark" aria-hidden="true">✕</span>Permissions-Policy set</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>HSTS enabled</li><li class="cov-na"><span class="cov-mark" aria-hidden="true">–</span>CSP has no unsafe directives</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>Server software/version hidden</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>CORS not dangerously open</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Email authentication</span><span class="cov-tag bad">1 to fix</span></div>
+      <ul class="cov-list"><li class="cov-fail"><span class="cov-mark" aria-hidden="true">✕</span>DKIM signing detected</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>SPF record set</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>DMARC policy enforcing</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Transport</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>Served over HTTPS</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>HTTP redirects to HTTPS</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No mixed (http) content</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Cookies</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-na"><span class="cov-mark" aria-hidden="true">–</span>Cookies marked Secure</li><li class="cov-na"><span class="cov-mark" aria-hidden="true">–</span>Session cookies HttpOnly</li><li class="cov-na"><span class="cov-mark" aria-hidden="true">–</span>Cookies set SameSite</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Secrets</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No secrets in client code</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Exposed files</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>.env not publicly readable</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>.git directory not exposed</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>Source maps off in production</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No backup/config files exposed</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Dependencies</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No known-vulnerable JS libraries</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>Third-party scripts use SRI</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Exposed surfaces</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>User accounts not enumerable</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No public GraphQL IDE</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>API docs not unintentionally public</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>Directory listing disabled</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Responsible disclosure</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-na"><span class="cov-mark" aria-hidden="true">–</span>Security contact published</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Errors &amp; debug</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No stack traces on pages</li><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No localhost/dev references</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Forms</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>Forms submit securely</li></ul>
+    </div><div class="cov-group">
+      <div class="cov-head"><span class="cov-cat">Content</span><span class="cov-tag ok">all clear</span></div>
+      <ul class="cov-list"><li class="cov-pass"><span class="cov-mark" aria-hidden="true">✓</span>No leftover template content</li></ul>
+    </div></div>
+
+  <footer class="rpt-foot">Generated by AI SYNDICATE · CONFIDENTIAL · 8/17/2026, 8:28:35 AM. Re-scan after changes to confirm fixes.</footer>
+</div></body></html>

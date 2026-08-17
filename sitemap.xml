@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://ryderschilling.com/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ryderschilling.com/assets/img/og-image.jpg</image:loc>
+      <image:title>Ryder Schilling — Websites, Done Properly.</image:title>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://ryderschilling.com/assets/video/ryder-reel-poster.jpg</video:thumbnail_loc>
+      <video:title>Ryder Schilling — on camera</video:title>
+      <video:description>Why a website is not a one-time build, and what actually happens after you go live.</video:description>
+      <video:content_loc>https://ryderschilling.com/assets/video/ryder-reel-1080.mp4</video:content_loc>
+      <video:family_friendly>yes</video:family_friendly>
+    </video:video>
+  </url>
+</urlset>

@@ -2027,3 +2027,6 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .phone-sound { left: 14px; bottom: 18px; width: 40px; height: 40px; }
   .phone-sound svg { width: 17px; height: 17px; }
 }
+
+/* .m-hero-title is a <p> (single-h1 rule for SEO/AI audits) — kill the UA margin */
+.m-hero-title { margin: 0; }
