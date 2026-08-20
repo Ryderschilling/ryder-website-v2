@@ -492,7 +492,7 @@ Services: Websites, Ecommerce, AI Receptionist & Hosting | Ryder Schilling
 
 ## The facts, stated plainly
 
- One-time Custom website build, including ecommerce storefronts. Quoted per project, from around $1,500. 
+ One-time Custom website build, including ecommerce storefronts. Quoted per project after a call, based on scope. 
 
  Monthly Hosting and care from $199. The AI Upgrade from $399. Both month to month, no long-term contract. 
 
@@ -628,7 +628,7 @@ Custom Website Design & Development | Ryder Schilling
 
  How long does a build take? One to two weeks from deposit to launch for a standard build. Larger stores and portals take longer and the timeline is quoted up front.
 
- What does it cost? Project pricing is quoted per build and starts around $1,500. Hosting, security and ongoing care are a separate flat monthly retainer starting at $199 per month.
+ What does it cost? Project pricing is quoted per build after a call, based on scope. Hosting, security and ongoing care are a separate flat monthly retainer starting at $199 per month.
 
  I already have a site. Can you rebuild it? Yes. Ryder audits what is there, keeps what works, rebuilds what does not, and migrates it without losing existing search rankings.
 
