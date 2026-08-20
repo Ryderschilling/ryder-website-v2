@@ -14,7 +14,7 @@ email: "ryder@ryderschilling.com"
 Custom websites and AI systems for local businesses: built to look incredible and quietly
 run the place.
 
-**Ryder Schilling** — web designer and developer, 30A, Northwest Florida.
+**Ryder Schilling**: web designer and developer, 30A, Northwest Florida.
 Call or text: [+1-309-415-8793](tel:+13094158793) · Email: ryder@ryderschilling.com
 
 ---
@@ -34,7 +34,7 @@ a community platform. Every one coded from a blank page, no templates.
 | **Fit Flour** | Protein-baking brand with a custom storefront and a checkout that converts. | fitflour.shop |
 | **HydroWild** | Headless storefront for a kids' hydration brand. Fast, playful, and it sells. | hydrowild.com |
 
-> "I'm obsessed. Can't stop looking at it lol." — Jacob H., Fit Flour, on launch day
+> "I'm obsessed. Can't stop looking at it lol.", Jacob H., Fit Flour, on launch day
 
 ---
 
@@ -92,7 +92,7 @@ Custom Design · Development · Ecommerce · Technical SEO · Animations · AI A
 Same quality, same attention to detail. The only difference is the size of the project and
 what you need right now.
 
-### Custom Website — The Foundation
+### Custom Website: The Foundation
 
 One-time build, coded from a blank page. Designed around how you actually get customers,
 with whatever features your business needs built in.
@@ -105,7 +105,7 @@ with whatever features your business needs built in.
 
 *For businesses that want the foundation done right, once.*
 
-### Power-Ups — Bolt-Ons
+### Power-Ups: Bolt-Ons
 
 Stack onto your site as you grow. Each one has a single job: turn more of your visitors into
 booked work.
@@ -117,7 +117,7 @@ booked work.
 
 *For sites that are live and ready to convert harder.*
 
-### The AI Upgrade — The Multiplier
+### The AI Upgrade: The Multiplier
 
 Recurring systems that work while you don't. Three lanes, no overlap, all running under your
 brand.

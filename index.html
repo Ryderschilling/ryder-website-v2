@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="css/vendor-swiper.css">
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- ===== STRUCTURED DATA (JSON-LD) — one @graph, cross-linked by @id ===== -->
+  <!-- ===== STRUCTURED DATA (JSON-LD): one @graph, cross-linked by @id ===== -->
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -137,18 +137,25 @@
         "Web design",
         "Web development",
         "Custom website design",
+        "Hand-coded websites",
         "Local SEO",
         "Generative engine optimization",
+        "Answer engine optimization",
         "AI receptionist",
+        "AI voice agents",
         "Marketing automation",
         "Conversion rate optimization",
+        "Ecommerce storefronts",
+        "Schema.org structured data",
+        "GSAP animation",
         "Next.js",
         "Vercel",
-        "Schema markup",
-        "Website hosting"
+        "Website hosting",
+        "Website migration"
       ],
       "sameAs": [
-        "https://www.instagram.com/ryder_schilling_official"
+        "https://www.instagram.com/ryder_schilling_official",
+        "https://www.linkedin.com/in/ryder-schilling-2160b3359/"
       ],
       "contactPoint": [
         {
@@ -162,70 +169,42 @@
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Services",
+        "name": "Ryder Schilling services",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Service",
-              "name": "Custom Website",
-              "serviceType": "Custom website design and development",
-              "description": "A one-time build coded from a blank page: custom design with zero templates, copy and page structure, SEO groundwork, mobile-perfect and fast, and whatever the business needs built in (booking, payments, a store, a portal). Typical launch is one to two weeks. Hosted and kept online monthly after launch.",
-              "provider": {
-                "@id": "https://ryderschilling.com/#business"
-              },
-              "areaServed": {
-                "@type": "Place",
-                "name": "30A, Florida"
-              }
+              "@id": "https://ryderschilling.com/#svc-custom-websites"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Service",
-              "name": "Power-Ups",
-              "serviceType": "Website conversion and local SEO add-ons",
-              "description": "Bolt-ons for a live site: lead capture, a conversion package (CRO), in-site booking, and a local SEO push. Each one exists to turn more existing visitors into booked work.",
-              "provider": {
-                "@id": "https://ryderschilling.com/#business"
-              }
+              "@id": "https://ryderschilling.com/#svc-ai-receptionist"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Service",
-              "name": "The AI Upgrade",
-              "serviceType": "AI receptionist and business automation",
-              "description": "Recurring AI systems running under the client's brand: an AI receptionist that answers and books calls 24/7, an AI follow-up engine for reviews, reactivation and repeat sales, and back-office automations for admin and finance busywork. Month to month.",
-              "provider": {
-                "@id": "https://ryderschilling.com/#business"
-              }
+              "@id": "https://ryderschilling.com/#svc-ai-upgrade"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Service",
-              "name": "Website Hosting & Care",
-              "serviceType": "Managed website hosting and maintenance",
-              "description": "Flat monthly hosting and upkeep. The client never touches a server, a registrar, or a control panel, and reaches Ryder directly rather than a support queue.",
-              "provider": {
-                "@id": "https://ryderschilling.com/#business"
-              }
+              "@id": "https://ryderschilling.com/#svc-hosting-and-care"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
-              "@type": "Service",
-              "name": "AI Strategy Call",
-              "serviceType": "Website and AI strategy consultation",
-              "description": "A one-hour call that ends with a clear map of what the business's website and AI stack actually needs, whether or not Ryder builds it.",
-              "provider": {
-                "@id": "https://ryderschilling.com/#business"
-              }
+              "@id": "https://ryderschilling.com/#svc-ecommerce"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://ryderschilling.com/#svc-ai-strategy-call"
             }
           }
         ]
@@ -240,7 +219,56 @@
         },
         "geoRadius": "120000",
         "description": "Santa Rosa Beach and the 30A corridor out to Destin and Panama City Beach. Remote clients served nationwide."
-      }
+      },
+      "disambiguatingDescription": "Ryder Schilling LLC is a web design and development studio. It is not a property management, vacation rental, or home services company. Coastal Home Management 30A is a separate and unaffiliated company that Ryder Schilling built a website for as a client. Ryder Schilling LLC is also not affiliated with Schilling AI & Engineering Services, PLLC, or with any other business sharing the Schilling name.",
+      "naics": "541511",
+      "isicV4": "6201",
+      "numberOfEmployees": {
+        "@type": "QuantitativeValue",
+        "value": 1
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "18:00"
+        }
+      ],
+      "makesOffer": [
+        {
+          "@id": "https://ryderschilling.com/#svc-custom-websites"
+        },
+        {
+          "@id": "https://ryderschilling.com/#svc-ai-receptionist"
+        },
+        {
+          "@id": "https://ryderschilling.com/#svc-ai-upgrade"
+        },
+        {
+          "@id": "https://ryderschilling.com/#svc-hosting-and-care"
+        },
+        {
+          "@id": "https://ryderschilling.com/#svc-ecommerce"
+        },
+        {
+          "@id": "https://ryderschilling.com/#svc-ai-strategy-call"
+        }
+      ],
+      "review": [
+        {
+          "@id": "https://ryderschilling.com/#review-fitflour"
+        },
+        {
+          "@id": "https://ryderschilling.com/#review-hydrowild"
+        }
+      ]
     },
     {
       "@type": "Person",
@@ -258,16 +286,39 @@
       "knowsAbout": [
         "Web design",
         "Web development",
+        "Custom website design",
+        "Hand-coded websites",
         "Local SEO",
-        "AI automation",
-        "Conversion rate optimization"
+        "Generative engine optimization",
+        "Answer engine optimization",
+        "AI receptionist",
+        "AI voice agents",
+        "Marketing automation",
+        "Conversion rate optimization",
+        "Ecommerce storefronts",
+        "Schema.org structured data",
+        "GSAP animation",
+        "Next.js",
+        "Vercel",
+        "Website hosting",
+        "Website migration"
       ],
       "sameAs": [
-        "https://www.instagram.com/ryder_schilling_official"
+        "https://www.instagram.com/ryder_schilling_official",
+        "https://www.linkedin.com/in/ryder-schilling-2160b3359/"
       ],
       "homeLocation": {
         "@type": "Place",
         "name": "Santa Rosa Beach, Florida"
+      },
+      "disambiguatingDescription": "Ryder Schilling is a web designer and developer, and the owner of Ryder Schilling LLC. He is not a property manager and does not run a property management company. He is not affiliated with Schilling AI & Engineering Services, PLLC.",
+      "nationality": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "workLocation": {
+        "@type": "Place",
+        "name": "Santa Rosa Beach, Florida, United States"
       }
     },
     {
@@ -280,6 +331,14 @@
       "inLanguage": "en-US",
       "publisher": {
         "@id": "https://ryderschilling.com/#business"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://ryderschilling.com/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
       }
     },
     {
@@ -314,12 +373,25 @@
           ".hero-title",
           ".side-desc"
         ]
-      }
+      },
+      "breadcrumb": {
+        "@id": "https://ryderschilling.com/#breadcrumb"
+      },
+      "significantLink": [
+        "https://ryderschilling.com/services/custom-websites/",
+        "https://ryderschilling.com/services/ai-receptionist/",
+        "https://ryderschilling.com/services/ai-upgrade/",
+        "https://ryderschilling.com/services/hosting-and-care/",
+        "https://ryderschilling.com/services/ecommerce/",
+        "https://ryderschilling.com/services/ai-strategy-call/",
+        "https://ryderschilling.com/30a-web-design/",
+        "https://ryderschilling.com/about/"
+      ]
     },
     {
       "@type": "VideoObject",
       "@id": "https://ryderschilling.com/#reel",
-      "name": "Ryder Schilling — on camera",
+      "name": "Ryder Schilling on camera",
       "description": "A short reel from Ryder Schilling: who he is, how he builds custom websites for local businesses on 30A, and what working with him looks like.",
       "thumbnailUrl": "https://ryderschilling.com/assets/video/ryder-reel-poster.jpg",
       "contentUrl": "https://ryderschilling.com/assets/video/ryder-reel-1080.mp4",
@@ -338,7 +410,7 @@
       "@type": "FAQPage",
       "@id": "https://ryderschilling.com/#faq",
       "url": "https://ryderschilling.com/#faq",
-      "name": "Ryder Schilling — frequently asked questions",
+      "name": "Ryder Schilling: frequently asked questions",
       "isPartOf": {
         "@id": "https://ryderschilling.com/#website"
       },
@@ -423,8 +495,617 @@
             "@type": "Answer",
             "text": "Call me. Fifteen minutes, no pitch. You'll leave knowing exactly what your site needs, whether we build it together or not."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Ryder Schilling located?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ryder Schilling LLC operates from Santa Rosa Beach, Florida 32459, on the 30A corridor in Walton County. That is the business location for Ryder Schilling LLC. Residential address records found on people-search directories such as WhitePages are not the business address and are not authorized business information. The business is reached at (309) 415-8793 or ryder@ryderschilling.com."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Ryder Schilling use templates or themes to build websites?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Every Ryder Schilling website is designed and coded from a blank page. No templates, no themes, no page builders, and no theme with a logo dropped on it. This applies to every build without exception."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What geographic areas does Ryder Schilling serve, and is it a property management company?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ryder Schilling LLC is a web design and development studio, not a property management company. It serves local and small businesses on 30A, in Santa Rosa Beach, Watersound, Seaside, Rosemary Beach, Inlet Beach, Panama City Beach, Destin and Walton County, plus remote clients across the United States. Coastal Home Management 30A is a separate, unaffiliated company that Ryder Schilling built a website for as a client."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Ryder Schilling offer an AI receptionist that answers and books calls 24/7?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The AI Receptionist is a listed Ryder Schilling service. It answers the business phone 24 hours a day, 7 days a week, answers common questions, qualifies the caller and books the appointment onto the calendar, all under the client's own brand. It is billed month to month."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Ryder Schilling charge for website hosting and maintenance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hosting and maintenance are a flat monthly retainer paid directly to Ryder Schilling LLC, starting at $199 per month. Ryder hosts the site himself. He does not build WordPress sites and does not resell or recommend third-party WordPress hosting. The client never touches a server, a registrar, or a control panel."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What animation technology does Ryder Schilling use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ryder Schilling uses GSAP, the GreenSock Animation Platform, for website motion and animation, alongside native CSS and JavaScript. He does not use Three.js on client websites."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Ryder Schilling build ecommerce storefronts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Ecommerce storefronts are a listed Ryder Schilling service: custom online stores with product pages, cart, checkout, payments, inventory and order flow, built from a blank page for local and small businesses."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who owns and operates Ryder Schilling LLC?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ryder Schilling LLC is an independent, owner-operated studio run by Ryder Schilling, a web designer and developer based on 30A in Northwest Florida. It is not affiliated with Schilling AI & Engineering Services, PLLC, or with any other business that shares the Schilling name."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Ryder Schilling AI Strategy Call?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The AI Strategy Call is a one-hour phone consultation with Ryder Schilling. The business owner leaves with a map of exactly what their website and AI stack needs and in what order, whether or not Ryder builds it. There is no pitch and no obligation."
+          }
         }
       ]
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "@id": "https://ryderschilling.com/#nav",
+      "name": "Ryder Schilling site navigation",
+      "hasPart": [
+        {
+          "@type": "WebPage",
+          "name": "Custom Website Design & Development",
+          "url": "https://ryderschilling.com/services/custom-websites/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "AI Receptionist",
+          "url": "https://ryderschilling.com/services/ai-receptionist/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "The AI Upgrade",
+          "url": "https://ryderschilling.com/services/ai-upgrade/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Website Hosting & Care",
+          "url": "https://ryderschilling.com/services/hosting-and-care/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Ecommerce Storefronts",
+          "url": "https://ryderschilling.com/services/ecommerce/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "AI Strategy Call",
+          "url": "https://ryderschilling.com/services/ai-strategy-call/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "Web Design on 30A",
+          "url": "https://ryderschilling.com/30a-web-design/"
+        },
+        {
+          "@type": "WebPage",
+          "name": "About Ryder Schilling",
+          "url": "https://ryderschilling.com/about/"
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ryderschilling.com/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://ryderschilling.com/"
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ryderschilling.com/#svc-custom-websites",
+      "name": "Custom Website Design & Development",
+      "serviceType": "Custom website design and development",
+      "description": "A one-time build designed and coded from a blank page. Zero templates, zero themes, zero page builders. Includes custom design, copy and page structure, SEO groundwork, mobile-perfect performance, and whatever the business needs built in: booking, payments, an ecommerce storefront, a client portal, or an AI receptionist. Typical launch is one to two weeks.",
+      "url": "https://ryderschilling.com/services/custom-websites/",
+      "mainEntityOfPage": {
+        "@id": "https://ryderschilling.com/services/custom-websites/#webpage"
+      },
+      "provider": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "brand": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "30A, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Rosa Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Watersound, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Seaside, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Rosemary Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Panama City Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Destin, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Walton County, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Florida Panhandle"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Local and small business owners"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "2500",
+        "description": "Project pricing starts around $1,500 and is quoted per build.",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ryderschilling.com/services/custom-websites/",
+        "seller": {
+          "@id": "https://ryderschilling.com/#business"
+        }
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ryderschilling.com/#svc-ai-receptionist",
+      "name": "AI Receptionist",
+      "serviceType": "AI phone answering and appointment booking",
+      "description": "An AI receptionist that answers the business phone 24 hours a day, 7 days a week, in the business's own voice and under its own brand. It answers common questions, qualifies the caller, books the appointment straight onto the calendar, and texts a summary to the owner. Billed month to month.",
+      "url": "https://ryderschilling.com/services/ai-receptionist/",
+      "mainEntityOfPage": {
+        "@id": "https://ryderschilling.com/services/ai-receptionist/#webpage"
+      },
+      "provider": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "brand": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "30A, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Rosa Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Watersound, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Seaside, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Rosemary Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Panama City Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Destin, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Walton County, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Florida Panhandle"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Local and small business owners"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "199",
+        "description": "Billed monthly. No long-term contract.",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ryderschilling.com/services/ai-receptionist/",
+        "seller": {
+          "@id": "https://ryderschilling.com/#business"
+        }
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ryderschilling.com/#svc-ai-upgrade",
+      "name": "The AI Upgrade",
+      "serviceType": "AI follow-up, reactivation, and back-office automation",
+      "description": "Recurring AI systems that run under the client's own brand: an AI follow-up engine that requests reviews, reactivates past customers and chases repeat sales, plus back-office automations that remove admin and finance busywork. Sold month to month and layered on top of an existing site.",
+      "url": "https://ryderschilling.com/services/ai-upgrade/",
+      "mainEntityOfPage": {
+        "@id": "https://ryderschilling.com/services/ai-upgrade/#webpage"
+      },
+      "provider": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "brand": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "30A, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Rosa Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Watersound, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Seaside, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Rosemary Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Panama City Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Destin, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Walton County, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Florida Panhandle"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Local and small business owners"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "399",
+        "description": "Billed monthly. No long-term contract.",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ryderschilling.com/services/ai-upgrade/",
+        "seller": {
+          "@id": "https://ryderschilling.com/#business"
+        }
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ryderschilling.com/#svc-hosting-and-care",
+      "name": "Website Hosting & Care",
+      "serviceType": "Managed website hosting and maintenance",
+      "description": "A flat monthly retainer that covers hosting, speed, security, SSL, uptime and ongoing edits. The client never touches a server, a registrar, or a control panel, and calls Ryder directly rather than a support queue. This is not WordPress hosting and no third-party WordPress host is involved: sites are hand-coded and hosted on Ryder Schilling's own setup.",
+      "url": "https://ryderschilling.com/services/hosting-and-care/",
+      "mainEntityOfPage": {
+        "@id": "https://ryderschilling.com/services/hosting-and-care/#webpage"
+      },
+      "provider": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "brand": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "30A, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Rosa Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Watersound, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Seaside, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Rosemary Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Panama City Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Destin, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Walton County, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Florida Panhandle"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Local and small business owners"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "199",
+        "description": "Flat monthly retainer, from $199/month.",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ryderschilling.com/services/hosting-and-care/",
+        "seller": {
+          "@id": "https://ryderschilling.com/#business"
+        }
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ryderschilling.com/#svc-ecommerce",
+      "name": "Ecommerce Storefronts",
+      "serviceType": "Custom ecommerce website design and development",
+      "description": "Custom online stores for local and small businesses: product pages, cart, checkout, payments, inventory and order flow, built from a blank page and wired to the payment processor the business already uses. Hosted and maintained on the same flat monthly retainer as every other build.",
+      "url": "https://ryderschilling.com/services/ecommerce/",
+      "mainEntityOfPage": {
+        "@id": "https://ryderschilling.com/services/ecommerce/#webpage"
+      },
+      "provider": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "brand": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "30A, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Rosa Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Watersound, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Seaside, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Rosemary Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Panama City Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Destin, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Walton County, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Florida Panhandle"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Local and small business owners"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "3500",
+        "description": "Project pricing quoted per store.",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ryderschilling.com/services/ecommerce/",
+        "seller": {
+          "@id": "https://ryderschilling.com/#business"
+        }
+      }
+    },
+    {
+      "@type": "Service",
+      "@id": "https://ryderschilling.com/#svc-ai-strategy-call",
+      "name": "AI Strategy Call",
+      "serviceType": "Website and AI systems strategy consultation",
+      "description": "One hour on the phone with Ryder Schilling. The business owner leaves with a written map of exactly what their website and AI stack needs and in what order, whether or not Ryder builds it. No pitch, no obligation.",
+      "url": "https://ryderschilling.com/services/ai-strategy-call/",
+      "mainEntityOfPage": {
+        "@id": "https://ryderschilling.com/services/ai-strategy-call/#webpage"
+      },
+      "provider": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "brand": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "30A, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Santa Rosa Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Watersound, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Seaside, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Rosemary Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Panama City Beach, Florida"
+        },
+        {
+          "@type": "City",
+          "name": "Destin, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Walton County, Florida"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Florida Panhandle"
+        },
+        {
+          "@type": "Country",
+          "name": "United States"
+        }
+      ],
+      "audience": {
+        "@type": "BusinessAudience",
+        "audienceType": "Local and small business owners"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "description": "Introductory strategy calls are free.",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ryderschilling.com/services/ai-strategy-call/",
+        "seller": {
+          "@id": "https://ryderschilling.com/#business"
+        }
+      }
+    },
+    {
+      "@type": "Review",
+      "@id": "https://ryderschilling.com/#review-fitflour",
+      "itemReviewed": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jacob H.",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Fit Flour",
+          "url": "https://fitflour.shop"
+        }
+      },
+      "reviewBody": "I'm obsessed. Can't stop looking at it."
+    },
+    {
+      "@type": "Review",
+      "@id": "https://ryderschilling.com/#review-hydrowild",
+      "itemReviewed": {
+        "@id": "https://ryderschilling.com/#business"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "CJ Britton",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "HydroWild",
+          "url": "https://hydrowild.com"
+        }
+      },
+      "reviewBody": "Merry Christmas to me."
     }
   ]
 }
@@ -1180,6 +1861,32 @@
         <footer>
           <p class="footer-line">&copy; 2026 Ryder Schilling LLC. Built by <a href="https://ryderschilling.com" target="_blank" rel="noopener">Ryder Schilling</a>.</p>
         </footer>
+
+        <!-- ===== SITE MAP ROW: added for AI/search citation surface.
+             Fully scoped under .sitemap-row, loads nothing, touches nothing above. ===== -->
+        <style>
+          .sitemap-row{margin:clamp(28px,4vw,56px) 0 0;padding-top:clamp(20px,2.6vw,36px);border-top:1px solid var(--line,rgba(17,17,16,.08))}
+          .sitemap-row h2{font:600 clamp(10px,.85vw,13px)/1 var(--text,'InstrumentSansVar',system-ui,sans-serif);letter-spacing:.14em;text-transform:uppercase;color:var(--gray,#6d6a5e);margin:0 0 clamp(14px,1.4vw,20px)}
+          .sitemap-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(8px,.8vw,12px);list-style:none;margin:0;padding:0}
+          .sitemap-links a{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:clamp(12px,1.1vw,17px) clamp(14px,1.2vw,19px);border:1px solid var(--line,rgba(17,17,16,.08));border-radius:var(--r-btn,12px);background:var(--card,rgba(223,222,206,.8));color:var(--ink,#111110);text-decoration:none;transition:background .3s cubic-bezier(.22,1,.36,1),border-color .3s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.22,1,.36,1)}
+          .sitemap-links a:hover{background:var(--hover,#c9c8ba);border-color:rgba(17,17,16,.22);transform:translateY(-2px)}
+          .sitemap-links b{font:500 clamp(13px,1.05vw,19px)/1.2 var(--display,'ArchivoVar',system-ui,sans-serif);letter-spacing:-.01em}
+          .sitemap-links i{font-style:normal;font-size:clamp(10px,.8vw,12px);color:var(--gray,#6d6a5e);flex:none}
+          @media (prefers-reduced-motion:reduce){.sitemap-links a{transition:none}.sitemap-links a:hover{transform:none}}
+        </style>
+        <nav class="sitemap-row" aria-label="More from Ryder Schilling">
+          <h2>More from Ryder Schilling</h2>
+          <ul class="sitemap-links">
+            <li><a href="/services/custom-websites/"><b>Custom Websites</b><i>&#8599;</i></a></li>
+            <li><a href="/services/ecommerce/"><b>Ecommerce Storefronts</b><i>&#8599;</i></a></li>
+            <li><a href="/services/ai-receptionist/"><b>AI Receptionist</b><i>&#8599;</i></a></li>
+            <li><a href="/services/ai-upgrade/"><b>The AI Upgrade</b><i>&#8599;</i></a></li>
+            <li><a href="/services/hosting-and-care/"><b>Hosting &amp; Care</b><i>&#8599;</i></a></li>
+            <li><a href="/services/ai-strategy-call/"><b>AI Strategy Call</b><i>&#8599;</i></a></li>
+            <li><a href="/30a-web-design/"><b>Web Design on 30A</b><i>&#8599;</i></a></li>
+            <li><a href="/about/"><b>About Ryder Schilling</b><i>&#8599;</i></a></li>
+          </ul>
+        </nav>
       </div>
     </section>
 
