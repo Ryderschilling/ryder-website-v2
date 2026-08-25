@@ -30,7 +30,7 @@ a community platform. Every one coded from a blank page, no templates.
 | **Elias Collective** | Private equity real estate firm across the Southeast and Midwest: clean, credible, institutional. | eliascollective.com |
 | **Source A Trade** | Local trade directory for 30A and NW Florida. Find the right pro, fast. | sourceatrade.com |
 | **Found Community** | A community platform built for real connection, with member accounts and events. | found.community |
-| **Coastal Home Management** | Ryder's own property company on 30A, built the way an owner needs it to work. | coastalhomemngt30a.com |
+| **Coastal Home Management 30A** | Ryder's own property management company on 30A, a second business he owns separately from the studio, built the way an owner needs it to work. | coastalhomemngt30a.com |
 | **Fit Flour** | Protein-baking brand with a custom storefront and a checkout that converts. | fitflour.shop |
 | **HydroWild** | Headless storefront for a kids' hydration brand. Fast, playful, and it sells. | hydrowild.com |
 
