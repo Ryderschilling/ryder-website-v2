@@ -1027,6 +1027,54 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
 /* ---------------------------------------------------------- */
 /* Site scan                                                   */
 /* ---------------------------------------------------------- */
+/* ---------------------------------------------------------- */
+/* Statement band (sits between the dark video block and Scan)  */
+/* ---------------------------------------------------------- */
+.statement {
+  padding: 8.5vw var(--content-r) 7vw var(--content-l);
+}
+.statement-rule {
+  height: 1px; background: var(--line);
+  margin-bottom: 4.2vw; overflow: hidden;
+}
+.statement-rule i {
+  display: block; height: 100%; width: 100%;
+  background: var(--accent);
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.statement.is-in .statement-rule i { transform: scaleX(1); }
+
+.statement-copy {
+  font-family: var(--display); font-weight: 720;
+  font-size: 5.35vw; line-height: 1.02; letter-spacing: -0.03em;
+  color: var(--ink); max-width: 68vw; margin: 0;
+}
+.statement-copy .st-line { display: block; }
+
+/* the underline sweeps in once the band arrives, then stays */
+.st-mark { position: relative; white-space: nowrap; }
+.st-mark::after {
+  content: ""; position: absolute;
+  left: 0; right: 0; bottom: 0.06em; height: 0.075em;
+  background: var(--accent); border-radius: 999px;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s;
+}
+.statement.is-in .st-mark::after { transform: scaleX(1); }
+
+.statement-ask {
+  margin-top: 2.4vw;
+  font-family: var(--display); font-weight: 560;
+  font-size: 2.15vw; line-height: 1.15; letter-spacing: -0.018em;
+  color: var(--ink-2);
+  padding-left: 1.5vw;
+  border-left: 2px solid var(--accent);
+}
+
+html.no-motion .statement-rule i,
+html.no-motion .st-mark::after { transform: scaleX(1); transition: none; }
+
 .scan { padding: 7vw var(--content-r) 6vw var(--content-l); }
 .scan .section-head { padding-bottom: 2vw; }
 
@@ -1469,6 +1517,11 @@ html.no-motion .reveal { opacity: 1 !important; transform: none !important; }
   .tier-strip .btn { width: 100%; padding: 14px 0; }
 
   /* ---- site scan ---- */
+  .statement { padding: 15vw var(--content-r) 12vw var(--content-l); }
+  .statement-rule { margin-bottom: 9vw; }
+  .statement-copy { font-size: 10.2vw; max-width: 100%; letter-spacing: -0.035em; }
+  .statement-ask { font-size: 5.4vw; margin-top: 7vw; padding-left: 4vw; }
+
   .scan { padding: 14vw var(--content-r) 10vw var(--content-l); }
   .scan .section-head { padding-bottom: 6vw; }
   .scan-form { flex-direction: column; max-width: 100%; gap: 10px; }

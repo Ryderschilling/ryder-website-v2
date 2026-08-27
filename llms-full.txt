@@ -1,5 +1,8 @@
 # ryderschilling.com: full site as plain text
 # Generated for AI crawlers. Canonical HTML: https://ryderschilling.com/
+# The full-text companion to https://ryderschilling.com/llms.txt: the curated index,
+# followed by the complete prose of every key page, inlined for one-fetch retrieval.
+# The live site is the source of truth and is more current than any cached copy.
 
 # Ryder Schilling
 
@@ -184,6 +187,10 @@ six months after launch.
 
 ---
 
+> Your website is your hardest working employee. Are you using it that way?
+
+---
+
 ## Free instant check: see your site the way I see it
 
 Paste your address and get the exact first pass Ryder runs before quoting any rebuild:
@@ -326,7 +333,7 @@ Site: https://ryderschilling.com
 Owner: Ryder Schilling LLC (brand: Ryder Schilling, RYDER®)
 Contact: ryder@ryderschilling.com · +1-309-415-8793
 Location: Santa Rosa Beach, Florida 32459, United States
-Last updated: 2026-08-17
+Last updated: 2026-08-27
 
 ## What you may do
 

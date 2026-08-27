@@ -6,8 +6,7 @@ Everything above the line is worth more than everything below it.
 
 ## 0. ⚠️ Correct the "owner-verified" address inside AI Syndicate  <-- DO THIS FIRST
 
-The platform believes Ryder Schilling's verified address is **7800 Congress Ave, Suite 108,
-Boca Raton, FL 33487**. It is not. Do not press "Fix this now" or "Fix all 26" in
+The platform believes Ryder Schilling's verified address is **a South Florida address that is NOT his (redacted, never repeat it)**. It is not. Do not press "Fix this now" or "Fix all 26" in
 Hallucination watch until that record says Santa Rosa Beach, FL 32459 — those buttons
 publish the platform's facts to the engines, and a conflicting address is exactly what
 knocks Identity (NAP) back down from 85. Full detail in `05-results-2026-08-17.md`.

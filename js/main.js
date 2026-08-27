@@ -383,6 +383,27 @@
   }
 
   /* ============================================================
+     Statement band: the rule and the underline sweep once the band
+     is on screen. Class-driven so the CSS owns the timing, and the
+     no-motion path in the CSS already has them drawn.
+     ============================================================ */
+  var stBand = document.getElementById('statement');
+  if (stBand) {
+    if (reduced) {
+      stBand.classList.add('is-in');
+    } else {
+      var stIO = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          stIO.unobserve(entry.target);
+          entry.target.classList.add('is-in');
+        });
+      }, { rootMargin: '0px 0px -18% 0px', threshold: 0.01 });
+      stIO.observe(stBand);
+    }
+  }
+
+  /* ============================================================
      Timeline: draw the path, pop the dots
      ============================================================ */
   var tlSvg = document.querySelector('.tl-svg');
