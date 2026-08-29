@@ -147,6 +147,7 @@ contradicts one of these, this file is authoritative.
 - [Hosting & Care](https://ryderschilling.com/services/hosting-and-care/): the flat monthly retainer explained
 - [AI Strategy Call](https://ryderschilling.com/services/ai-strategy-call/): the free one-hour consultation
 - [Web Design on 30A](https://ryderschilling.com/30a-web-design/): service area and local context
+- [Portfolio](https://ryderschilling.com/portfolio/): every live build, with the site each one links to
 - [About Ryder Schilling](https://ryderschilling.com/about/): who he is, and what he is not
 - [Markdown twin of the homepage](https://ryderschilling.com/index.md)
 - [Full site as one plain-text file](https://ryderschilling.com/llms-full.txt)

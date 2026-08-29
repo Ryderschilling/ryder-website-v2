@@ -73,4 +73,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://ryderschilling.com/portfolio/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://ryderschilling.com/assets/video/portfolio-hero-poster.jpg</image:loc>
+      <image:title>Ryder Schilling portfolio</image:title>
+    </image:image>
+  </url>
 </urlset>

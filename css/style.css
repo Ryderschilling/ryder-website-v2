@@ -2083,3 +2083,60 @@ html.no-motion .st-mark::after { transform: scaleX(1); transition: none; }
 
 /* .m-hero-title is a <p> (single-h1 rule for SEO/AI audits) — kill the UA margin */
 .m-hero-title { margin: 0; }
+
+/* ---------------------------------------------------------- */
+/* Work rail: the closing "View Full Portfolio" card           */
+/* Same browser-window language as a project card, but the     */
+/* shot is a contact sheet of everything instead of one site.  */
+/* ---------------------------------------------------------- */
+.work-card--more { background: #0f0e0c; }
+.wc-shot--more { display: block; background: #0f0e0c; }
+.more-sheet {
+  position: absolute; inset: -2%;
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+  gap: 2px;
+  opacity: 0.3;
+  transition: opacity 0.6s var(--ease), transform 0.9s var(--ease);
+  transform: scale(1.01);
+}
+.more-sheet i {
+  display: block; background-size: cover; background-position: top center;
+  filter: grayscale(1) contrast(0.9) brightness(0.85) blur(1px);
+}
+.wc-shot--more::after {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(115% 85% at 50% 40%, rgba(10, 10, 8, 0.5) 0%, rgba(10, 10, 8, 0.9) 60%, rgba(10, 10, 8, 0.98) 100%),
+    linear-gradient(180deg, rgba(10, 10, 8, 0) 35%, rgba(10, 10, 8, 0.92) 86%);
+}
+/* one mark in the middle, not a second headline: the card already says
+   "View Full Portfolio" along the bottom */
+.more-plus {
+  position: absolute; left: 50%; top: 41%; z-index: 2;
+  transform: translate(-50%, -50%);
+  width: 6.2vw; height: 6.2vw; min-width: 62px; min-height: 62px;
+  border-radius: 50%; border: 1px solid rgba(244, 241, 232, 0.4);
+  display: grid; place-items: center;
+  transition: transform 0.55s var(--ease), background-color 0.45s var(--ease), border-color 0.45s var(--ease);
+}
+.more-plus::before, .more-plus::after {
+  content: ''; position: absolute; background: #f4f1e8;
+  transition: background-color 0.45s var(--ease);
+}
+.more-plus::before { width: 40%; height: 1.5px; }
+.more-plus::after { width: 1.5px; height: 40%; }
+.more-count {
+  position: absolute; left: 50%; top: calc(41% + 4.4vw); z-index: 2;
+  transform: translateX(-50%);
+  font-family: var(--text); font-weight: 600;
+  font-size: max(11px, 0.85vw); letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(244, 241, 232, 0.62); white-space: nowrap;
+}
+.work-card--more:hover .more-sheet { opacity: 0.5; transform: scale(1.05); }
+.work-card--more:hover .more-plus { transform: translate(-50%, -50%) rotate(90deg); background: rgba(244, 241, 232, 0.95); border-color: rgba(244, 241, 232, 0.95); }
+.work-card--more:hover .more-plus::before,
+.work-card--more:hover .more-plus::after { background: #0f0e0c; }
+@media (max-width: 900px) {
+  .more-plus { width: 74px; height: 74px; }
+  .more-count { top: calc(41% + 62px); }
+}
