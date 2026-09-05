@@ -144,6 +144,7 @@ a community platform. Every one coded from a blank page, no templates.
 | Project | What it is | URL |
 | --- | --- | --- |
 | **NLH Media** | Sports videography brand for the Florida Panhandle: fast cuts, big type, real energy. | nlh-media.vercel.app |
+| **Motion District** | Cinematic production studio in Tampa: shot, directed and cut in-house. A site built to feel like the footage. | motiondistrict.co |
 | **Elias Collective** | Private equity real estate firm across the Southeast and Midwest: clean, credible, institutional. | eliascollective.com |
 | **Source A Trade** | Local trade directory for 30A and NW Florida. Find the right pro, fast. | sourceatrade.com |
 | **Found Community** | A community platform built for real connection, with member accounts and events. | found.community |
