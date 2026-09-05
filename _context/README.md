@@ -12,6 +12,7 @@ first, then `01-changelog`. Anything not written down here did not happen.
 | `04-next-moves.md` | What is still open, in priority order. |
 | `05-results-2026-08-17.md` | Round 1 post-deploy results, the hallucination-watch read, and the ⚠️ wrong South Florida address problem. |
 | `06-changelog-round2-2026-08-17.md` | Round 2: the three MISSING AI-intent signals, agents.md, and LocalBusiness. |
+| `07-portfolio-motion-district-2026-09-05.md` | Motion District added to the portfolio, ordering rules, and the reusable screenshot recipe for work images. |
 | `reports/` | The raw platform exports each round. Never edit these. |
 
 ## Rules for this folder
