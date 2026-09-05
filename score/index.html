@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Website Score | Ryder Schilling</title>
+<meta name="description" content="Paste your website address and get an instant 0 to 100 score: speed, mobile, how Google reads you, and whether a visitor can actually reach you. No email needed for the score.">
+<link rel="canonical" href="https://ryderschilling.com/score/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Ryder Schilling">
+<meta name="geo.region" content="US-FL">
+<meta name="geo.placename" content="Santa Rosa Beach, Florida">
+<meta name="tdm-reservation" content="0">
+<link rel="alternate" type="text/plain" href="https://ryderschilling.com/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ryder Schilling">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://ryderschilling.com/score/">
+<meta property="og:title" content="Free Website Score | Ryder Schilling">
+<meta property="og:description" content="Ten seconds, no email for the score. See your site the way I see it before I quote a rebuild.">
+<meta property="og:image" content="https://ryderschilling.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Website Score | Ryder Schilling">
+<meta name="twitter:description" content="Paste your address, get a 0 to 100 score in ten seconds.">
+<meta name="twitter:image" content="https://ryderschilling.com/assets/img/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#d5cfbe">
+<link rel="stylesheet" href="/css/pages.css">
+<style>
+/* ---------------- score page: scanner UI ----------------
+   pages.css owns the tokens, type and chrome. Everything below is
+   only the scanner, written in the same token language so it reads
+   as one site and not a widget dropped on a page. */
+.hero--score{padding-block:clamp(26px,3.4vw,52px) clamp(20px,2.4vw,34px)}
+.hero--score h1{max-width:14ch}
+.hero--score .lede{max-width:56ch}
+
+.scanbox{padding-bottom:clamp(30px,4vw,64px)}
+.scan-form{display:flex;gap:12px;flex-wrap:wrap;max-width:640px;margin:0}
+.scan-field{flex:1 1 300px;display:flex;align-items:center;gap:2px;min-width:0;
+  background:var(--card);border:1px solid var(--line);border-radius:99px;
+  padding:0 clamp(16px,1.4vw,22px);transition:border-color .3s var(--ease),background .3s var(--ease)}
+.scan-field:focus-within{border-color:var(--ink);background:var(--white)}
+.scan-proto{color:var(--gray);flex:none;font-size:clamp(14px,1vw,16px)}
+.scan-field input{flex:1;min-width:0;border:0;background:none;outline:none;color:var(--ink);
+  font:500 clamp(15px,1.05vw,17px)/1 var(--text);padding:clamp(15px,1.25vw,19px) 0}
+.scan-field input::placeholder{color:#8d8a7c;font-weight:400}
+.scan-go{position:relative;flex:none;border:1px solid var(--ink);background:var(--ink);color:var(--bone);
+  cursor:pointer;display:inline-flex;align-items:center;gap:10px;border-radius:99px;
+  font:500 clamp(14px,1.02vw,17px)/1 var(--text);padding:clamp(15px,1.25vw,19px) clamp(22px,1.8vw,30px);
+  transition:background .3s var(--ease),transform .3s var(--ease)}
+.scan-go:hover{background:var(--ink-2);transform:translateY(-2px)}
+.scan-go[disabled]{opacity:.72;cursor:progress;transform:none}
+.scan-spinner{display:none;width:15px;height:15px;border-radius:50%;
+  border:2px solid rgba(237,231,216,.35);border-top-color:var(--bone);animation:scan-spin .7s linear infinite}
+.scan-go.is-busy .scan-spinner{display:block}
+@keyframes scan-spin{to{transform:rotate(360deg)}}
+.scan-hint{margin:14px 0 0;font-size:clamp(13px,.92vw,15px);color:var(--gray);max-width:56ch}
+.scan-hint.is-error{color:#9a3412}
+
+.scan-result{margin-top:clamp(22px,2.6vw,38px);display:grid;gap:12px}
+.scan-result[hidden]{display:none}
+.scan-score{display:flex;align-items:center;gap:clamp(20px,2.4vw,40px);flex-wrap:wrap;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(22px,2vw,34px)}
+.score-dial{position:relative;width:clamp(112px,10vw,150px);height:clamp(112px,10vw,150px);flex:none}
+.score-dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.score-dial circle{fill:none;stroke-width:9;stroke-linecap:round}
+.dial-bg{stroke:rgba(17,17,16,.1)}
+.dial-fg{stroke:#4f8a3d;transition:stroke-dashoffset 1.1s cubic-bezier(.22,1,.36,1)}
+.scan-result.is-low .dial-fg{stroke:#e07a3f}
+.scan-result.is-bad .dial-fg{stroke:#c9503c}
+.score-num{position:absolute;inset:0;display:grid;place-items:center}
+.score-num span{display:inline-flex;align-items:baseline;gap:2px}
+.score-num b{font:800 clamp(30px,2.8vw,42px)/1 var(--display);letter-spacing:-.03em}
+.score-num i{font-style:normal;font-weight:600;font-size:clamp(11px,.8vw,13px);color:var(--gray)}
+.score-copy{min-width:0;flex:1 1 260px}
+.score-copy h3{font-size:clamp(22px,2vw,30px);margin:10px 0 0}
+.score-copy p{color:var(--ink-2);margin:6px 0 0;max-width:46ch}
+.score-tally{display:flex;flex-wrap:wrap;gap:clamp(12px,1.2vw,20px);margin-top:14px}
+.score-tally[hidden]{display:none}
+.tally{display:inline-flex;align-items:center;gap:7px;font:500 clamp(12px,.86vw,14px)/1 var(--text);color:var(--gray)}
+.tally::before{content:"";width:8px;height:8px;border-radius:50%}
+.tally.t-pass::before{background:#4f8a3d}
+.tally.t-warn::before{background:#d08a1e}
+.tally.t-fail::before{background:#c9503c}
+
+.scan-checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.scan-checks:empty{display:none}
+.check{display:flex;gap:14px;background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);padding:clamp(16px,1.4vw,22px);animation:check-in .5s var(--ease) both}
+@keyframes check-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.check{animation:none}}
+.check-ico{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center}
+.check-ico svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.check.s-pass .check-ico{background:#4f8a3d}
+.check.s-warn .check-ico{background:#d08a1e}
+.check.s-fail .check-ico{background:#c9503c}
+.check-body{min-width:0}
+.check-group{display:block;font:600 10px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.check-body h4{font:500 clamp(15px,1.15vw,18px)/1.25 var(--display);letter-spacing:-.015em;margin:0}
+.check-body p{font-size:clamp(13px,.94vw,15px);color:var(--ink-2);margin:5px 0 0;line-height:1.5;overflow-wrap:anywhere}
+
+.scan-gate{background:var(--dark);color:var(--bone);border-radius:var(--r);padding:clamp(22px,2.2vw,36px)}
+.scan-gate[hidden]{display:none}
+.scan-gate h3{color:var(--bone);font-size:clamp(20px,1.9vw,28px);margin:12px 0 0}
+.scan-gate > p{color:rgba(237,231,216,.72);margin:8px 0 0;max-width:52ch;font-size:clamp(14px,1vw,16px)}
+.gate-locked{display:inline-flex;align-items:center;gap:10px;font:500 clamp(12px,.86vw,14px)/1.3 var(--text);
+  color:rgba(237,231,216,.66);border:1px solid var(--wline);border-radius:99px;padding:9px 15px}
+.gate-locked[hidden]{display:none}
+.gate-lock-ico svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.7;display:block}
+.gate-form{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-top:clamp(18px,1.8vw,26px)}
+@media (max-width:720px){.gate-form{grid-template-columns:1fr}}
+.gate-field{display:grid;gap:7px;min-width:0}
+.gate-field span{font:600 10px/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:rgba(237,231,216,.55)}
+.gate-field input{width:100%;background:rgba(237,231,216,.06);border:1px solid var(--wline);border-radius:12px;
+  color:var(--bone);font:400 clamp(14px,1vw,16px)/1 var(--text);padding:14px 15px;outline:none;
+  transition:border-color .3s var(--ease),background .3s var(--ease)}
+.gate-field input::placeholder{color:rgba(237,231,216,.36)}
+.gate-field input:focus{border-color:rgba(237,231,216,.5);background:rgba(237,231,216,.1)}
+.gate-field.is-invalid input{border-color:#e0836f}
+.gate-go{position:relative;cursor:pointer;border:1px solid var(--bone);background:var(--bone);color:var(--dark);
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;white-space:nowrap;
+  font:500 clamp(14px,1vw,16px)/1 var(--text);padding:15px 22px;transition:transform .3s var(--ease),opacity .3s var(--ease)}
+.gate-go:hover{transform:translateY(-2px)}
+.gate-go[disabled]{opacity:.7;cursor:progress;transform:none}
+.gate-go .scan-spinner{border-color:rgba(14,13,11,.3);border-top-color:var(--dark)}
+.gate-status{min-height:1.2em;margin:12px 0 0;font-size:clamp(13px,.9vw,15px);color:rgba(237,231,216,.7)}
+.gate-status.is-error{color:#e0836f}
+.gate-fine{margin:6px 0 0;font-size:clamp(12px,.84vw,13px);color:rgba(237,231,216,.45)}
+.hp-field{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+
+.scan-strip{display:flex;align-items:center;gap:clamp(16px,1.6vw,26px);flex-wrap:wrap;
+  background:var(--dark);color:var(--bone);border-radius:var(--r);padding:clamp(22px,2vw,32px)}
+.scan-strip[hidden]{display:none}
+.scan-strip h3{color:var(--bone);margin:0 0 4px}
+.scan-strip p{color:rgba(237,231,216,.7);margin:0;font-size:clamp(14px,1vw,16px)}
+.strip-copy{flex:1 1 260px;min-width:0}
+.strip-ico{flex:none;width:44px;height:44px;border-radius:12px;border:1px solid var(--wline);display:grid;place-items:center}
+.strip-ico svg{width:20px;height:20px;fill:var(--bone)}
+.scan-strip .btn{border-color:var(--bone);background:var(--bone);color:var(--dark)}
+.scan-strip .btn:hover{transform:translateY(-2px)}
+
+/* the "what it checks" band, reusing card language */
+.checklist{display:grid;gap:clamp(12px,1.1vw,18px);grid-template-columns:repeat(auto-fit,minmax(250px,1fr));list-style:none;margin:0;padding:0}
+.checklist li{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:clamp(20px,1.7vw,28px)}
+.checklist b{display:block;font:500 clamp(16px,1.3vw,20px)/1.25 var(--display);letter-spacing:-.015em;margin-bottom:7px}
+.checklist span{display:block;font-size:clamp(14px,.98vw,16px);color:var(--gray)}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://ryderschilling.com/score/#webpage",
+      "url": "https://ryderschilling.com/score/",
+      "name": "Free Website Score | Ryder Schilling",
+      "description": "Instant 0 to 100 website check: speed, mobile, how Google reads the page, and whether a visitor can reach the business.",
+      "inLanguage": "en-US",
+      "isPartOf": { "@id": "https://ryderschilling.com/#website" },
+      "author": { "@id": "https://ryderschilling.com/#ryder" },
+      "publisher": { "@id": "https://ryderschilling.com/#business" },
+      "breadcrumb": { "@id": "https://ryderschilling.com/score/#breadcrumb" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ryderschilling.com/score/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ryderschilling.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Free Website Score", "item": "https://ryderschilling.com/score/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://ryderschilling.com/score/#faq",
+      "isPartOf": { "@id": "https://ryderschilling.com/score/#webpage" },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the website score free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. The score, the grade and the verdict are free and need no email. The itemised report and the fix order are unlocked with a name and an email." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the check actually look at?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Fourteen checks across five groups: server speed and page weight, mobile setup, trust and security, how search engines and AI engines read the page, and whether a visitor can find a way to contact the business." }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does the scan take?",
+          "acceptedAnswer": { "@type": "Answer", "text": "About ten seconds. The scanner fetches the live page and runs the checks in real time." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you store the site or the results?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Nothing is stored for the score itself. If someone unlocks the full report, their name, email and result are emailed to Ryder so he can follow up." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/">RYDER<sup>&reg;</sup></a>
+    <nav aria-label="Primary">
+      <a class="hide-s" href="/services/custom-websites/">Websites</a>
+      <a class="hide-s" href="/services/ai-receptionist/">AI Receptionist</a>
+      <a class="hide-s" href="/about/">About</a>
+      <a class="cta" href="tel:+13094158793">(309) 415-8793</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="crumb wrap" aria-label="Breadcrumb">
+    <ol><li><a href="/">Home</a></li><li aria-current="page">Free Website Score</li></ol>
+  </nav>
+
+  <section class="hero wrap hero--score">
+    <span class="eyebrow">Free Instant Check</span>
+    <h1>See your site the way I see it.</h1>
+    <p class="lede">This is the exact first pass I run before I quote any rebuild: speed, mobile, how Google reads you, and whether a visitor can actually reach you. Paste your address, wait ten seconds, and you see what I see.</p>
+  </section>
+
+  <section class="scanbox wrap" aria-label="Website scanner">
+    <form class="scan-form" id="scanForm" novalidate>
+      <label class="scan-field" for="scanUrl">
+        <span class="scan-proto">https://</span>
+        <input id="scanUrl" name="url" type="text" inputmode="url" autocomplete="url"
+               spellcheck="false" placeholder="yourbusiness.com" aria-label="Your website address">
+      </label>
+      <button class="scan-go" type="submit" id="scanBtn">
+        <span class="scan-go-text">Scan My Site</span>
+        <span class="scan-spinner" aria-hidden="true"></span>
+      </button>
+    </form>
+    <p class="scan-hint" id="scanHint">No email needed for the score. Nothing is stored. Just the check.</p>
+
+    <div class="scan-result" id="scanResult" hidden aria-live="polite">
+      <div class="scan-score">
+        <div class="score-dial">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="dial-bg" cx="60" cy="60" r="52"></circle>
+            <circle class="dial-fg" cx="60" cy="60" r="52" id="dialFg"></circle>
+          </svg>
+          <div class="score-num"><span><b id="scoreNum">0</b><i>/100</i></span></div>
+        </div>
+        <div class="score-copy">
+          <span class="eyebrow" id="scoreGrade" style="margin:0">Scanning</span>
+          <h3 id="scoreSite">yoursite.com</h3>
+          <p id="scoreLine">Running the checks.</p>
+          <div class="score-tally" id="scoreTally"></div>
+        </div>
+      </div>
+
+      <div class="scan-checks" id="scanChecks"></div>
+
+      <div class="scan-gate" id="scanGate" hidden>
+        <div class="gate-locked" id="gateLocked" hidden>
+          <span class="gate-lock-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></span>
+          <span id="gateLockedText"></span>
+        </div>
+        <h3 id="gateHead">See the whole thing</h3>
+        <p id="gateLine">Tell me where to send it and the full report opens right here.</p>
+        <form class="gate-form" id="gateForm" novalidate>
+          <label class="gate-field">
+            <span>Your name</span>
+            <input id="gateName" type="text" autocomplete="name" placeholder="First and last">
+          </label>
+          <label class="gate-field">
+            <span>Email</span>
+            <input id="gateEmail" type="email" autocomplete="email" inputmode="email" placeholder="you@yourbusiness.com">
+          </label>
+          <input class="hp-field" id="gateHp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="gate-go" type="submit" id="gateBtn">
+            <span class="gate-go-text">Unlock My Full Report</span>
+            <span class="scan-spinner" aria-hidden="true"></span>
+          </button>
+        </form>
+        <p class="gate-status" id="gateStatus"></p>
+        <p class="gate-fine">No list, no spam. Just your report and one reply from me.</p>
+      </div>
+
+      <div class="scan-strip" id="scanStrip" hidden>
+        <span class="strip-ico"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8L21 10h-7z"/></svg></span>
+        <div class="strip-copy">
+          <h3>Want the fixes, not just the flags?</h3>
+          <p>Send it over and I will reply with what I would change first, in plain English, in priority order.</p>
+        </div>
+        <a class="btn btn-solid" href="tel:+13094158793">Call (309) 415-8793</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <h2>What the check actually looks at</h2>
+      <p>Fourteen checks, weighted, scored out of 100. No vanity metrics, only the things that decide whether a visitor stays and whether Google sends you any in the first place.</p>
+      <ul class="checklist">
+        <li><b>Speed</b><span>How fast your server answers and how heavy the page is before a single image loads. Slow pages lose people before they read a word.</span></li>
+        <li><b>Mobile</b><span>Whether the page is genuinely built for a phone or just shrunk down. Most of your traffic is on a phone.</span></li>
+        <li><b>Trust</b><span>HTTPS, the padlock, and the basics that stop a browser warning people away from you.</span></li>
+        <li><b>How Google reads you</b><span>Title, description, headings, structured data. The difference between being findable and being invisible.</span></li>
+        <li><b>Contact paths</b><span>Whether a visitor who wants to hire you can find a phone number, an address, or a form without hunting.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="blk">
+    <div class="wrap">
+      <h2>What happens after the score</h2>
+      <ol class="steps">
+        <li><b>You get the number free</b><span>Score, grade and verdict, no email required. If the site has real problems you also see the worst of them straight away.</span></li>
+        <li><b>You unlock the full list if you want it</b><span>Name and email opens every check on the page, plus what I would fix first.</span></li>
+        <li><b>You decide what to do with it</b><span>Fix it yourself, hand it to whoever built the site, or call me. The report is yours either way.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="blk" id="faq">
+    <div class="wrap">
+      <h2>Questions people actually ask</h2>
+      <div class="faq">
+        <details><summary>Is this really free?</summary><div class="a"><p>Yes. The score, the grade and the verdict cost nothing and need no email. The itemised report is unlocked with a name and an email so I know who I am talking to.</p></div></details>
+        <details><summary>How long does it take?</summary><div class="a"><p>About ten seconds. The scanner fetches your live page and runs the checks in real time, it is not pulling a cached report from somewhere else.</p></div></details>
+        <details><summary>Do you store my site or my results?</summary><div class="a"><p>Not for the score. Nothing is saved. If you unlock the full report, your name, email and result come to my inbox so I can follow up.</p></div></details>
+        <details><summary>My score is low. Does that mean I need a whole new site?</summary><div class="a"><p>Often no. A lot of what gets flagged is a fix, not a rebuild. I will tell you plainly which one you are looking at, even when the honest answer is that you do not need me.</p></div></details>
+        <details><summary>Will this work on any website?</summary><div class="a"><p>Any public site that is live and reachable. Pages behind a login, a password, or an aggressive firewall cannot be fetched.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2>Know the number. Then decide.</h2>
+      <p>Fifteen minutes on the phone and you will know exactly what your site should be, whether I build it or not.</p>
+      <div class="btns">
+        <a class="btn btn-solid" href="tel:+13094158793">Call or text (309) 415-8793</a>
+        <a class="btn btn-ghost" href="mailto:ryder@ryderschilling.com">ryder@ryderschilling.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <small>&copy; 2026 Ryder Schilling LLC &middot; Santa Rosa Beach, FL 32459</small>
+      <small style="margin-top:6px">Web design and AI systems. Not a property management company.</small>
+    </div>
+    <nav aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/services/custom-websites/">Custom Websites</a>
+      <a href="/services/ecommerce/">Ecommerce</a>
+      <a href="/services/ai-receptionist/">AI Receptionist</a>
+      <a href="/services/hosting-and-care/">Hosting &amp; Care</a>
+      <a href="/portfolio/">Portfolio</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var scanForm = document.getElementById('scanForm');
+  if (!scanForm) return;
+
+  var scanInput  = document.getElementById('scanUrl');
+  var scanBtn    = document.getElementById('scanBtn');
+  var scanHint   = document.getElementById('scanHint');
+  var scanResult = document.getElementById('scanResult');
+  var dialFg     = document.getElementById('dialFg');
+  var DIAL_LEN   = 2 * Math.PI * 52;
+  var HINT_DEFAULT = scanHint.textContent;
+  var scannedUrl = '';
+
+  var ICONS = {
+    pass: '<svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>',
+    warn: '<svg viewBox="0 0 24 24"><path d="M12 7v6M12 17h.01"/></svg>',
+    fail: '<svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>'
+  };
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function setHint(msg, isError) {
+    scanHint.textContent = msg;
+    scanHint.classList.toggle('is-error', !!isError);
+  }
+
+  function busy(on) {
+    scanBtn.disabled = on;
+    scanBtn.classList.toggle('is-busy', on);
+    scanBtn.querySelector('.scan-go-text').textContent = on ? 'Scanning' : 'Scan My Site';
+  }
+
+  /* ---- lead gate ------------------------------------------------
+     A healthy site (80+) sees the number and the verdict only. A site
+     with real problems also sees its three worst, because that is the
+     hook. Everything else sits behind a name and an email, and the
+     unlock sticks for the session so a second scan is not a second wall. */
+  var GATE_AT = 80;
+  var unlocked = false;
+  var lastScan = null;
+
+  function checkHtml(c, i) {
+    return '<div class="check s-' + c.state + '" style="animation-delay:' + (i * 40) + 'ms">' +
+      '<span class="check-ico">' + ICONS[c.state] + '</span>' +
+      '<div class="check-body">' +
+        '<span class="check-group">' + esc(c.group) + '</span>' +
+        '<h4>' + esc(c.label) + '</h4>' +
+        '<p>' + esc(c.detail) + '</p>' +
+      '</div></div>';
+  }
+
+  function worstFirst(checks) {
+    var rank = { fail: 0, warn: 1, pass: 2 };
+    return checks.slice().sort(function (a, b) { return rank[a.state] - rank[b.state]; });
+  }
+
+  function paint(data, showAll) {
+    var tally    = document.getElementById('scoreTally');
+    var checksEl = document.getElementById('scanChecks');
+    var gate     = document.getElementById('scanGate');
+    var locked   = document.getElementById('gateLocked');
+    var strip    = document.getElementById('scanStrip');
+    var healthy  = data.score >= GATE_AT;
+
+    if (showAll) {
+      tally.hidden = false;
+      checksEl.innerHTML = worstFirst(data.checks).map(checkHtml).join('');
+      gate.hidden = true;
+      strip.hidden = false;
+      return;
+    }
+
+    var preview = healthy ? [] : worstFirst(data.checks).filter(function (c) {
+      return c.state !== 'pass';
+    }).slice(0, 3);
+
+    tally.hidden = healthy;
+    checksEl.innerHTML = preview.map(checkHtml).join('');
+    strip.hidden = true;
+
+    var hiddenCount = data.checks.length - preview.length;
+    locked.hidden = hiddenCount < 1;
+    document.getElementById('gateLockedText').textContent =
+      hiddenCount + (hiddenCount === 1 ? ' more check' : ' more checks') + ' on this page, plus what I would fix first';
+
+    document.getElementById('gateHead').textContent = healthy
+      ? 'Solid score. Here is what is still leaking.'
+      : 'That is ' + preview.length + ' of ' + data.checks.length + '. Want the rest?';
+    document.getElementById('gateLine').textContent = healthy
+      ? 'A ' + data.score + ' means the basics are right, so the wins left are the ones your competitors have not found either. Tell me where to send them.'
+      : 'The full list plus what I would fix first, in plain English, in the order that matters. Opens right here.';
+
+    gate.hidden = false;
+  }
+
+  function countUp(el, to) {
+    if (reduced) { el.textContent = to; return; }
+    var start = null, dur = 1100;
+    function step(ts) {
+      if (start === null) start = ts;
+      var p = Math.min(1, (ts - start) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * eased);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function render(data) {
+    scannedUrl = data.finalUrl || data.url;
+    lastScan = data;
+    var host = scannedUrl;
+    try { host = new URL(scannedUrl).host; } catch (e) { /* keep raw */ }
+    lastScan.host = host;
+
+    scanResult.classList.toggle('is-low', data.score < 75 && data.score >= 55);
+    scanResult.classList.toggle('is-bad', data.score < 55);
+
+    document.getElementById('scoreGrade').textContent = data.grade;
+    document.getElementById('scoreSite').textContent = host;
+    document.getElementById('scoreLine').textContent = data.summary;
+    document.getElementById('scoreTally').innerHTML =
+      '<span class="tally t-pass">' + data.counts.pass + ' passing</span>' +
+      '<span class="tally t-warn">' + data.counts.warn + ' worth a look</span>' +
+      '<span class="tally t-fail">' + data.counts.fail + ' costing you</span>';
+
+    paint(data, unlocked);
+    scanResult.hidden = false;
+
+    var numEl = document.getElementById('scoreNum');
+    dialFg.style.strokeDasharray = DIAL_LEN;
+    dialFg.style.strokeDashoffset = DIAL_LEN;
+    if (reduced) {
+      dialFg.style.transition = 'none';
+      dialFg.style.strokeDashoffset = DIAL_LEN * (1 - data.score / 100);
+    } else {
+      requestAnimationFrame(function () {
+        dialFg.style.strokeDashoffset = DIAL_LEN * (1 - data.score / 100);
+      });
+    }
+    countUp(numEl, data.score);
+  }
+
+  scanForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var raw = scanInput.value.trim();
+    if (!raw) { setHint('Type your website address first.', true); scanInput.focus(); return; }
+
+    busy(true);
+    setHint('Fetching your page and running the checks.', false);
+
+    fetch('/api/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: raw })
+    }).then(function (r) {
+      return r.json().then(function (body) { return { status: r.status, body: body }; });
+    }).then(function (out) {
+      busy(false);
+      if (out.body && out.body.ok) {
+        setHint(HINT_DEFAULT, false);
+        render(out.body);
+      } else {
+        setHint((out.body && out.body.error) || 'That scan did not go through.', true);
+      }
+    }).catch(function () {
+      busy(false);
+      setHint('The scanner did not answer. Give it another go in a moment.', true);
+    });
+  });
+
+  /* ---- gate submit: unlock the page and send Ryder the lead ---- */
+  var INBOX = ['ryderschilling', '@', 'gmail', '.', 'com'].join('');
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + INBOX;
+
+  var gateForm = document.getElementById('gateForm');
+  if (gateForm) {
+    var gateBtn = document.getElementById('gateBtn');
+    var gateStatus = document.getElementById('gateStatus');
+
+    var gateSay = function (msg, kind) {
+      gateStatus.textContent = msg || '';
+      gateStatus.classList.toggle('is-error', kind === 'error');
+    };
+
+    var gateBusy = function (on) {
+      gateBtn.disabled = on;
+      gateBtn.classList.toggle('is-busy', on);
+      gateBtn.querySelector('.gate-go-text').textContent = on ? 'Unlocking' : 'Unlock My Full Report';
+    };
+
+    var openReport = function () {
+      unlocked = true;
+      if (lastScan) paint(lastScan, true);
+    };
+
+    gateForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (document.getElementById('gateHp').value) { openReport(); return; }
+
+      var nameEl = document.getElementById('gateName');
+      var mailEl = document.getElementById('gateEmail');
+      var name = nameEl.value.trim();
+      var email = mailEl.value.trim();
+
+      Array.prototype.forEach.call(gateForm.querySelectorAll('.gate-field'), function (f) {
+        f.classList.remove('is-invalid');
+      });
+      if (!name) {
+        nameEl.closest('.gate-field').classList.add('is-invalid'); nameEl.focus();
+        gateSay('Put a name in so I know who I am talking to.', 'error'); return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        mailEl.closest('.gate-field').classList.add('is-invalid'); mailEl.focus();
+        gateSay('That email address does not look right.', 'error'); return;
+      }
+
+      var d = lastScan || {};
+      var flagged = (d.checks || []).filter(function (c) { return c.state !== 'pass'; })
+        .map(function (c) { return c.label + ' (' + c.state + ')'; }).join(', ');
+
+      var payload = {
+        _subject: 'Site scan (/score): ' + (d.host || 'a site') + ' scored ' + (d.score == null ? '?' : d.score),
+        _template: 'table',
+        _captcha: 'false',
+        name: name,
+        email: email,
+        site: d.host || scannedUrl || '(unknown)',
+        score: (d.score == null ? '?' : d.score) + '/100 (' + (d.grade || '') + ')',
+        issues: flagged || 'none flagged',
+        source: '/score page'
+      };
+
+      gateBusy(true);
+      gateSay('Unlocking.', null);
+
+      /* the report is the deal: it opens whatever my inbox does. One
+         guard so a hanging POST can never leave someone stuck on
+         "Unlocking", and one flag so it can never open twice. */
+      var done = false;
+      var finish = function () {
+        if (done) return;
+        done = true;
+        gateBusy(false); gateSay(''); openReport();
+      };
+      var timer = setTimeout(finish, 4000);
+
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) { return r.json(); })
+        .catch(function () { /* swallowed on purpose */ })
+        .then(function () { clearTimeout(timer); finish(); });
+    });
+  }
+
+  /* deep link: /score?url=example.com runs the scan on load */
+  var qs = new URLSearchParams(window.location.search);
+  var pre = qs.get('url') || qs.get('site');
+  if (pre) {
+    scanInput.value = pre.replace(/^https?:\/\//i, '');
+    scanForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+  }
+})();
+</script>
+</body>
+</html>
