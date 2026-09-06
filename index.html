@@ -1824,183 +1824,6 @@
       </div>
     </section>
 
-    <!-- ===== IMAGE STREAM: the corridor of live builds =====
-         Port of @ruixen.ui/image-stream-hero (21st.dev). Same geometry, same
-         defaults, same generated keyframes: the React component only ever
-         built a <style> tag and a stack of divs, so this is that, in the
-         vanilla JS this site actually runs. Fully scoped under .stream. ===== -->
-    <style>
-      .stream{position:relative;overflow:hidden;container-type:inline-size;
-        background:var(--dark,#0e0d0b);color:var(--accent-inv,#E9E3D5);
-        height:clamp(460px,52vw,820px);isolation:isolate}
-      .stream-rails{position:absolute;inset:0;pointer-events:none}
-      .stream-stage{position:absolute;inset:0;transform-style:preserve-3d}
-      .stream-card{position:absolute;overflow:hidden;backface-visibility:hidden}
-      .stream-card img{height:100%;width:100%;object-fit:cover;display:block}
-      /* the copy has to stay readable over a moving image field */
-      .stream-veil{position:absolute;inset:0;pointer-events:none;z-index:1;
-        background:radial-gradient(58% 46% at 50% 30%,rgba(14,13,11,.88) 0%,rgba(14,13,11,.55) 55%,rgba(14,13,11,0) 100%),
-                   linear-gradient(to bottom,rgba(14,13,11,.72) 0%,rgba(14,13,11,0) 26%,rgba(14,13,11,0) 68%,rgba(14,13,11,.86) 100%)}
-      .stream-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
-        align-items:center;justify-content:space-between;text-align:center;
-        padding:clamp(34px,4.4vw,72px) clamp(20px,4vw,64px)}
-      .stream-copy h2{font-family:var(--display,'ArchivoVar',system-ui,sans-serif);font-weight:500;
-        font-size:clamp(30px,4.6vw,72px);line-height:.99;letter-spacing:-.035em;margin:0;
-        color:var(--accent-inv,#E9E3D5);text-wrap:balance;max-width:16ch;
-        text-shadow:0 2px 30px rgba(14,13,11,.55)}
-      .stream-foot{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,1.5vw,22px)}
-      .stream-copy p{margin:0;max-width:46ch;text-wrap:balance;
-        font-size:clamp(13px,1.05vw,18px);line-height:1.55;color:rgba(233,227,213,.74);
-        text-shadow:0 2px 24px rgba(14,13,11,.7)}
-      .stream-cta{display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-        font:500 clamp(13px,1vw,17px)/1 var(--text,'InstrumentSansVar',system-ui,sans-serif);
-        padding:clamp(13px,1.1vw,18px) clamp(20px,1.7vw,28px);border-radius:99px;
-        background:var(--accent-inv,#E9E3D5);color:var(--accent-inv-on,#0B0A08);
-        border:1px solid var(--accent-inv,#E9E3D5);
-        transition:transform .3s var(--ease,cubic-bezier(.22,1,.36,1)),background .3s var(--ease,cubic-bezier(.22,1,.36,1))}
-      .stream-cta:hover{transform:translateY(-2px);background:#fff}
-      .stream-cta svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-      /* Pausing rather than disabling keeps the corridor whole: every card is
-         already dropped mid-flight by its negative delay, so it freezes as a
-         finished still instead of collapsing onto the axis. */
-      @media (prefers-reduced-motion:reduce){.stream-card{animation-play-state:paused}.stream-cta{transition:none}}
-      @media (max-width:900px){.stream{height:clamp(420px,86vw,620px)}}
-    </style>
-
-    <section class="stream" id="stream" aria-label="Live builds">
-      <div class="stream-rails" id="streamRails" aria-hidden="true">
-        <div class="stream-stage" id="streamStage"></div>
-      </div>
-      <div class="stream-veil" aria-hidden="true"></div>
-      <div class="stream-copy">
-        <h2>Real businesses.<br>Real live sites.</h2>
-        <div class="stream-foot">
-          <p>Every one of these started as an empty file. No templates, no themes, no page builders. Yours would be next.</p>
-          <a class="stream-cta" href="/portfolio/">See every build
-            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <script>
-    /* ── the corridor ────────────────────────────────────────────────
-     * Two rails of cards ride from far behind the screen toward the
-     * viewer. Perspective alone does the work that looks like two
-     * animations: as a card's z grows it gets bigger AND its screen x
-     * sweeps outward from the vanishing point.
-     *
-     * 1. Depth is authored as apparent size, geometrically, so consecutive
-     *    cards keep a constant size ratio and the ribbon stays solid.
-     * 2. The rails open hard in the first stretch and then hold (fan > 1).
-     * 3. A card is born ACROSS the axis (railBirth is negative), so the
-     *    throat is always covered and a newborn needs no fade in.
-     *
-     * Every length is in cqw, a percentage of the container's width, so the
-     * corridor keeps its proportions at any size.
-     * ─────────────────────────────────────────────────────────────── */
-    (function () {
-      'use strict';
-      var stage = document.getElementById('streamStage');
-      var rails = document.getElementById('streamRails');
-      if (!stage || !rails) return;
-
-      var PATH = {
-        perspective: 30,   /* strength of the projection */
-        /* 38, not the component's 18: these are landscape site screenshots,
-           and a portrait card crops them to an unreadable middle strip.
-           Height stays 25 so the depth math is untouched. */
-        cardWidth: 38,
-        cardHeight: 25,    /* card height in world units */
-        cardRadius: 0.4,
-        birthHeight: 2.6,  /* on-screen card height at the waist */
-        exitHeight: 46,    /* on-screen card height as it leaves frame */
-        railBirth: -11,    /* negative: born across the axis */
-        railExit: 44,
-        fan: 3.3,          /* >1 opens early then holds */
-        turnBirth: 6,
-        turnExit: 28,
-        stops: 24
-      };
-      /* 10, one per build: with 9 the tenth image would never be dealt onto
-         a rail. Denser, not faster, and the ribbon still overlaps. */
-      var CARDS = 10;
-      var SPEED = 18;  /* seconds for one card to travel the corridor */
-      var AXIS = 55;   /* vertical placement of the axis, % of height */
-
-      var IMAGES = [
-        { src: 'assets/img/work-motion.jpg' },
-        { src: 'assets/img/work-6.jpg' },
-        { src: 'assets/img/work-nlh.jpg' },
-        { src: 'assets/img/work-7.jpg' },
-        { src: 'assets/img/work-2.jpg' },
-        { src: 'assets/img/work-kurt.jpg' },
-        { src: 'assets/img/work-5.jpg' },
-        { src: 'assets/img/work-4.jpg' },
-        { src: 'assets/img/work-3.jpg' },
-        { src: 'assets/img/work-simplysalt.jpg' }
-      ];
-
-      /* Sample the path once so the CSS keyframes trace the real curve. */
-      function keyframes(dir, name, p) {
-        var steps = [];
-        for (var s = 0; s <= p.stops; s++) {
-          var u = s / p.stops;
-          var scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u);
-          var z = p.perspective * (1 - 1 / scale);
-          var rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
-          var turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
-          steps.push(
-            (u * 100).toFixed(2) + '%{transform:translate3d(' + (dir * rail).toFixed(2) +
-            'cqw,0,' + z.toFixed(2) + 'cqw) rotateY(' + (-dir * turn).toFixed(2) + 'deg)}'
-          );
-        }
-        return '@keyframes ' + name + '{' + steps.join('') + '}';
-      }
-
-      var right = 'ish-r', left = 'ish-l';
-      var style = document.createElement('style');
-      style.textContent = keyframes(1, right, PATH) + keyframes(-1, left, PATH);
-      document.head.appendChild(style);
-
-      rails.style.perspective = PATH.perspective + 'cqw';
-      rails.style.perspectiveOrigin = '50% ' + AXIS + '%';
-
-      var frag = document.createDocumentFragment();
-      [right, left].forEach(function (name) {
-        for (var i = 0; i < CARDS; i++) {
-          /* Both rails walk the same sequence, so the left side mirrors
-             the right at every depth. */
-          var img = IMAGES[i % Math.max(IMAGES.length, 1)];
-          var card = document.createElement('div');
-          card.className = 'stream-card';
-          card.style.left = '50%';
-          card.style.top = AXIS + '%';
-          card.style.width = PATH.cardWidth + 'cqw';
-          card.style.height = PATH.cardHeight + 'cqw';
-          card.style.marginLeft = (-PATH.cardWidth / 2) + 'cqw';
-          card.style.marginTop = (-PATH.cardHeight / 2) + 'cqw';
-          card.style.borderRadius = PATH.cardRadius + 'cqw';
-          card.style.animation = name + ' ' + SPEED + 's linear infinite';
-          /* Negative delay drops each card mid-flight, so the corridor is
-             already full on the first frame. */
-          card.style.animationDelay = (-(i * SPEED) / CARDS) + 's';
-          if (img) {
-            var el = document.createElement('img');
-            el.src = img.src;
-            el.alt = '';
-            el.loading = 'lazy';
-            el.decoding = 'async';
-            el.draggable = false;
-            card.appendChild(el);
-          }
-          frag.appendChild(card);
-        }
-      });
-      stage.appendChild(frag);
-    })();
-    </script>
-
     <!-- GIANT MARK + FAQ -->
     <section class="outro">
       <div class="giant-mark" id="giantMark">
@@ -2063,6 +1886,200 @@
         </nav>
       </div>
     </section>
+
+    <!-- ===== IMAGE STREAM: the corridor of live builds =====
+         Port of @ruixen.ui/image-stream-hero (21st.dev). Same geometry, same
+         defaults, same generated keyframes: the React component only ever
+         built a <style> tag and a stack of divs, so this is that, in the
+         vanilla JS this site actually runs. Fully scoped under .stream. ===== -->
+    <style>
+      .stream{position:relative;overflow:hidden;container-type:inline-size;
+        background:var(--dark,#0e0d0b);color:var(--accent-inv,#E9E3D5);
+        height:100vh;height:100svh;min-height:520px;isolation:isolate}
+      .stream-rails{position:absolute;inset:0;pointer-events:none}
+      .stream-stage{position:absolute;inset:0;transform-style:preserve-3d}
+      .stream-card{position:absolute;overflow:hidden;backface-visibility:hidden}
+      .stream-card img{height:100%;width:100%;object-fit:cover;display:block}
+      /* the copy has to stay readable over a moving image field */
+      .stream-veil{position:absolute;inset:0;pointer-events:none;z-index:1;
+        background:radial-gradient(58% 46% at 50% 30%,rgba(14,13,11,.88) 0%,rgba(14,13,11,.55) 55%,rgba(14,13,11,0) 100%),
+                   linear-gradient(to bottom,rgba(14,13,11,.72) 0%,rgba(14,13,11,0) 26%,rgba(14,13,11,0) 68%,rgba(14,13,11,.86) 100%)}
+      .stream-copy{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+        align-items:center;justify-content:space-between;text-align:center;
+        padding:clamp(44px,6vw,96px) clamp(20px,4vw,64px)}
+      .stream-copy h2{font-family:var(--display,'ArchivoVar',system-ui,sans-serif);font-weight:500;
+        font-size:clamp(30px,4.6vw,72px);line-height:.99;letter-spacing:-.035em;margin:0;
+        color:var(--accent-inv,#E9E3D5);text-wrap:balance;max-width:16ch;
+        text-shadow:0 2px 30px rgba(14,13,11,.55)}
+      .stream-foot{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,1.5vw,22px)}
+      .stream-copy p{margin:0;max-width:46ch;text-wrap:balance;
+        font-size:clamp(13px,1.05vw,18px);line-height:1.55;color:rgba(233,227,213,.74);
+        text-shadow:0 2px 24px rgba(14,13,11,.7)}
+      .stream-cta{display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+        font:500 clamp(13px,1vw,17px)/1 var(--text,'InstrumentSansVar',system-ui,sans-serif);
+        padding:clamp(13px,1.1vw,18px) clamp(20px,1.7vw,28px);border-radius:99px;
+        background:var(--accent-inv,#E9E3D5);color:var(--accent-inv-on,#0B0A08);
+        border:1px solid var(--accent-inv,#E9E3D5);
+        transition:transform .3s var(--ease,cubic-bezier(.22,1,.36,1)),background .3s var(--ease,cubic-bezier(.22,1,.36,1))}
+      .stream-cta:hover{transform:translateY(-2px);background:#fff}
+      .stream-cta svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+      /* Pausing rather than disabling keeps the corridor whole: every card is
+         already dropped mid-flight by its negative delay, so it freezes as a
+         finished still instead of collapsing onto the axis. */
+      @media (prefers-reduced-motion:reduce){.stream-card{animation-play-state:paused}.stream-cta{transition:none}}
+      /* Every length in the corridor is cqw, so on a tall narrow phone the
+         whole thing shrinks to a thin band with dead space above and below.
+         The projection is uniform, so scaling the rendered layer scales the
+         corridor without touching the geometry. */
+      @media (max-width:900px){
+        .stream{min-height:560px}
+        .stream-rails{transform:scale(1.9)}
+      }
+      @media (max-width:560px){.stream-rails{transform:scale(2.3)}}
+    </style>
+
+    <section class="stream" id="stream" aria-label="Live builds">
+      <div class="stream-rails" id="streamRails" aria-hidden="true">
+        <div class="stream-stage" id="streamStage"></div>
+      </div>
+      <div class="stream-veil" aria-hidden="true"></div>
+      <div class="stream-copy">
+        <h2>Real businesses.<br>Real live sites.</h2>
+        <div class="stream-foot">
+          <p>Every one of these started as an empty file. No templates, no themes, no page builders. Yours would be next.</p>
+          <a class="stream-cta" href="/portfolio/">See every build
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <script>
+    /* ── the corridor ────────────────────────────────────────────────
+     * Two rails of cards ride from far behind the screen toward the
+     * viewer. Perspective alone does the work that looks like two
+     * animations: as a card's z grows it gets bigger AND its screen x
+     * sweeps outward from the vanishing point.
+     *
+     * 1. Depth is authored as apparent size, geometrically, so consecutive
+     *    cards keep a constant size ratio and the ribbon stays solid.
+     * 2. The rails open hard in the first stretch and then hold (fan > 1).
+     * 3. A card is born ACROSS the axis (railBirth is negative), so the
+     *    throat is always covered and a newborn needs no fade in.
+     *
+     * Every length is in cqw, a percentage of the container's width, so the
+     * corridor keeps its proportions at any size.
+     * ─────────────────────────────────────────────────────────────── */
+    (function () {
+      'use strict';
+      var stage = document.getElementById('streamStage');
+      var rails = document.getElementById('streamRails');
+      if (!stage || !rails) return;
+
+      var PATH = {
+        perspective: 30,   /* strength of the projection */
+        /* 38, not the component's 18: these are landscape site screenshots,
+           and a portrait card crops them to an unreadable middle strip.
+           Height stays 25 so the depth math is untouched. */
+        cardWidth: 38,
+        cardHeight: 25,    /* card height in world units */
+        cardRadius: 0.4,
+        birthHeight: 2.6,  /* on-screen card height at the waist */
+        exitHeight: 46,    /* on-screen card height as it leaves frame */
+        railBirth: -11,    /* negative: born across the axis */
+        railExit: 44,
+        fan: 3.3,          /* >1 opens early then holds */
+        turnBirth: 6,
+        turnExit: 28,
+        stops: 24
+      };
+      /* Half the component's density, on purpose. At 9 or 10 per rail the
+         cards overlap into a single wall of glass and no build is legible.
+         At 5 each card gets air around it, which is the whole point when the
+         images are somebody's actual work. Every build still appears: the
+         rails no longer mirror each other, they split the set (evens right,
+         odds left), so 5 per rail still shows all ten. */
+      var CARDS = 5;
+      var SPEED = 34;  /* seconds for one card to travel the corridor */
+      var AXIS = 55;   /* vertical placement of the axis, % of height */
+
+      var IMAGES = [
+        { src: 'assets/img/work-motion.jpg' },
+        { src: 'assets/img/work-6.jpg' },
+        { src: 'assets/img/work-nlh.jpg' },
+        { src: 'assets/img/work-7.jpg' },
+        { src: 'assets/img/work-2.jpg' },
+        { src: 'assets/img/work-kurt.jpg' },
+        { src: 'assets/img/work-5.jpg' },
+        { src: 'assets/img/work-4.jpg' },
+        { src: 'assets/img/work-3.jpg' },
+        { src: 'assets/img/work-simplysalt.jpg' }
+      ];
+
+      /* Sample the path once so the CSS keyframes trace the real curve. */
+      function keyframes(dir, name, p) {
+        var steps = [];
+        for (var s = 0; s <= p.stops; s++) {
+          var u = s / p.stops;
+          var scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u);
+          var z = p.perspective * (1 - 1 / scale);
+          var rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
+          var turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
+          steps.push(
+            (u * 100).toFixed(2) + '%{transform:translate3d(' + (dir * rail).toFixed(2) +
+            'cqw,0,' + z.toFixed(2) + 'cqw) rotateY(' + (-dir * turn).toFixed(2) + 'deg)}'
+          );
+        }
+        return '@keyframes ' + name + '{' + steps.join('') + '}';
+      }
+
+      var right = 'ish-r', left = 'ish-l';
+      /* evens ride the right rail, odds the left, so the corridor shows the
+         whole portfolio at half the density instead of the same five twice. */
+      var RAILS = [
+        { name: right, images: IMAGES.filter(function (_, k) { return k % 2 === 0; }) },
+        { name: left,  images: IMAGES.filter(function (_, k) { return k % 2 === 1; }) }
+      ];
+      var style = document.createElement('style');
+      style.textContent = keyframes(1, right, PATH) + keyframes(-1, left, PATH);
+      document.head.appendChild(style);
+
+      rails.style.perspective = PATH.perspective + 'cqw';
+      rails.style.perspectiveOrigin = '50% ' + AXIS + '%';
+
+      var frag = document.createDocumentFragment();
+      RAILS.forEach(function (rail) {
+        var name = rail.name;
+        for (var i = 0; i < CARDS; i++) {
+          var img = rail.images[i % Math.max(rail.images.length, 1)];
+          var card = document.createElement('div');
+          card.className = 'stream-card';
+          card.style.left = '50%';
+          card.style.top = AXIS + '%';
+          card.style.width = PATH.cardWidth + 'cqw';
+          card.style.height = PATH.cardHeight + 'cqw';
+          card.style.marginLeft = (-PATH.cardWidth / 2) + 'cqw';
+          card.style.marginTop = (-PATH.cardHeight / 2) + 'cqw';
+          card.style.borderRadius = PATH.cardRadius + 'cqw';
+          card.style.animation = name + ' ' + SPEED + 's linear infinite';
+          /* Negative delay drops each card mid-flight, so the corridor is
+             already full on the first frame. */
+          card.style.animationDelay = (-(i * SPEED) / CARDS) + 's';
+          if (img) {
+            var el = document.createElement('img');
+            el.src = img.src;
+            el.alt = '';
+            el.loading = 'lazy';
+            el.decoding = 'async';
+            el.draggable = false;
+            card.appendChild(el);
+          }
+          frag.appendChild(card);
+        }
+      });
+      stage.appendChild(frag);
+    })();
+    </script>
 
   </main>
 
