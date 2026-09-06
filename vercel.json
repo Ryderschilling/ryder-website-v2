@@ -1,5 +1,27 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/services/ai-receptionist",
+      "destination": "/services/ai-systems/",
+      "permanent": true
+    },
+    {
+      "source": "/services/ai-receptionist/",
+      "destination": "/services/ai-systems/",
+      "permanent": true
+    },
+    {
+      "source": "/services/ai-upgrade",
+      "destination": "/services/ai-systems/",
+      "permanent": true
+    },
+    {
+      "source": "/services/ai-upgrade/",
+      "destination": "/services/ai-systems/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

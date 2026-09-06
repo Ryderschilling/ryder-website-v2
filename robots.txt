@@ -1,4 +1,4 @@
-# ryderschilling.com — robots.txt
+# ryderschilling.com robots.txt
 # Everything is open on purpose. Search engines and AI answer engines are both
 # welcome: being quotable is the point.
 

@@ -122,17 +122,17 @@ booked work.
 
 *For sites that are live and ready to convert harder.*
 
-### The AI Upgrade: The Multiplier
+### AI Systems: The Multiplier
 
 Recurring systems that work while you don't. Three lanes, no overlap, all running under your
 brand.
 
-- AI Receptionist: answers and books 24/7
+- AI Follow-Up Engine: reviews, reactivation, repeat sales
 - AI Follow-Up Engine: reviews, reactivation, repeat sales
 - Back-office automations: admin and finance busywork, handled
 - Runs under your brand, month to month
 
-*For owners who want the phone answered and the follow-up handled.*
+*For owners who want the busywork gone and the follow-up handled.*
 
 ### AI Strategy Call
 
@@ -151,7 +151,7 @@ nobody else's.
 **Is it worth the cost, and what am I actually getting?**
 You're getting a site designed and coded from a blank page for your business: the copy and
 page structure, the SEO groundwork, and whatever features you need built in (booking,
-payments, a store, a portal, an AI receptionist). Not a theme with your logo dropped on it.
+payments, a store, a portal, an AI system). Not a theme with your logo dropped on it.
 It pays for itself when it turns visitors you're already getting into work you're currently
 losing.
 
@@ -169,8 +169,8 @@ Happens all the time. I audit what's there, keep what works, rebuild what doesn'
 migrate everything without losing your rankings or your mind.
 
 **What happens after launch?**
-I host it and keep it live. Power-Ups cover light monthly care, and the AI Upgrade is the
-recurring layer: a receptionist that answers 24/7, follow-ups that bring customers back, and
+I host it and keep it live. Power-Ups cover light monthly care, and AI Systems is the
+recurring layer: follow-ups that bring customers back, quoting and scheduling handled, and
 automations that kill busywork.
 
 **What's the process from start to launch?**
