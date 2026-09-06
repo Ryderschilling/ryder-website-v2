@@ -1903,11 +1903,13 @@
               so it holds still while the page moves over it,
            3. the block above is opaque and one layer higher, which is the
               curtain doing the covering.
-         The shell is half a screen taller than the reveal itself, which is
-         one beat on the finished corridor and then you are scrolling again.
-         Longer than that and the page feels stuck. */
+         The shell's height is not free: one screen of it is eaten by the
+         pull-up, and the reveal itself costs a second screen, so anything
+         under 200svh runs out of page before the curtain clears and the
+         corridor is left permanently half covered. 208svh is the reveal plus
+         a short beat on the finished corridor, and no more than that. */
       .stream-shell{position:relative;z-index:1;
-        height:150vh;height:150svh;
+        height:208vh;height:208svh;
         margin-top:-100vh;margin-top:-100svh}
       /* the curtain has to be at least as tall as the pull-up, or the corridor
          peeks out above it on a short block or a very tall window */
@@ -1960,7 +1962,7 @@
       .stream-rails{transform:scale(1.12)}
       @media (max-width:900px){
         .stream{min-height:560px}
-        .stream-shell{height:145svh}
+        .stream-shell{height:206svh}
         .stream-rails{transform:scale(2)}
       }
       @media (max-width:560px){.stream-rails{transform:scale(2.4)}}
@@ -2017,14 +2019,7 @@
         birthHeight: 2.6,  /* on-screen card height at the waist */
         exitHeight: 46,    /* on-screen card height as it leaves frame */
         railBirth: -11,    /* negative: born across the axis */
-        /* 62, not the component's 44. Its note says a card has to die with its
-           inner edge clear of the container, or the loop reset is visible as a
-           card cutting out mid-frame. A 38-wide card is much wider than the
-           18 it was tuned for, so 44 left a strip of the card on screen at the
-           moment it reset. Measured, not modelled: sampling every card's rect
-           across a full cycle, 52 still leaves 3.8% of the frame covered at the
-           reset, 60 is the first value that reaches zero. 62 for margin. */
-        railExit: 62,
+        railExit: 44,
         fan: 3.3,          /* >1 opens early then holds */
         turnBirth: 6,
         turnExit: 28,
@@ -2053,6 +2048,21 @@
         { src: 'assets/img/work-simplysalt.jpg' }
       ];
 
+      /* The component's cards are 18 wide and die well past the frame edge, so
+         the loop reset is never seen. Ours are 38, wide enough that a strip is
+         still on screen at the end of the travel, and the reset read as a card
+         cutting out mid-frame. Spreading the rails far enough to clear it tore
+         holes in the corridor, so the last tenth of the travel fades instead.
+         That stretch happens hard against the frame edge, so it reads as a card
+         passing the camera rather than as a fade.
+
+         0.97, not 0.9: the last stretch of travel is also where the cards are
+         biggest, and at 0.9 the two largest were sitting at 28% opacity while
+         each still covered a sixth of the frame, which read as the corridor
+         being half empty. By 0.97 a card's inner edge is at the frame edge and
+         only a strip of it is left to fade. */
+      var FADE_FROM = 0.97;
+
       /* Sample the path once so the CSS keyframes trace the real curve. */
       function keyframes(dir, name, p) {
         var steps = [];
@@ -2062,8 +2072,10 @@
           var z = p.perspective * (1 - 1 / scale);
           var rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
           var turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
+          var fade = u < FADE_FROM ? 1 : (1 - u) / (1 - FADE_FROM);
           steps.push(
-            (u * 100).toFixed(2) + '%{transform:translate3d(' + (dir * rail).toFixed(2) +
+            (u * 100).toFixed(2) + '%{opacity:' + fade.toFixed(3) +
+            ';transform:translate3d(' + (dir * rail).toFixed(2) +
             'cqw,0,' + z.toFixed(2) + 'cqw) rotateY(' + (-dir * turn).toFixed(2) + 'deg)}'
           );
         }
