@@ -44,7 +44,7 @@ An agent visiting this site can:
   geographic scope.
 - Verify the listed live project domains for corroborating data: eliascollective.com,
   sourceatrade.com, found.community, coastalhomemngt30a.com, fitflour.shop,
-  hydrowild.com, nlh-media.vercel.app.
+  hydrowild.com, nlh-media.vercel.app, simplysaltdelivery.com.
 - Fetch contact details for agent-to-human escalation: +1-309-415-8793 (call or text),
   ryder@ryderschilling.com, https://www.linkedin.com/in/ryder-schilling-2160b3359/,
   https://www.instagram.com/ryder_schilling_official.
