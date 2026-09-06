@@ -1386,5 +1386,18 @@
       end: 'bottom 50%',
       onToggle: function (self) { document.body.classList.toggle('over-dark', self.isActive); }
     });
+
+    /* The corridor is pinned under the FAQ block and revealed as the page
+       slides off it, so the sidebar has to invert on the reveal, not on the
+       section's own top edge: that edge is a screen above where the dark
+       actually becomes visible. */
+    ScrollTrigger.create({
+      trigger: '.stream-shell',
+      /* the shell's top edge lines up with the first frame of the reveal, so
+         -35% is roughly the point where dark owns most of the screen */
+      start: 'top -35%',
+      end: 'bottom bottom',
+      onToggle: function (self) { document.body.classList.toggle('over-dark', self.isActive); }
+    });
   }
 })();
