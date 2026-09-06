@@ -1903,10 +1903,11 @@
               so it holds still while the page moves over it,
            3. the block above is opaque and one layer higher, which is the
               curtain doing the covering.
-         The shell is taller than one screen so the corridor holds after the
-         reveal finishes instead of immediately scrolling away. */
+         The shell is half a screen taller than the reveal itself, which is
+         one beat on the finished corridor and then you are scrolling again.
+         Longer than that and the page feels stuck. */
       .stream-shell{position:relative;z-index:1;
-        height:230vh;height:230svh;
+        height:150vh;height:150svh;
         margin-top:-100vh;margin-top:-100svh}
       /* the curtain has to be at least as tall as the pull-up, or the corridor
          peeks out above it on a short block or a very tall window */
@@ -1959,7 +1960,7 @@
       .stream-rails{transform:scale(1.12)}
       @media (max-width:900px){
         .stream{min-height:560px}
-        .stream-shell{height:210svh}
+        .stream-shell{height:145svh}
         .stream-rails{transform:scale(2)}
       }
       @media (max-width:560px){.stream-rails{transform:scale(2.4)}}
@@ -2016,7 +2017,14 @@
         birthHeight: 2.6,  /* on-screen card height at the waist */
         exitHeight: 46,    /* on-screen card height as it leaves frame */
         railBirth: -11,    /* negative: born across the axis */
-        railExit: 44,
+        /* 62, not the component's 44. Its note says a card has to die with its
+           inner edge clear of the container, or the loop reset is visible as a
+           card cutting out mid-frame. A 38-wide card is much wider than the
+           18 it was tuned for, so 44 left a strip of the card on screen at the
+           moment it reset. Measured, not modelled: sampling every card's rect
+           across a full cycle, 52 still leaves 3.8% of the frame covered at the
+           reset, 60 is the first value that reaches zero. 62 for margin. */
+        railExit: 62,
         fan: 3.3,          /* >1 opens early then holds */
         turnBirth: 6,
         turnExit: 28,
@@ -2029,7 +2037,7 @@
          rails no longer mirror each other, they split the set (evens right,
          odds left), so 5 per rail still shows all ten. */
       var CARDS = 5;
-      var SPEED = 34;  /* seconds for one card to travel the corridor */
+      var SPEED = 26;  /* seconds for one card to travel the corridor */
       var AXIS = 55;   /* vertical placement of the axis, % of height */
 
       var IMAGES = [
