@@ -15,8 +15,8 @@
 
 window.BOOKS_CONFIG = {
   goal: 52,
-  startDate: "2026-10-01",          // day one
-  endDate: "2027-09-30",            // day 365
+  startDate: "2026-09-09",          // day one, book 1 opened
+  endDate: "2027-09-08",            // day 365
   tag: "ryderschillin-20",          // Amazon Associates tag
   instagram: "https://www.instagram.com/ryderschillingofficial/",
   handle: "@ryderschillingofficial"
@@ -32,10 +32,10 @@ window.BOOKS = [
     asin: "B001X5YGEM",
     cover: "/assets/books/01-trash-man.jpg",
     photo: "/assets/books/01-trash-man-photo.jpg",
-    status: "reading",              // reading | done | queued
-    started: "2026-10-01",
-    finished: "",
-    rating: 0,                      // out of 10, fill when done
+    status: "done",                 // reading | done | queued
+    started: "2026-09-09",
+    finished: "2026-09-15",
+    rating: 0,                      // TODO Ryder: out of 10. Until this is set the card shows no score.
     pages: 152,
     tags: ["Business", "Mindset"],
     verdict: "",                    // one sentence, shows on the card
@@ -43,6 +43,27 @@ window.BOOKS = [
     takeaways: [],                  // 3 lines max
     quote: "",
     buy: "https://www.amazon.com/gp/product/B001X5YGEM?smid=A2E76B261HPXT3&psc=1&linkCode=ll2&tag=ryderschillin-20&linkId=66d08c76a34a4887c469227087b9a493&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl"
+  },
+
+  {
+    n: 2,
+    title: "100 Bible Principles for Business",
+    subtitle: "Inspired by Myron Golden, delivered by Dennis \"SpecialistET\" Allen",
+    author: "Dennis Juan Allen",
+    asin: "B0GL2ND3V6",
+    cover: "",                      // drop a jpg in /assets/books/ to override the Amazon cover
+    photo: "",
+    status: "reading",
+    started: "2026-09-16",
+    finished: "",
+    rating: 0,
+    pages: 0,                       // fill in from the book, do not guess
+    tags: ["Business", "Faith"],
+    verdict: "",
+    report: "",
+    takeaways: [],
+    quote: "",
+    buy: "https://amzn.to/4xnP5CU"
   }
 
 ];

@@ -68,7 +68,8 @@
   set("st-read", DONE.length + '<small> / ' + GOAL + "</small>");
   set("st-week", started ? pad(week) + '<small> / ' + GOAL + "</small>" : "SOON");
   set("st-pages", pagesRead ? pagesRead.toLocaleString() : "0");
-  set("st-avg", RATED.length ? rate(avg) + "<small> / 10</small>" : "0<small> / 10</small>");
+  // no rated books yet means no average, not a zero. Never show a score nobody gave.
+  set("st-avg", RATED.length ? rate(avg) + "<small> / 10</small>" : "Pending");
   set("st-pace", !started ? "0" : (pace > 0 ? "+" + pace : "" + pace));
   var paceEl = document.getElementById("st-pace");
   if (paceEl && paceEl.parentElement) paceEl.parentElement.classList.add(pace >= 0 ? "pace-up" : "pace-down");
