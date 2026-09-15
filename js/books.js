@@ -10,7 +10,7 @@
    COVERS: either drop a jpg in /assets/books/ and set cover,
    or just set asin and Amazon serves the cover automatically.
    photo = your own shot of the book (optional, used on the feature).
-   rating is out of 10. Use halves if you want: 8.5 works.
+   rating is out of 5. Use halves if you want: 4.5 works.
    ================================================================== */
 
 window.BOOKS_CONFIG = {
@@ -18,8 +18,8 @@ window.BOOKS_CONFIG = {
   startDate: "2026-09-09",          // day one, book 1 opened
   endDate: "2027-09-08",            // day 365
   tag: "ryderschillin-20",          // Amazon Associates tag
-  instagram: "https://www.instagram.com/ryderschillingofficial/",
-  handle: "@ryderschillingofficial"
+  instagram: "https://www.instagram.com/ryder_schilling_official/",
+  handle: "@ryder_schilling_official"
 };
 
 window.BOOKS = [
@@ -35,7 +35,7 @@ window.BOOKS = [
     status: "reading",              // reading | done | queued
     started: "2026-09-09",
     finished: "",
-    rating: 0,                      // out of 10, fill when done
+    rating: 0,                      // out of 5, fill when done
     pages: 152,
     tags: ["Business", "Mindset"],
     verdict: "",                    // one sentence, shows on the card
@@ -84,7 +84,7 @@ window.BOOKS_QUEUE = [
     status: "done",
     started: "2026-10-08",
     finished: "2026-10-14",
-    rating: 8,
+    rating: 4,
     pages: 0,
     tags: ["Business"],
     verdict: "",

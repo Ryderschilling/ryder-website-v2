@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>52 Books in a Year, Ryder Schilling</title>
-<meta name="description" content="One book a week for a year, in public. Every book gets a rating out of ten and a straight report on whether it was worth the week. Follow the shelf or do the year with me.">
+<meta name="description" content="One book a week for a year. Every book gets a rating out of five and a report on whether it was worth the week and what I learned from it. Follow the shelf or do the year with me.">
 <link rel="canonical" href="https://ryderschilling.com/52/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Ryder Schilling">
@@ -41,7 +41,7 @@
       "@id": "https://ryderschilling.com/52/#webpage",
       "url": "https://ryderschilling.com/52/",
       "name": "52 Books in a Year, Ryder Schilling",
-      "description": "A public reading challenge: one book a week for a year, each with a rating out of ten and a written report.",
+      "description": "A public reading challenge: one book a week for a year, each with a rating out of five and a written report.",
       "isPartOf": { "@id": "https://ryderschilling.com/#website" },
       "author": { "@type": "Person", "name": "Ryder Schilling", "url": "https://ryderschilling.com/" }
     },
@@ -82,7 +82,7 @@
     <span class="eyebrow">The Challenge</span>
     <div class="b-top">
       <h1>52 books in a year.</h1>
-      <p class="lede">One book every seven days, in public. Each one gets a rating out of ten and a report on whether it was worth the week, not a summary you could have read on the back cover.</p>
+      <p class="lede">One book every seven days. Each one gets a rating out of five and a report on whether it was worth the week, and what I learned from the book.</p>
     </div>
 
     <div class="tracker">
@@ -91,6 +91,12 @@
         <p class="v" id="tracker-v">Loading</p>
       </div>
       <div class="cells" id="cells"></div>
+      <div class="legend">
+        <span class="l-done"><i></i>Read and rated</span>
+        <span class="l-now"><i></i>Reading now</span>
+        <span class="l-plan"><i></i>Picked, buy ahead</span>
+        <span class="l-open"><i></i>Open, suggest one</span>
+      </div>
     </div>
 
     <div class="bstats">
@@ -147,7 +153,7 @@
         </div>
         <div>
           <form class="bform" id="join-form" novalidate>
-            <div class="fld"><label for="j-name">First name</label><input id="j-name" name="name" type="text" placeholder="What do I call you?" autocomplete="given-name" required></div>
+            <div class="fld"><label for="j-name">First name</label><input id="j-name" name="name" type="text" placeholder="Full Name?" autocomplete="given-name" required></div>
             <div class="fld"><label for="j-email">Email</label><input id="j-email" name="contact" type="email" placeholder="Where the weekly recap lands" autocomplete="email" required></div>
             <div class="fld"><label for="j-msg">Instagram handle, optional</label><input id="j-msg" name="msg" type="text" placeholder="So I know who to repost"></div>
             <button class="btn btn-solid" type="submit"><span>I am in</span></button>
@@ -158,7 +164,7 @@
             <p>Watch your inbox on Sundays. Now go start your book, that is the whole thing.</p>
           </div>
           <div class="btns">
-            <a class="btn btn-ghost" href="https://www.instagram.com/ryderschillingofficial/" target="_blank" rel="noopener">Follow it on Instagram</a>
+            <a class="btn btn-ghost" href="https://www.instagram.com/ryder_schilling_official/" target="_blank" rel="noopener">Follow it on Instagram</a>
           </div>
         </div>
       </div>
@@ -176,6 +182,8 @@
         </div>
         <div>
           <form class="bform rec-box" id="rec-form" novalidate>
+            <input type="hidden" id="rec-week" name="week" value="">
+            <p class="note" id="rec-forweek" hidden></p>
             <div class="fld"><label for="r-book">The book</label><input id="r-book" name="book" type="text" placeholder="Title and author" required></div>
             <div class="fld"><label for="r-why">Why it is worth a week</label><textarea id="r-why" name="why" rows="3" placeholder="One or two sentences."></textarea></div>
             <div class="fld"><label for="r-name">Your name, optional</label><input id="r-name" name="name" type="text" placeholder="So I can credit you"></div>

@@ -43,23 +43,150 @@
   var avg = RATED.length ? RATED.reduce(function (t, b) { return t + b.rating; }, 0) / RATED.length : 0;
   var pace = DONE.length - (started ? week - 1 : 0);
 
-  /* ---------- 52 cell tracker ----------------------------------- */
+  /* ---------- 52 cell tracker ------------------------------------
+     Four states, colour coded, every one of them hoverable:
+       done    green  . read and rated, opens the full report
+       now     ink    . the book currently open on the desk
+       planned amber  . picked but not read yet, links straight to buy it
+       open    clay   . no book chosen, invites a suggestion
+     The popover is one shared element, not 52 tooltips, so it can hold
+     real links without the mouse losing it on the way over.
+     --------------------------------------------------------------- */
+  var WEEKS = [];                       // index 0 = week 1
+  (function buildWeeks() {
+    var used = {};
+    ALL.forEach(function (b) {
+      if (b.n >= 1 && b.n <= GOAL) {
+        WEEKS[b.n - 1] = { week: b.n, state: b.status === "done" ? "done" : "now", book: b };
+        used[b.n] = 1;
+      }
+    });
+    // queue fills the first free weeks after the last known book
+    var w = 1;
+    QUEUE.forEach(function (q) {
+      while (w <= GOAL && used[w]) w++;
+      if (w > GOAL) return;
+      WEEKS[w - 1] = { week: w, state: "planned", book: q };
+      used[w] = 1;
+    });
+    for (var i = 1; i <= GOAL; i++) {
+      if (!WEEKS[i - 1]) WEEKS[i - 1] = { week: i, state: "open", book: null };
+    }
+  })();
+
   var cells = document.getElementById("cells");
+  var pop = null, popTimer = null, popWeek = null;
+
+  function buildPop() {
+    if (pop) return pop;
+    pop = document.createElement("div");
+    pop.id = "cellpop";
+    pop.setAttribute("role", "dialog");
+    document.body.appendChild(pop);
+    pop.addEventListener("mouseenter", function () { clearTimeout(popTimer); });
+    pop.addEventListener("mouseleave", hidePop);
+    return pop;
+  }
+
+  function popHTML(w) {
+    var b = w.book;
+    var head = '<p class="cp-week">Week ' + pad(w.week) + "</p>";
+    if (w.state === "open") {
+      return head +
+        '<p class="cp-ttl">No book picked yet.</p>' +
+        '<p class="cp-sub">This week is open. Tell me what belongs here.</p>' +
+        '<button class="cp-act" type="button" data-suggest="' + w.week + '">Suggest a book</button>';
+    }
+    var src = b.cover || (b.asin ? amz(b.asin) : "");
+    var art = src ? '<img class="cp-art" src="' + esc(src) + '" alt="" onerror="this.remove()">' : "";
+    var body = '<p class="cp-ttl">' + esc(b.title) + "</p>" +
+               '<p class="cp-sub">' + esc(b.author || "") + "</p>";
+    if (w.state === "done") {
+      body += b.rating
+        ? '<p class="cp-rate">' + rate(b.rating) + "<small> / 5</small></p>"
+        : '<p class="cp-rate cp-pending">Rating pending</p>';
+      body += '<button class="cp-act" type="button" data-report="' + b.n + '">Read the report</button>';
+    } else if (w.state === "now") {
+      body += '<p class="cp-tag">Reading this week</p>';
+      if (b.buy) body += '<a class="cp-act" href="' + esc(b.buy) + '" target="_blank" rel="noopener sponsored">Read it with me</a>';
+    } else {
+      body += '<p class="cp-tag">Coming up</p>';
+      if (b.buy) body += '<a class="cp-act" href="' + esc(b.buy) + '" target="_blank" rel="noopener sponsored">Buy it now</a>';
+    }
+    return head + '<div class="cp-row">' + art + "<div>" + body + "</div></div>";
+  }
+
+  function showPop(cell) {
+    var w = WEEKS[+cell.getAttribute("data-cell") - 1];
+    if (!w) return;
+    clearTimeout(popTimer);
+    var p = buildPop();
+    if (popWeek !== w.week) { p.innerHTML = popHTML(w); popWeek = w.week; }
+    p.className = "on s-" + w.state;
+    var r = cell.getBoundingClientRect();
+    var pw = p.offsetWidth, ph = p.offsetHeight;
+    var left = Math.min(Math.max(10, r.left + r.width / 2 - pw / 2), window.innerWidth - pw - 10);
+    var top = r.top - ph - 12;
+    if (top < 10) top = r.bottom + 12;           // flip under the cell near the top of the screen
+    p.style.left = left + "px";
+    p.style.top = top + "px";
+  }
+
+  function hidePop() {
+    popTimer = setTimeout(function () {
+      if (pop) { pop.className = ""; popWeek = null; }
+    }, 180);
+  }
+
   if (cells) {
     var html = "";
-    for (var i = 1; i <= GOAL; i++) {
-      var bk = ALL.filter(function (b) { return b.n === i; })[0];
-      var cls = "cell";
-      var tip = "Week " + pad(i);
-      if (bk && bk.status === "done") { cls += " done"; tip = pad(i) + " . " + bk.title; }
-      else if (bk && bk.status === "reading") { cls += " now"; tip = "Reading now . " + bk.title; }
-      html += '<div class="' + cls + '" data-cell="' + i + '"><span class="tip">' + esc(tip) + "</span></div>";
+    for (var i = 0; i < GOAL; i++) {
+      var w = WEEKS[i];
+      html += '<button class="cell s-' + w.state + '" type="button" data-cell="' + w.week +
+              '" aria-label="Week ' + w.week + ', ' + w.state + '"></button>';
     }
     cells.innerHTML = html;
+
+    cells.addEventListener("mouseover", function (e) {
+      var c = e.target.closest(".cell"); if (c) showPop(c);
+    });
+    cells.addEventListener("mouseout", function (e) {
+      if (e.target.closest(".cell")) hidePop();
+    });
+    cells.addEventListener("focusin", function (e) {
+      var c = e.target.closest(".cell"); if (c) showPop(c);
+    });
     cells.addEventListener("click", function (e) {
-      var c = e.target.closest(".cell.done"); if (!c) return;
-      var b = ALL.filter(function (x) { return x.n === +c.getAttribute("data-cell"); })[0];
-      if (b) openDrawer(b);
+      var c = e.target.closest(".cell"); if (c) showPop(c);   // tap to open on touch
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && pop) { pop.className = ""; popWeek = null; }
+    });
+    window.addEventListener("scroll", function () { if (pop && pop.className) { pop.className = ""; popWeek = null; } }, { passive: true });
+
+    // actions inside the popover
+    document.addEventListener("click", function (e) {
+      var rep = e.target.closest("[data-report]");
+      if (rep) {
+        var b = ALL.filter(function (x) { return x.n === +rep.getAttribute("data-report"); })[0];
+        if (pop) { pop.className = ""; popWeek = null; }
+        if (b) openDrawer(b);
+        return;
+      }
+      var sug = e.target.closest("[data-suggest]");
+      if (sug) {
+        var week = sug.getAttribute("data-suggest");
+        if (pop) { pop.className = ""; popWeek = null; }
+        var form = document.getElementById("rec-form");
+        var wk = document.getElementById("rec-week");
+        var note = document.getElementById("rec-forweek");
+        if (wk) wk.value = week;
+        if (note) { note.textContent = "Suggesting a book for week " + pad(week) + "."; note.hidden = false; }
+        if (form) {
+          form.scrollIntoView({ behavior: "smooth", block: "center" });
+          setTimeout(function () { var t = document.getElementById("r-book"); if (t) t.focus({ preventScroll: true }); }, 500);
+        }
+      }
     });
   }
 
@@ -69,7 +196,7 @@
   set("st-week", started ? pad(week) + '<small> / ' + GOAL + "</small>" : "SOON");
   set("st-pages", pagesRead ? pagesRead.toLocaleString() : "0");
   // no rated books yet means no average, not a zero. Never show a score nobody gave.
-  set("st-avg", RATED.length ? rate(avg) + "<small> / 10</small>" : "Pending");
+  set("st-avg", RATED.length ? rate(avg) + "<small> / 5</small>" : "Pending");
   set("st-pace", !started ? "0" : (pace > 0 ? "+" + pace : "" + pace));
   var paceEl = document.getElementById("st-pace");
   if (paceEl && paceEl.parentElement) paceEl.parentElement.classList.add(pace >= 0 ? "pace-up" : "pace-down");
@@ -121,7 +248,7 @@
             '<div class="now-meta">' +
               '<div><p class="k">Day</p><p class="v">' + since + (since <= 7 ? " of 7" : "") + "</p></div>" +
               (NOW.pages ? '<div><p class="k">Pages</p><p class="v">' + NOW.pages + "</p></div>" : "") +
-              '<div><p class="k">Verdict</p><p class="v">' + (NOW.rating ? rate(NOW.rating) + " / 10" : "Pending") + "</p></div>" +
+              '<div><p class="k">Verdict</p><p class="v">' + (NOW.rating ? rate(NOW.rating) + " / 5" : "Pending") + "</p></div>" +
             "</div>" +
             '<div class="btns">' +
               (NOW.buy ? '<a class="btn btn-solid" href="' + esc(NOW.buy) + '" target="_blank" rel="noopener sponsored"><span>Read it with me</span><span class="arw">&rarr;</span></a>' : "") +
@@ -141,7 +268,7 @@
     return '<button class="bk" data-n="' + b.n + '" type="button">' +
       '<span class="bk-art">' +
         '<span class="bk-num">' + pad(b.n) + "</span>" +
-        (b.rating ? '<span class="bk-rate">' + rate(b.rating) + "<small> / 10</small></span>" : "") +
+        (b.rating ? '<span class="bk-rate">' + rate(b.rating) + "<small> / 5</small></span>" : "") +
         artHTML(b) +
       "</span>" +
       '<span class="bk-meta">' +
@@ -155,7 +282,7 @@
   function paint() {
     if (!shelf) return;
     var list = DONE.slice().sort(function (a, b) { return b.n - a.n; });
-    if (activeFilter === "top") list = list.filter(function (b) { return b.rating >= 9; });
+    if (activeFilter === "top") list = list.filter(function (b) { return b.rating >= 4.5; });
     else if (activeFilter !== "all") list = list.filter(function (b) { return (b.tags || []).indexOf(activeFilter) > -1; });
 
     if (!list.length) {
@@ -174,7 +301,7 @@
     DONE.forEach(function (b) { (b.tags || []).forEach(function (t) { tags[t] = 1; }); });
     var keys = Object.keys(tags).sort();
     var f = '<button class="filt on" data-f="all">All ' + DONE.length + "</button>";
-    if (DONE.filter(function (b) { return b.rating >= 9; }).length) f += '<button class="filt" data-f="top">9 and up</button>';
+    if (DONE.filter(function (b) { return b.rating >= 4.5; }).length) f += '<button class="filt" data-f="top">4.5 and up</button>';
     keys.forEach(function (k) { f += '<button class="filt" data-f="' + esc(k) + '">' + esc(k) + "</button>"; });
     filterBar.innerHTML = keys.length || DONE.length ? f : "";
     filterBar.addEventListener("click", function (e) {
@@ -226,7 +353,7 @@
       (src ? '<img class="dr-cover" src="' + esc(src) + '" alt="' + esc(b.title) + '" onerror="this.remove()">' : "") +
       '<h2 class="dr-ttl">' + esc(b.title) + "</h2>" +
       '<p class="dr-by">' + esc(b.author) + "</p>" +
-      (b.rating ? '<div class="dr-score"><span class="big">' + rate(b.rating) + "<small> / 10</small></span><span class=\"k\">My rating</span></div>" : '<div class="dr-score"><span class="k">Report coming when I finish it</span></div>') +
+      (b.rating ? '<div class="dr-score"><span class="big">' + rate(b.rating) + "<small> / 5</small></span><span class=\"k\">My rating</span></div>" : '<div class="dr-score"><span class="k">Report coming when I finish it</span></div>') +
       (b.report ? '<p class="dr-body">' + esc(b.report) + "</p>" : (b.verdict ? '<p class="dr-body">' + esc(b.verdict) + "</p>" : "")) +
       ((b.takeaways && b.takeaways.length) ? '<p class="dr-h">What I actually took from it</p><ul class="dr-take">' +
         b.takeaways.map(function (t, i) { return "<li><b>" + pad(i + 1) + "</b><span>" + esc(t) + "</span></li>"; }).join("") + "</ul>" : "") +
@@ -295,7 +422,7 @@
       return {
         name: (f.querySelector('[name="name"]') || {}).value || "Anonymous",
         contact: (f.querySelector('[name="contact"]') || {}).value || "no email given",
-        need: "52 Books . book recommendation",
+        need: "52 Books . book recommendation" + ((f.querySelector('[name="week"]') || {}).value ? " for week " + f.querySelector('[name="week"]').value : ""),
         msg: ((f.querySelector('[name="book"]') || {}).value || "") + "\n\nWhy: " + ((f.querySelector('[name="why"]') || {}).value || "")
       };
     },
