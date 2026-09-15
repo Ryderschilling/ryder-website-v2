@@ -77,4 +77,10 @@
       <image:title>Ryder Schilling portfolio</image:title>
     </image:image>
   </url>
+  <url>
+    <loc>https://ryderschilling.com/52/</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>

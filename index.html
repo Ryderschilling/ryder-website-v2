@@ -1736,6 +1736,70 @@
       </div>
     </section>
 
+    <!-- 52 BOOKS: the reading challenge, lives in full at /52/ -->
+    <section class="section books52" id="books52">
+      <style>
+        /* same inset convention as .overview/.services: the fixed sidebar owns
+           the left 18.5vw, so content starts at --content-l (21vw desktop,
+           4.5vw once the sidebar is hidden on mobile). */
+        #books52{padding:6vw var(--content-r,1.39vw) 6vw var(--content-l,21vw)}
+        @media (max-width:900px){#books52{padding-block:14vw}}
+        #books52 .b52-wrap{width:100%}
+        #books52 .b52-grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(30px,5vw,80px);align-items:center}
+        @media (max-width:900px){#books52 .b52-grid{grid-template-columns:1fr;gap:34px}}
+        #books52 .b52-copy{max-width:46ch;color:var(--ink-2,#222220);margin:clamp(16px,1.8vw,26px) 0 0}
+        #books52 .b52-strip{display:flex;gap:clamp(10px,1.4vw,18px)}
+        #books52 .b52-strip a{flex:1 1 0;min-width:0;display:block;text-decoration:none}
+        #books52 .b52-strip .art{display:block;position:relative;aspect-ratio:2/3;overflow:hidden;
+          border:1px solid rgba(17,17,16,.10);border-radius:12px;background:var(--card,#dfdece);
+          transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s cubic-bezier(.22,1,.36,1)}
+        #books52 .b52-strip a:hover .art{transform:translateY(-6px);box-shadow:0 18px 34px rgba(17,17,16,.16)}
+        #books52 .b52-strip .art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+        #books52 .b52-strip .art.live{border-color:rgba(17,17,16,.5);box-shadow:0 0 0 1px rgba(17,17,16,.5)}
+        #books52 .b52-strip .ph{position:absolute;inset:0;z-index:0;display:flex;align-items:flex-end;padding:12px;
+          font-family:var(--display,'ArchivoVar',sans-serif);font-weight:400;font-size:1.1rem;color:var(--gray,#6d6a5e)}
+        #books52 .b52-now{font-family:var(--text,sans-serif);font-weight:600;font-size:clamp(10px,.75vw,12px);
+          letter-spacing:.14em;text-transform:uppercase;color:var(--gray,#6d6a5e);margin:16px 0 0}
+        #books52 .b52-bar{display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,44px);margin:clamp(22px,2.4vw,34px) 0 0;
+          padding-top:20px;border-top:1px solid rgba(17,17,16,.10)}
+        #books52 .b52-bar .k{font-family:var(--text,sans-serif);font-weight:600;font-size:clamp(10px,.75vw,12px);
+          letter-spacing:.14em;text-transform:uppercase;color:var(--gray,#6d6a5e);margin:0}
+        #books52 .b52-bar .v{font-family:var(--display,'ArchivoVar',sans-serif);font-weight:500;
+          font-size:clamp(20px,1.7vw,28px);letter-spacing:-.02em;margin:7px 0 0}
+        #books52 .b52-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(24px,2.6vw,36px)}
+        #books52 .b52-cta a{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border-radius:99px;
+          font-family:var(--text,sans-serif);font-weight:500;font-size:clamp(14px,1.02vw,17px);
+          padding:clamp(14px,1.2vw,18px) clamp(20px,1.7vw,28px);border:1px solid var(--ink,#111110);
+          transition:all .3s cubic-bezier(.22,1,.36,1)}
+        #books52 .b52-cta .solid{background:var(--ink,#111110);color:var(--bone,#EDE7D8)}
+        #books52 .b52-cta .solid:hover{transform:translateY(-2px)}
+        #books52 .b52-cta .ghost{color:var(--ink,#111110);border-color:rgba(17,17,16,.22)}
+        #books52 .b52-cta .ghost:hover{background:var(--card,#dfdece);border-color:var(--ink,#111110);transform:translateY(-2px)}
+        @media (prefers-reduced-motion:reduce){#books52 *{transition:none!important}}
+      </style>
+      <div class="b52-wrap">
+        <div class="b52-grid">
+          <div>
+            <span class="chip-outline reveal">Off the clock</span>
+            <h2 class="h-lg reveal">One book a week,<br>for a year, in public.</h2>
+            <p class="b52-copy reveal">Every book I finish gets a rating out of ten and a straight report on whether it was worth the week. The whole shelf is public, and so is the part where I fall behind.</p>
+            <div class="b52-bar reveal">
+              <div><p class="k">Finished</p><p class="v" id="h52-read">0 / 52</p></div>
+              <div><p class="k">Where I am</p><p class="v" id="h52-week">Week 00</p></div>
+            </div>
+            <div class="b52-cta reveal">
+              <a class="solid" href="/52/">See the shelf</a>
+              <a class="ghost" href="/52/#join">Join the challenge</a>
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="b52-strip" id="h52-strip"></div>
+            <p class="b52-now">Reading now / <span id="h52-now">Starting soon</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT: lead form + email me -->
     <section class="section contact" id="contact">
       <div class="section-head">
@@ -1863,6 +1927,7 @@
             <li><a href="/services/hosting-and-care/"><b>Hosting &amp; Care</b><i>&#8599;</i></a></li>
             <li><a href="/services/ai-strategy-call/"><b>AI Strategy Call</b><i>&#8599;</i></a></li>
             <li><a href="/30a-web-design/"><b>Web Design on 30A</b><i>&#8599;</i></a></li>
+            <li><a href="/52/"><b>52 Books in a Year</b><i>&#8599;</i></a></li>
             <li><a href="/about/"><b>About Ryder Schilling</b><i>&#8599;</i></a></li>
           </ul>
         </nav>
@@ -2118,5 +2183,7 @@
   <script src="js/vendor/lenis.min.js"></script>
   <script src="js/vendor/swiper-bundle.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="/js/books.js" defer></script>
+  <script src="/js/fiftytwo.js" defer></script>
 </body>
 </html>

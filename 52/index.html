@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>52 Books in a Year, Ryder Schilling</title>
+<meta name="description" content="One book a week for a year, in public. Every book gets a rating out of ten and a straight report on whether it was worth the week. Follow the shelf or do the year with me.">
+<link rel="canonical" href="https://ryderschilling.com/52/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Ryder Schilling">
+<meta name="geo.region" content="US-FL">
+<meta name="geo.placename" content="Santa Rosa Beach, Florida">
+<meta name="tdm-reservation" content="0">
+<link rel="alternate" type="text/plain" href="https://ryderschilling.com/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ryder Schilling">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://ryderschilling.com/52/">
+<meta property="og:title" content="52 Books in a Year, Ryder Schilling">
+<meta property="og:description" content="One book a week for a year, in public. Ratings, reports, and the whole list. Join the challenge.">
+<meta property="og:image" content="https://ryderschilling.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="52 Books in a Year, Ryder Schilling">
+<meta name="twitter:description" content="One book a week for a year, in public. Ratings, reports, and the whole list.">
+<meta name="twitter:image" content="https://ryderschilling.com/assets/img/og-image.jpg">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#d5cfbe">
+<link rel="stylesheet" href="/css/pages.css">
+<link rel="stylesheet" href="/css/books.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://ryderschilling.com/52/#webpage",
+      "url": "https://ryderschilling.com/52/",
+      "name": "52 Books in a Year, Ryder Schilling",
+      "description": "A public reading challenge: one book a week for a year, each with a rating out of ten and a written report.",
+      "isPartOf": { "@id": "https://ryderschilling.com/#website" },
+      "author": { "@type": "Person", "name": "Ryder Schilling", "url": "https://ryderschilling.com/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ryderschilling.com/" },
+        { "@type": "ListItem", "position": 2, "name": "52 Books" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/">RYDER<sup>&reg;</sup></a>
+    <nav aria-label="Primary">
+      <a class="hide-s" href="/services/custom-websites/">Websites</a>
+      <a class="hide-s" href="/services/ai-systems/">AI Systems</a>
+      <a class="hide-s" href="/52/">52 Books</a>
+      <a class="hide-s" href="/about/">About</a>
+      <a class="cta" href="tel:+13094158793">(309) 415-8793</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <nav class="crumb wrap" aria-label="Breadcrumb">
+    <ol><li><a href="/">Home</a></li><li aria-current="page">52 Books</li></ol>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <span class="eyebrow">The Challenge</span>
+    <div class="b-top">
+      <h1>52 books in a year.</h1>
+      <p class="lede">One book every seven days, in public. Each one gets a rating out of ten and a report on whether it was worth the week, not a summary you could have read on the back cover.</p>
+    </div>
+
+    <div class="tracker">
+      <div class="tracker-head">
+        <p class="k">The year, one square per book</p>
+        <p class="v" id="tracker-v">Loading</p>
+      </div>
+      <div class="cells" id="cells"></div>
+    </div>
+
+    <div class="bstats">
+      <div class="bstat"><p class="n" id="st-read">0</p><p class="k">Books finished</p></div>
+      <div class="bstat"><p class="n" id="st-week">00</p><p class="k">Current week</p></div>
+      <div class="bstat"><p class="n" id="st-pages">0</p><p class="k">Pages read</p></div>
+      <div class="bstat"><p class="n" id="st-avg">0</p><p class="k">Average rating</p></div>
+      <div class="bstat"><p class="n" id="st-pace">0</p><p class="k">Ahead or behind</p></div>
+    </div>
+  </section>
+
+  <!-- ON THE DESK -->
+  <section class="blk">
+    <div class="wrap">
+      <span class="eyebrow" data-seq><b>01</b> / On the desk</span>
+      <div id="now-wrap"></div>
+    </div>
+  </section>
+
+  <!-- THE SHELF -->
+  <section class="blk">
+    <div class="wrap">
+      <span class="eyebrow" data-seq><b>02</b> / The shelf</span>
+      <h2>Every book, rated and reported.</h2>
+      <div class="filters" id="filters"></div>
+      <div id="shelf"></div>
+    </div>
+  </section>
+
+  <!-- UP NEXT -->
+  <section class="blk" id="sec-queue">
+    <div class="wrap">
+      <span class="eyebrow" data-seq><b>03</b> / Up next</span>
+      <h2>What is loaded in the chamber.</h2>
+      <div class="queue" id="queue"></div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section class="band" id="join">
+    <div class="wrap">
+      <span class="eyebrow" style="color:rgba(237,231,216,.6);border-color:rgba(237,231,216,.16)" data-seq><b>04</b> / Come with me</span>
+      <h2>Do the year with me.</h2>
+      <div class="join-grid">
+        <div>
+          <p>You do not need my list and you do not need permission. You need a start date and somebody who will notice if you stop. That is what this is.</p>
+          <ol class="rules">
+            <li><p><b>One book a week.</b> Any book. Yours does not have to look like mine.</p></li>
+            <li><p><b>Post your finish.</b> Tag the account and I repost the people who actually show up.</p></li>
+            <li><p><b>Miss a week, keep going.</b> The people who finish are not the ones who never missed. They are the ones who came back.</p></li>
+            <li><p><b>One email a week from me.</b> What I read, what it was worth, what I am starting next. Nothing else.</p></li>
+          </ol>
+        </div>
+        <div>
+          <form class="bform" id="join-form" novalidate>
+            <div class="fld"><label for="j-name">First name</label><input id="j-name" name="name" type="text" placeholder="What do I call you?" autocomplete="given-name" required></div>
+            <div class="fld"><label for="j-email">Email</label><input id="j-email" name="contact" type="email" placeholder="Where the weekly recap lands" autocomplete="email" required></div>
+            <div class="fld"><label for="j-msg">Instagram handle, optional</label><input id="j-msg" name="msg" type="text" placeholder="So I know who to repost"></div>
+            <button class="btn btn-solid" type="submit"><span>I am in</span></button>
+            <p class="note">One email a week. Unsubscribe whenever. I do not sell lists.</p>
+          </form>
+          <div class="b-ok" id="join-ok">
+            <h3>You are in.</h3>
+            <p>Watch your inbox on Sundays. Now go start your book, that is the whole thing.</p>
+          </div>
+          <div class="btns">
+            <a class="btn btn-ghost" href="https://www.instagram.com/ryderschillingofficial/" target="_blank" rel="noopener">Follow it on Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMEND -->
+  <section class="blk">
+    <div class="wrap">
+      <div class="rec-grid">
+        <div>
+          <span class="eyebrow" data-seq><b>05</b> / Your turn</span>
+          <h2>Tell me what to read next.</h2>
+          <p>The best book I read this year is probably one somebody sends me. If a book changed how you work or how you think, put it in. I read the ones that come with a reason.</p>
+        </div>
+        <div>
+          <form class="bform rec-box" id="rec-form" novalidate>
+            <div class="fld"><label for="r-book">The book</label><input id="r-book" name="book" type="text" placeholder="Title and author" required></div>
+            <div class="fld"><label for="r-why">Why it is worth a week</label><textarea id="r-why" name="why" rows="3" placeholder="One or two sentences."></textarea></div>
+            <div class="fld"><label for="r-name">Your name, optional</label><input id="r-name" name="name" type="text" placeholder="So I can credit you"></div>
+            <div class="fld"><label for="r-email">Email, optional</label><input id="r-email" name="contact" type="email" placeholder="If you want to know when I read it"></div>
+            <button class="btn btn-solid" type="submit"><span>Send the recommendation</span></button>
+            <p class="note"></p>
+          </form>
+          <div class="b-ok" id="rec-ok">
+            <h3>Got it.</h3>
+            <p>If it makes the list you will see it on the shelf with your name on the credit line.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLOSURE -->
+  <section class="blk">
+    <div class="wrap">
+      <p class="disc">Some book links on this page are Amazon affiliate links. As an Amazon Associate I earn from qualifying purchases, at no extra cost to you. I only link books I actually read, and the rating is the rating whether it makes me a dollar or not.</p>
+    </div>
+  </section>
+</main>
+
+<!-- DRAWER -->
+<div id="bdrawer" aria-hidden="true">
+  <div class="scrim"></div>
+  <div class="panel" role="dialog" aria-modal="true" aria-label="Book report">
+    <button class="dr-close" type="button">Close</button>
+    <div class="panel-in"></div>
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <small>&copy; 2026 Ryder Schilling LLC &middot; Santa Rosa Beach, FL 32459</small>
+      <small style="margin-top:6px">Web design and AI systems. Not a property management company.</small>
+    </div>
+    <nav aria-label="Footer">
+      <a href="/">Home</a>
+      <a href="/services/custom-websites/">Custom Websites</a>
+      <a href="/services/ecommerce/">Ecommerce</a>
+      <a href="/services/ai-systems/">AI Systems</a>
+      <a href="/services/hosting-and-care/">Hosting &amp; Care</a>
+      <a href="/services/ai-strategy-call/">Strategy Call</a>
+      <a href="/30a-web-design/">30A Web Design</a>
+      <a href="/52/">52 Books</a>
+      <a href="/about/">About</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="/js/books.js" defer></script>
+<script src="/js/fiftytwo.js" defer></script>
+</body>
+</html>
