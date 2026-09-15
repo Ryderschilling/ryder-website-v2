@@ -88,6 +88,8 @@
     return pop;
   }
 
+  var CLOSE = '<button class="cp-x" type="button" data-popclose aria-label="Close">Close</button>';
+
   function popHTML(w) {
     var b = w.book;
     var head = '<p class="cp-week">Week ' + pad(w.week) + "</p>";
@@ -95,7 +97,7 @@
       return head +
         '<p class="cp-ttl">No book picked yet.</p>' +
         '<p class="cp-sub">This week is open. Tell me what belongs here.</p>' +
-        '<button class="cp-act" type="button" data-suggest="' + w.week + '">Suggest a book</button>';
+        '<button class="cp-act" type="button" data-suggest="' + w.week + '">Suggest a book</button>' + CLOSE;
     }
     var src = b.cover || (b.asin ? amz(b.asin) : "");
     var art = src ? '<img class="cp-art" src="' + esc(src) + '" alt="" onerror="this.remove()">' : "";
@@ -113,8 +115,10 @@
       body += '<p class="cp-tag">Coming up</p>';
       if (b.buy) body += '<a class="cp-act" href="' + esc(b.buy) + '" target="_blank" rel="noopener sponsored">Buy it now</a>';
     }
-    return head + '<div class="cp-row">' + art + "<div>" + body + "</div></div>";
+    return head + '<div class="cp-row">' + art + "<div>" + body + "</div></div>" + CLOSE;
   }
+
+  function isPhone() { return window.matchMedia("(max-width:560px)").matches; }
 
   function showPop(cell) {
     var w = WEEKS[+cell.getAttribute("data-cell") - 1];
@@ -122,6 +126,15 @@
     clearTimeout(popTimer);
     var p = buildPop();
     if (popWeek !== w.week) { p.innerHTML = popHTML(w); popWeek = w.week; }
+
+    // On a phone a 300px card floating beside a 40px square is fiddly and
+    // gets clipped at the screen edge, so it becomes a bottom sheet instead.
+    // CSS owns the placement there, so the inline coordinates are cleared.
+    if (isPhone()) {
+      p.style.left = ""; p.style.top = "";
+      p.className = "on sheet s-" + w.state;
+      return;
+    }
     p.className = "on s-" + w.state;
     var r = cell.getBoundingClientRect();
     var pw = p.offsetWidth, ph = p.offsetHeight;
@@ -151,7 +164,7 @@
       var c = e.target.closest(".cell"); if (c) showPop(c);
     });
     cells.addEventListener("mouseout", function (e) {
-      if (e.target.closest(".cell")) hidePop();
+      if (!isPhone() && e.target.closest(".cell")) hidePop();
     });
     cells.addEventListener("focusin", function (e) {
       var c = e.target.closest(".cell"); if (c) showPop(c);
@@ -162,10 +175,20 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && pop) { pop.className = ""; popWeek = null; }
     });
-    window.addEventListener("scroll", function () { if (pop && pop.className) { pop.className = ""; popWeek = null; } }, { passive: true });
+    // anywhere outside the grid or the card itself closes it (the only way
+    // out on touch, where there is no mouseout to rely on)
+    document.addEventListener("click", function (e) {
+      if (!pop || !pop.className) return;
+      if (e.target.closest("#cellpop") || e.target.closest(".cell")) return;
+      pop.className = ""; popWeek = null;
+    }, true);
+    window.addEventListener("scroll", function () {
+      if (!isPhone() && pop && pop.className) { pop.className = ""; popWeek = null; }
+    }, { passive: true });
 
     // actions inside the popover
     document.addEventListener("click", function (e) {
+      if (e.target.closest("[data-popclose]")) { if (pop) { pop.className = ""; popWeek = null; } return; }
       var rep = e.target.closest("[data-report]");
       if (rep) {
         var b = ALL.filter(function (x) { return x.n === +rep.getAttribute("data-report"); })[0];
