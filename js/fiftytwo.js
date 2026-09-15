@@ -196,12 +196,20 @@
     if (!QUEUE.length) {
       var sec = document.getElementById("sec-queue"); if (sec) sec.style.display = "none";
     } else {
-      q.innerHTML = QUEUE.map(function (b) {
+      // Every queue item links to its buy page. People order ahead from this
+      // row, so a cover with no link is a dead end.
+      q.innerHTML = QUEUE.map(function (b, i) {
         var src = b.asin ? amz(b.asin) : (b.cover || "");
-        return '<div class="qk"><div class="art">' +
+        var art = '<span class="art">' +
           '<span class="ph">' + esc(b.title) + "</span>" +
-          (src ? '<img src="' + esc(src) + '" alt="' + esc(b.title) + '" loading="lazy" onerror="this.remove()">' : "") +
-          '</div><p class="t">' + esc(b.title) + '</p><p class="a">' + esc(b.author || "") + "</p></div>";
+          (src ? '<img src="' + esc(src) + '" alt="' + esc(b.title) + ' cover" loading="lazy" onerror="this.remove()">' : "") +
+          '<span class="qn">Week ' + pad(DONE.length + (NOW ? 1 : 0) + i + 1) + "</span>" +
+          "</span>";
+        var meta = '<span class="t">' + esc(b.title) + '</span><span class="a">' + esc(b.author || "") + "</span>" +
+          (b.buy ? '<span class="get">Get it ahead &rarr;</span>' : "");
+        return b.buy
+          ? '<a class="qk" href="' + esc(b.buy) + '" target="_blank" rel="noopener sponsored">' + art + meta + "</a>"
+          : '<div class="qk">' + art + meta + "</div>";
       }).join("");
     }
   }
