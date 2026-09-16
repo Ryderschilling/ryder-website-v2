@@ -47,6 +47,27 @@ window.BOOKS = [
     ],
     quote: "If you empty your purse into your mind, your mind will fill your purse with gold.",
     buy: "https://www.amazon.com/gp/product/B001X5YGEM?smid=A2E76B261HPXT3&psc=1&linkCode=ll2&tag=ryderschillin-20&linkId=66d08c76a34a4887c469227087b9a493&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl"
+  },
+
+  {
+    n: 2,
+    title: "$100M Offers",
+    subtitle: "How to Make Offers So Good People Feel Stupid Saying No",
+    author: "Alex Hormozi",
+    asin: "173747574X",
+    cover: "",
+    photo: "",
+    status: "reading",              // reading | done | queued
+    started: "2026-09-16",
+    finished: "",
+    rating: 0,                      // out of 5, fill when done
+    pages: 0,
+    tags: ["Business", "Offers"],
+    verdict: "",                    // one sentence, shows on the card
+    report: "",                     // the paragraph, shows when opened
+    takeaways: [],                  // 3 lines max
+    quote: "",
+    buy: "https://amzn.to/4d4ysVN"
   }
 
 ];
@@ -55,22 +76,10 @@ window.BOOKS = [
    People buy ahead from this list, so every entry needs a buy link. */
 window.BOOKS_QUEUE = [
   {
-    title: "$100M Offers",
-    author: "Alex Hormozi",
-    asin: "173747574X",
-    buy: "https://amzn.to/4d4ysVN"
-  },
-  {
     title: "$100M Leads",
     author: "Alex Hormozi",
     asin: "1737475774",
     buy: "https://amzn.to/4ipLlgs"
-  },
-  {
-    title: "B.O.S.S. Moves",
-    author: "Myron Golden",
-    asin: "B0C9KXMCJR",
-    buy: "https://www.amazon.com/dp/B0C9KXMCJR/?tag=ryderschillin-20"
   },
   {
     title: "100 Bible Principles for Business",

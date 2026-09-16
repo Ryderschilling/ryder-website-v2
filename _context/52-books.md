@@ -1,14 +1,17 @@
 # /52 . 52 Books in a Year
 Context file for the reading challenge page. Read this before touching /52, js/books.js, or anything books related.
-Last updated 2026-09-15.
+Last updated 2026-09-16.
 
 LIVE at https://ryderschilling.com/52/
 
 ## The challenge, as it actually runs
 - **Started Wednesday 2026-09-09.** An earlier plan said Oct 1. That was wrong.
 - Reading week runs **Wednesday to Tuesday**. New book every Wednesday.
-- Book 1: From the Trash Man to the Cash Man, Myron Golden, 152pp, started 09-09.
-- Queue: 100 Bible Principles for Business (Dennis Juan Allen), then $100M Offers, then $100M Leads (Alex Hormozi).
+- Book 1: From the Trash Man to the Cash Man, Myron Golden, 152pp, started 09-09, **finished 09-16, rated 5/5.**
+- Book 2: $100M Offers, Alex Hormozi, started 09-16, currently `status:"reading"`. Pages left at 0 until the number comes off the actual book.
+- Queue as of 09-16: $100M Leads (Alex Hormozi), 100 Bible Principles for Business (Dennis Juan Allen).
+- **B.O.S.S. Moves was added then removed the same day** on Ryder's call. Do not re-add it unless he asks.
+- When nothing is `status:"reading"`, On The Desk renders a "Between books." empty state. That is correct, not a bug. Promote the next book out of the queue into `window.BOOKS` the day he opens it.
 - **Ratings are out of 5**, not 10. Changed 2026-09-15 across the whole site.
 - Amazon Associates tag `ryderschillin-20`. Short links are `amzn.to/...`.
 - Instagram is **@ryder_schilling_official** (underscores). `ryderschillingofficial` does not exist, it 404s.
@@ -60,7 +63,18 @@ Colours are deliberately desaturated, not traffic light. There is a text legend 
 4. The JS state string is `planned`, so the class is `.cell.s-planned`. Writing `.s-plan` fails silently.
 5. Amazon covers are `loading="lazy"`, so checking them before scrolling reports `naturalWidth:0`. Scroll the section in first.
 
+## Week log
+### Week 1 . From the Trash Man to the Cash Man . 5/5 . logged 2026-09-16
+Ryder supplied the rating and raw takeaways, they were polished and written into `js/books.js`. Verdict, report, three takeaways and the Franklin-paraphrase quote all filled.
+- The quote is **Myron's paraphrase of Benjamin Franklin, not Franklin's words.** It is stored unattributed in the `quote` field so it reads as a line from the book, which is accurate. Do not add "- Benjamin Franklin" to it.
+- Ryder rates out of 5 and means it. A 5 is a real 5. Do not soften a report to hedge a high score, and do not talk him into a lower one. Match the report's tone to the number he gave.
+- Queue reordered the same day. `52/index.html` said "These are the next three, in order", which was already wrong at four and wrong again at two, so that line became "These are the next few, in the order I will read them." **Any future queue length change means re-checking that sentence.**
+
+### Week 2 . $100M Offers . opened 2026-09-16
+Promoted out of the queue into `window.BOOKS` as n:2 with `status:"reading"`, same day book 1 was logged. B.O.S.S. Moves dropped from the queue at the same time, so the cover gap below is moot unless it comes back.
+
 ## Still open
-- Book 1 rating, report and takeaways. Only Ryder can supply these. The shelf card shows no score until he does.
 - Page count for 100 Bible Principles.
 - Confirm the two Hormozi short links map correctly (assumed Offers = 4d4ysVN, Leads = 4ipLlgs).
+- Page count for $100M Offers, once he has the book in hand.
+- **If B.O.S.S. Moves ever comes back, it has no Amazon cover image.** Verified 2026-09-16: `m.media-amazon.com/images/P/<ASIN>.01._SCLZZZZZZZ_.jpg` returns the 43-byte 1x1 placeholder for B0C9KXMCJR, 1737856204 and 1737856212. **43 bytes is the tell for a missing Amazon cover, a 200 status is not.** Fix would be a hand-dropped jpg in `assets/books/` plus `cover:` on the entry.
