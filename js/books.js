@@ -32,16 +32,20 @@ window.BOOKS = [
     asin: "B001X5YGEM",
     cover: "/assets/books/01-trash-man.jpg",
     photo: "/assets/books/01-trash-man-photo.jpg",
-    status: "reading",              // reading | done | queued
+    status: "done",                 // reading | done | queued
     started: "2026-09-09",
-    finished: "",
-    rating: 0,                      // out of 5, fill when done
+    finished: "2026-09-16",
+    rating: 5,                      // out of 5
     pages: 152,
     tags: ["Business", "Mindset"],
-    verdict: "",                    // one sentence, shows on the card
-    report: "",                     // the paragraph, shows when opened
-    takeaways: [],                  // 3 lines max
-    quote: "",
+    verdict: "The mental framework and the money split that get you ready for the breakthrough before it shows up.",
+    report: "Going from nothing to building your dream life is not easy. What this book gives you is the framework for it: the way you think about money, and a way to manage what you have so you are ready when the big break comes. Myron came up broke and it reads like it, everything in here is written by someone who actually had to climb. The perspective chapters changed how I look at what I earn, and the budget split is the part I started using the same week I read it. Short book, no filler, and it sets you up to maximize whatever you are working with right now.",
+    takeaways: [
+      "Your perspective is what shapes your finances. Two people can look at the same thing from different angles and see completely different things. Money works exactly the same way.",
+      "Pour into your own mind before you let anyone else pour into it. If you cannot afford the life you want, your time cannot afford TV and social media.",
+      "Budget for the life you want and for future you at the same time. Myron's split: 10% tithe, 10% invest for later, 10% self education, 10% save for what you want, 10% fun, 50% bills."
+    ],
+    quote: "If you empty your purse into your mind, your mind will fill your purse with gold.",
     buy: "https://www.amazon.com/gp/product/B001X5YGEM?smid=A2E76B261HPXT3&psc=1&linkCode=ll2&tag=ryderschillin-20&linkId=66d08c76a34a4887c469227087b9a493&language=en_US&gaOptInStatus=true&ref_=as_li_ss_tl"
   }
 
@@ -50,12 +54,6 @@ window.BOOKS = [
 /* UP NEXT, in the order you will read them.
    People buy ahead from this list, so every entry needs a buy link. */
 window.BOOKS_QUEUE = [
-  {
-    title: "100 Bible Principles for Business",
-    author: "Dennis Juan Allen",
-    asin: "B0GL2ND3V6",
-    buy: "https://amzn.to/4xnP5CU"
-  },
   {
     title: "$100M Offers",
     author: "Alex Hormozi",
@@ -67,6 +65,18 @@ window.BOOKS_QUEUE = [
     author: "Alex Hormozi",
     asin: "1737475774",
     buy: "https://amzn.to/4ipLlgs"
+  },
+  {
+    title: "B.O.S.S. Moves",
+    author: "Myron Golden",
+    asin: "B0C9KXMCJR",
+    buy: "https://www.amazon.com/dp/B0C9KXMCJR/?tag=ryderschillin-20"
+  },
+  {
+    title: "100 Bible Principles for Business",
+    author: "Dennis Juan Allen",
+    asin: "B0GL2ND3V6",
+    buy: "https://amzn.to/4xnP5CU"
   }
 ];
 
