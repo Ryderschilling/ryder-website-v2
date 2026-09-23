@@ -56,7 +56,7 @@ window.BOOKS = [
     author: "Alex Hormozi",
     asin: "173747574X",
     cover: "",
-    photo: "",
+    photo: "/assets/books/02-100m-offers-photo.jpg",
     status: "done",                 // reading | done | queued
     started: "2026-09-16",
     finished: "2026-09-22",

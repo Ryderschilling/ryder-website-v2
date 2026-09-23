@@ -75,6 +75,8 @@ Ryder supplied the rating and raw takeaways, they were polished and written into
 Finished Tuesday night 09-22, logged Wednesday 09-23. Ryder gave the rating, the report and three takeaways, they were polished and written into `js/books.js`. No quote supplied, `quote` left empty. `pages` left at 0, the count never came off the book.
 - The report leans on his own pricing example, switching from charging for build hours to selling the outcome. That is his language, keep it if the copy is ever rewritten.
 - No em-dashes, verified by grep across `js/books.js` and `52/index.html`.
+- Desk photo added 2026-09-23 as `assets/books/02-100m-offers-photo.jpg`, 1200x1600, 277KB. **It does not render.** `js/fiftytwo.js` reads `photo` only off `NOW`, the one book with `status:"reading"`, so the moment a book is marked done its photo goes dark. Book 1 has the same dead photo. If Ryder wants these on the shelf, the drawer or the done-card is where they would go, and that is a `js/fiftytwo.js` change he has not asked for yet.
+- **iPhone photos carry EXIF orientation 6.** This one was 4032x3024 landscape on disk and only portrait once transposed. Always run an EXIF transpose before resizing or the shot ships sideways.
 
 ### Week 3 . $100M Leads . opened 2026-09-23
 Promoted out of the queue into `window.BOOKS` as n:3 with `status:"reading"`, same day book 2 was logged. Subtitle set to "How to Get Strangers to Want to Buy Your Stuff".
