@@ -57,17 +57,42 @@ window.BOOKS = [
     asin: "173747574X",
     cover: "",
     photo: "",
-    status: "reading",              // reading | done | queued
+    status: "done",                 // reading | done | queued
     started: "2026-09-16",
+    finished: "2026-09-22",
+    rating: 5,                      // out of 5
+    pages: 0,
+    tags: ["Business", "Offers"],
+    verdict: "Turns a plain product into an offer people feel stupid saying no to, and you can use it the day you put it down.",
+    report: "If you sell anything, read this one. It breaks down how to take a plain product and turn it into a value based, premium priced, guaranteed offer that is hard to refuse. I have already put it to work in my own business and I only just finished it. The value equation on its own changed how I price and package websites: stop charging for the hours it took to build, start selling the outcome the business actually wants. It applies to every business, and it hands you a repeatable way to build the best offer you can instead of guessing at one.",
+    takeaways: [
+      "Commodity offer vs value based offer. Quit selling a product and sell the value it creates. Charging for the hours a website took keeps you cheap. Selling a lead converting machine that ranks higher and converts more traffic is worth far more to a business. Then go sell the businesses that value that most and will pay for it.",
+      "The value equation has four parts: dream outcome, likelihood of achievement, time delay, effort. Raise the first two, cut the last two, and the offer gets more valuable without touching the price.",
+      "Guarantees make an offer juicier. Example: if you do not get your first lead in 60 days, we work for free until you do. The odds of actually paying it out are low, and it lifts their perceived likelihood of success, which is the value equation doing the work."
+    ],
+    quote: "",
+    buy: "https://amzn.to/4d4ysVN"
+  },
+
+  {
+    n: 3,
+    title: "$100M Leads",
+    subtitle: "How to Get Strangers to Want to Buy Your Stuff",
+    author: "Alex Hormozi",
+    asin: "1737475774",
+    cover: "",
+    photo: "",
+    status: "reading",              // reading | done | queued
+    started: "2026-09-23",
     finished: "",
     rating: 0,                      // out of 5, fill when done
     pages: 0,
-    tags: ["Business", "Offers"],
+    tags: ["Business", "Leads"],
     verdict: "",                    // one sentence, shows on the card
     report: "",                     // the paragraph, shows when opened
     takeaways: [],                  // 3 lines max
     quote: "",
-    buy: "https://amzn.to/4d4ysVN"
+    buy: "https://amzn.to/4ipLlgs"
   }
 
 ];
@@ -75,12 +100,6 @@ window.BOOKS = [
 /* UP NEXT, in the order you will read them.
    People buy ahead from this list, so every entry needs a buy link. */
 window.BOOKS_QUEUE = [
-  {
-    title: "$100M Leads",
-    author: "Alex Hormozi",
-    asin: "1737475774",
-    buy: "https://amzn.to/4ipLlgs"
-  },
   {
     title: "100 Bible Principles for Business",
     author: "Dennis Juan Allen",

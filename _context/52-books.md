@@ -1,6 +1,6 @@
 # /52 . 52 Books in a Year
 Context file for the reading challenge page. Read this before touching /52, js/books.js, or anything books related.
-Last updated 2026-09-16.
+Last updated 2026-09-23.
 
 LIVE at https://ryderschilling.com/52/
 
@@ -8,8 +8,9 @@ LIVE at https://ryderschilling.com/52/
 - **Started Wednesday 2026-09-09.** An earlier plan said Oct 1. That was wrong.
 - Reading week runs **Wednesday to Tuesday**. New book every Wednesday.
 - Book 1: From the Trash Man to the Cash Man, Myron Golden, 152pp, started 09-09, **finished 09-16, rated 5/5.**
-- Book 2: $100M Offers, Alex Hormozi, started 09-16, currently `status:"reading"`. Pages left at 0 until the number comes off the actual book.
-- Queue as of 09-16: $100M Leads (Alex Hormozi), 100 Bible Principles for Business (Dennis Juan Allen).
+- Book 2: $100M Offers, Alex Hormozi, started 09-16, **finished 09-22, rated 5/5.** Pages still 0, the number never came off the book.
+- Book 3: $100M Leads, Alex Hormozi, started 09-23, currently `status:"reading"`.
+- Queue as of 09-23: 100 Bible Principles for Business (Dennis Juan Allen). **One entry left, it needs refilling.**
 - **B.O.S.S. Moves was added then removed the same day** on Ryder's call. Do not re-add it unless he asks.
 - When nothing is `status:"reading"`, On The Desk renders a "Between books." empty state. That is correct, not a bug. Promote the next book out of the queue into `window.BOOKS` the day he opens it.
 - **Ratings are out of 5**, not 10. Changed 2026-09-15 across the whole site.
@@ -70,11 +71,19 @@ Ryder supplied the rating and raw takeaways, they were polished and written into
 - Ryder rates out of 5 and means it. A 5 is a real 5. Do not soften a report to hedge a high score, and do not talk him into a lower one. Match the report's tone to the number he gave.
 - Queue reordered the same day. `52/index.html` said "These are the next three, in order", which was already wrong at four and wrong again at two, so that line became "These are the next few, in the order I will read them." **Any future queue length change means re-checking that sentence.**
 
-### Week 2 . $100M Offers . opened 2026-09-16
-Promoted out of the queue into `window.BOOKS` as n:2 with `status:"reading"`, same day book 1 was logged. B.O.S.S. Moves dropped from the queue at the same time, so the cover gap below is moot unless it comes back.
+### Week 2 . $100M Offers . 5/5 . logged 2026-09-23
+Finished Tuesday night 09-22, logged Wednesday 09-23. Ryder gave the rating, the report and three takeaways, they were polished and written into `js/books.js`. No quote supplied, `quote` left empty. `pages` left at 0, the count never came off the book.
+- The report leans on his own pricing example, switching from charging for build hours to selling the outcome. That is his language, keep it if the copy is ever rewritten.
+- No em-dashes, verified by grep across `js/books.js` and `52/index.html`.
+
+### Week 3 . $100M Leads . opened 2026-09-23
+Promoted out of the queue into `window.BOOKS` as n:3 with `status:"reading"`, same day book 2 was logged. Subtitle set to "How to Get Strangers to Want to Buy Your Stuff".
+- **Queue is down to one book.** `52/index.html` line 134 said "These are the next few, in the order I will read them", which reads wrong with a single entry, so it became "This is what I am reading next." Change it back when the queue grows past one.
+- Covers checked 2026-09-23 by byte size: 173747574X = 26055 bytes, 1737475774 = 21925 bytes, B0GL2ND3V6 = 23428 bytes. All real images, none are the 43-byte placeholder.
 
 ## Still open
+- **Queue is one book deep. Ask Ryder for the next few titles.**
 - Page count for 100 Bible Principles.
 - Confirm the two Hormozi short links map correctly (assumed Offers = 4d4ysVN, Leads = 4ipLlgs).
-- Page count for $100M Offers, once he has the book in hand.
+- Page count for $100M Offers. He finished it without giving the number, so it may stay 0 unless he goes back to the copy.
 - **If B.O.S.S. Moves ever comes back, it has no Amazon cover image.** Verified 2026-09-16: `m.media-amazon.com/images/P/<ASIN>.01._SCLZZZZZZZ_.jpg` returns the 43-byte 1x1 placeholder for B0C9KXMCJR, 1737856204 and 1737856212. **43 bytes is the tell for a missing Amazon cover, a 200 status is not.** Fix would be a hand-dropped jpg in `assets/books/` plus `cover:` on the entry.
