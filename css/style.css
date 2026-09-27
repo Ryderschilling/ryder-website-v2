@@ -908,6 +908,9 @@ body.hero-live .sidebar { pointer-events: none; }
 }
 .testi-card > blockquote::before { content: '\201C'; }
 .testi-card > blockquote::after { content: '\201D'; }
+/* long-form testimonials: same face, stepped down so a 60-word quote
+   sits at the same card height as the one-liners */
+.testi-card.tc-long > blockquote { font-size: 1.22vw; line-height: 1.34; letter-spacing: -0.01em; }
 .tc-foot { display: flex; align-items: center; gap: 1vw; margin-top: auto; padding-top: 2vw; }
 .tc-foot img { width: 3.6vw; height: 3.6vw; border-radius: 50%; object-fit: cover; }
 /* real client logos instead of a stock avatar: a wide chip, because a wordmark
@@ -1592,6 +1595,7 @@ html.no-motion .st-mark::after { transform: scaleX(1); transition: none; }
   .swiper { margin-top: 6vw; }
   .testi-card { width: 82vw; border-radius: 16px; padding: 22px; }
   .testi-card > blockquote { font-size: 21px; }
+  .testi-card.tc-long > blockquote { font-size: 16px; line-height: 1.4; }
   .tc-quote { width: 30px; height: 30px; border-radius: 8px; margin-bottom: 16px; }
   .tc-quote svg { width: 14px; height: 14px; }
   .tc-foot img { width: 44px; height: 44px; }
@@ -1615,8 +1619,8 @@ html.no-motion .st-mark::after { transform: scaleX(1); transition: none; }
   .work-card { width: 88vw; height: auto; }
 }
 
-/* only two real testimonials right now: nothing to drag, so drop the grab
-   cursor and let the cards sit centered instead of pinned left */
+/* when every testimonial fits on screen there is nothing to drag, so drop the
+   grab cursor and let the cards sit centered instead of pinned left */
 .swiper.is-static { cursor: default; }
 .swiper.is-static .swiper-wrapper { justify-content: center; }
 

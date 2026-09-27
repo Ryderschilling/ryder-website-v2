@@ -777,8 +777,7 @@
       grabCursor: true,
       freeMode: false
     });
-    /* with only a couple of real testimonials everything fits on screen and
-       there is nothing to slide, so the dots would be dead controls */
+    /* when every testimonial fits on screen there is nothing to slide, so the dots would be dead controls */
     var fits = function () { return sw.isBeginning && sw.isEnd; };
     var syncPag = function () {
       if (!segWrap) return;

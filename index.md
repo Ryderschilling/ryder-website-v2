@@ -38,6 +38,8 @@ a community platform. Every one coded from a blank page, no templates.
 
 > "I'm obsessed. Can't stop looking at it lol.", Jacob H., Fit Flour, on launch day
 
+> "Ryder was great to work with! He was very thorough throughout the entire process and communicated extremely well from start to finish. Since I'm not local, it was especially important to me to find someone who communicated well, understood what I was looking for, and paid close attention to detail. Ryder made the whole process easy. I highly recommend him.", Tucker T., Simply Salt Delivery
+
 ---
 
 ## Who you hire, and how the work happens
