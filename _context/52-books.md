@@ -78,14 +78,25 @@ Finished Tuesday night 09-22, logged Wednesday 09-23. Ryder gave the rating, the
 - Desk photo added 2026-09-23 as `assets/books/02-100m-offers-photo.jpg`, 1200x1600, 277KB. **It does not render.** `js/fiftytwo.js` reads `photo` only off `NOW`, the one book with `status:"reading"`, so the moment a book is marked done its photo goes dark. Book 1 has the same dead photo. If Ryder wants these on the shelf, the drawer or the done-card is where they would go, and that is a `js/fiftytwo.js` change he has not asked for yet.
 - **iPhone photos carry EXIF orientation 6.** This one was 4032x3024 landscape on disk and only portrait once transposed. Always run an EXIF transpose before resizing or the shot ships sideways.
 
-### Week 3 . $100M Leads . opened 2026-09-23
+### Week 3 . $100M Leads . 5/5 . logged 2026-09-30
 Promoted out of the queue into `window.BOOKS` as n:3 with `status:"reading"`, same day book 2 was logged. Subtitle set to "How to Get Strangers to Want to Buy Your Stuff".
 - **Queue is down to one book.** `52/index.html` line 134 said "These are the next few, in the order I will read them", which reads wrong with a single entry, so it became "This is what I am reading next." Change it back when the queue grows past one.
 - Covers checked 2026-09-23 by byte size: 173747574X = 26055 bytes, 1737475774 = 21925 bytes, B0GL2ND3V6 = 23428 bytes. All real images, none are the 43-byte placeholder.
 
+### Week 4 . 100 Bible Principles for Business . opened 2026-09-30
+Book 3 logged and book 4 promoted in the same pass, on changeover Wednesday. Ryder gave a 5/5, a one line reaction and three raw takeaways, they were polished and written into `js/books.js`. No quote supplied, `quote` left empty. `pages` still 0, the count never came off the book.
+- The report and all three takeaways are built from his own words: shots on goal then gas on the fire, LTGP against CAC, and creativity because no two businesses advertise the same. The forest blindfolded line is his, keep it if the copy is ever rewritten.
+- **The queue is now EMPTY.** He confirmed Bible Principles as next but said he does not know what comes after it. `window.BOOKS_QUEUE = []`.
+- Empty queue is handled, not broken: `js/fiftytwo.js` line 346 sets `#sec-queue` to `display:none` when `QUEUE.length` is 0, and the `[data-seq]` renumber at line 457 filters hidden sections, so Up next disappears and Come with me becomes 03. Verified by reading the code, not by rendering the page.
+- `52/index.html` line 134 still reads "This is what I am reading next." Harmless while the section is hidden, but **it is wrong the moment the queue holds two or more. Fix it when he refills the queue.**
+- No em-dashes, verified by grep across `js/books.js` and `52/index.html`.
+- Covers re-checked 2026-09-30 by byte size: B0GL2ND3V6 = 23428 bytes, 1737475774 = 21925 bytes. Both real images, neither is the 43-byte placeholder, so book 4's feature cover will load off Amazon with no local jpg needed.
+- Book 4 `subtitle` left empty on purpose. The real subtitle was not known and `js/fiftytwo.js` renders subtitle conditionally, so an empty string is safe. Do not invent one.
+- No desk photo for book 4 yet. Book 3's `photo` was never filled, so unlike books 1 and 2 it leaves no dead file behind.
+
 ## Still open
-- **Queue is one book deep. Ask Ryder for the next few titles.**
-- Page count for 100 Bible Principles.
+- **Queue is EMPTY as of 2026-09-30.** Book 4 is the last title he has named. Ask him for the next few before the 10-07 changeover, otherwise the Up next section stays hidden.
+- Page counts for 100 Bible Principles and $100M Leads, both sitting at 0.
 - Confirm the two Hormozi short links map correctly (assumed Offers = 4d4ysVN, Leads = 4ipLlgs).
 - Page count for $100M Offers. He finished it without giving the number, so it may stay 0 unless he goes back to the copy.
 - **If B.O.S.S. Moves ever comes back, it has no Amazon cover image.** Verified 2026-09-16: `m.media-amazon.com/images/P/<ASIN>.01._SCLZZZZZZZ_.jpg` returns the 43-byte 1x1 placeholder for B0C9KXMCJR, 1737856204 and 1737856212. **43 bytes is the tell for a missing Amazon cover, a 200 status is not.** Fix would be a hand-dropped jpg in `assets/books/` plus `cover:` on the entry.

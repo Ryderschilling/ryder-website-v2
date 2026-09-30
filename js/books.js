@@ -82,17 +82,42 @@ window.BOOKS = [
     asin: "1737475774",
     cover: "",
     photo: "",
-    status: "reading",              // reading | done | queued
+    status: "done",                 // reading | done | queued
     started: "2026-09-23",
+    finished: "2026-09-29",
+    rating: 5,                      // out of 5
+    pages: 0,
+    tags: ["Business", "Leads"],
+    verdict: "Advertising finally clicked: take a lot of shots, track the two numbers that matter, then pour gas on whatever catches.",
+    report: "Incredible book, and it moved my understanding of advertising to a completely different level. The biggest shift is that advertising is not one clever idea, it is volume plus measurement. Take a bunch of shots, watch what actually sticks, then put gas on the fire. What makes that work is knowing your numbers, because without LTGP and CAC in front of you it is all guessing. The other half of it is creativity. No two businesses advertise the same way, so you use what you have and go get customers every way available to you. If you read $100M Offers, read this one next.",
+    takeaways: [
+      "Advertising is taking a bunch of shots and seeing what sticks, then putting gas on the fire. You are not hunting for the one perfect ad up front, you are looking for the one that catches so you can pour everything into it.",
+      "Tracking your ads is key. Lifetime Gross Profit (LTGP) against Customer Acquisition Cost (CAC), and the ratio between the two, is fundamental to advertising success. If you do not know your metrics you are walking through a forest blindfolded.",
+      "Be creative. Advertising is not easy and no two businesses advertise the same, so use what you have to incentivize, advertise and get referrals, and acquire customers every way you possibly can."
+    ],
+    quote: "",
+    buy: "https://amzn.to/4ipLlgs"
+  },
+
+  {
+    n: 4,
+    title: "100 Bible Principles for Business",
+    subtitle: "",
+    author: "Dennis Juan Allen",
+    asin: "B0GL2ND3V6",
+    cover: "",
+    photo: "",
+    status: "reading",              // reading | done | queued
+    started: "2026-09-30",
     finished: "",
     rating: 0,                      // out of 5, fill when done
     pages: 0,
-    tags: ["Business", "Leads"],
+    tags: ["Business", "Faith"],
     verdict: "",                    // one sentence, shows on the card
     report: "",                     // the paragraph, shows when opened
     takeaways: [],                  // 3 lines max
     quote: "",
-    buy: "https://amzn.to/4ipLlgs"
+    buy: "https://amzn.to/4xnP5CU"
   }
 
 ];
@@ -100,12 +125,6 @@ window.BOOKS = [
 /* UP NEXT, in the order you will read them.
    People buy ahead from this list, so every entry needs a buy link. */
 window.BOOKS_QUEUE = [
-  {
-    title: "100 Bible Principles for Business",
-    author: "Dennis Juan Allen",
-    asin: "B0GL2ND3V6",
-    buy: "https://amzn.to/4xnP5CU"
-  }
 ];
 
 /* ------------------------------------------------------------------
