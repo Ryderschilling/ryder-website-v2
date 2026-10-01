@@ -18,6 +18,13 @@
 const INBOX = "ryder@ryderschilling.com";
 const FROM = "Ryder Schilling Site <leads@ryderschilling.com>";
 
+// Keyboard-smash detector: a single word of 8+ letters with 3+ capitals
+// after the first letter (JnTqVEyektk, iWuJJLIQINS) is not a human name.
+function looksRandom(v) {
+  const words = String(v || "").trim().split(/\s+/).filter(Boolean);
+  return words.some((w) => /^[A-Za-z]{8,}$/.test(w) && (w.slice(1).match(/[A-Z]/g) || []).length >= 3);
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ ok: false });
 
@@ -29,6 +36,16 @@ module.exports = async function handler(req, res) {
     try { body = JSON.parse(body); } catch (e) { body = {}; }
   }
   const { name = "", contact = "", need = "", msg = "", source = "site" } = body || {};
+
+  // Spam guard: bots fill the hidden "website" field, submit in under 3s,
+  // or POST straight to the API with no timing value. Fake a success so
+  // they move on, but send nothing.
+  const elapsed = Number(body && body.t);
+  const bot =
+    (body && String(body.website || "").trim() !== "") ||
+    !Number.isFinite(elapsed) || elapsed < 3000 ||
+    looksRandom(name) || looksRandom(contact.split("@")[0]);
+  if (bot) return res.status(200).json({ ok: true });
 
   const clean = (s) => String(s == null ? "" : s).slice(0, 1200).replace(/[<>]/g, "");
   const who = clean(name);

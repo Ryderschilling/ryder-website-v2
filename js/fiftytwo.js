@@ -404,11 +404,14 @@
   }
 
   /* ---------- forms (join + recommend) --------------------------- */
+  var PAGE_T0 = Date.now();
   function wire(formId, okId, source, build, validate, failMsg) {
     var form = document.getElementById(formId); if (!form) return;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var data = build(form); data.source = source;
+      var hpf = form.querySelector('[name="website"]'); data.website = hpf ? hpf.value : "";
+      data.t = Date.now() - PAGE_T0;
       var note = form.querySelector(".note");
       if (!validate(data)) { if (note) note.textContent = failMsg; return; }
       var btn = form.querySelector("button[type=submit] span");
