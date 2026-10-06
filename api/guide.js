@@ -15,7 +15,8 @@
 
 'use strict';
 
-const INBOX = "ryder@ryderschilling.com";
+// Where signups + replies land. ryder@ryderschilling.com is send-only, Ryder reads Gmail.
+const INBOX = "ryderschilling@gmail.com";
 const FROM_GUIDE = "Ryder Schilling <ryder@ryderschilling.com>";
 const FROM_PING = "Ryder Schilling Site <leads@ryderschilling.com>";
 const PDF_URL = "https://ryderschilling.com/build/claude-websites-in-4-steps.pdf";
