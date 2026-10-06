@@ -164,6 +164,8 @@
         if (r.ok) {
           state('done', "It's on the way to " + email + '. Not there in a few minutes? Check spam.');
           input.blur();
+          try { sessionStorage.setItem('rs_guide_email', email); } catch (e) {}
+          setTimeout(function () { location.href = '/build/thanks/' + (ref ? '?src=' + ref : ''); }, reduce ? 300 : 1100);
           document.querySelectorAll('form.optin').forEach(function (o) {
             if (o !== f) { o.classList.add('is-done'); o.querySelector('.note').textContent = 'Already sent to ' + email + '.'; }
           });
