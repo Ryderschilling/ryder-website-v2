@@ -1,0 +1,69 @@
+/* Home: free guide section (lead magnet, posts to /api/guide like /build) */
+#guide{padding:6vw var(--content-r,1.39vw) 6vw var(--content-l,21vw)}
+#guide .g-card{position:relative;overflow:hidden;background:#0e0d0b;color:#ede7d8;border-radius:clamp(20px,2vw,32px);
+  display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:clamp(20px,3vw,56px);
+  padding:clamp(30px,4.2vw,72px) clamp(22px,4vw,72px);min-height:clamp(420px,34vw,560px)}
+#guide .g-card::before{content:"";position:absolute;inset:-40%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(237,231,216,.10),transparent 70%);
+  transform:translate(var(--gx,0),var(--gy,0));transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+#guide .g-copy{position:relative;z-index:1}
+#guide .chip-outline{color:#ede7d8;opacity:.75}
+#guide .g-h{font-family:var(--display);font-size:clamp(40px,5.2vw,92px);line-height:.92;letter-spacing:-.035em;margin:0}
+#guide .g-h b{font-weight:820;text-transform:uppercase;display:block}
+#guide .g-h span{font-weight:300}
+#guide .g-sub{color:#c9c3b3;max-width:40ch;margin:clamp(14px,1.4vw,22px) 0 0;font-size:clamp(15px,1.05vw,18px);line-height:1.5}
+#guide .g-list{list-style:none;padding:0;margin:clamp(16px,1.5vw,24px) 0 0;display:flex;flex-wrap:wrap;gap:8px}
+#guide .g-list li{font:600 12.5px/1 var(--text);border:1px solid rgba(237,231,216,.22);border-radius:999px;padding:8px 12px;color:#ddd6c5}
+#guide form{margin-top:clamp(22px,2.2vw,34px);max-width:470px}
+#guide .g-ask{display:block;font:700 15px/1.2 var(--text);margin-bottom:12px}
+#guide .g-pill{position:relative;display:flex;align-items:center;background:#ede7d8;border-radius:999px;height:64px;padding:0 7px 0 22px;
+  box-shadow:0 18px 50px -20px rgba(0,0,0,.8);transition:background .35s}
+#guide .g-pill svg.env{width:20px;height:20px;flex:none;fill:none;stroke:#6d6a5e;stroke-width:1.6;transition:opacity .3s}
+#guide .g-pill input[type=email]{flex:1;min-width:0;height:100%;border:0;background:transparent;outline:0;
+  font:500 17px var(--text);color:#111110;padding:0 12px;transition:opacity .3s}
+#guide .g-pill input::placeholder{color:#7a766a}
+#guide .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+#guide .g-pill button{position:relative;flex:none;width:52px;height:52px;border-radius:50%;border:0;background:#111110;color:#ede7d8;cursor:pointer;
+  display:grid;place-items:center;transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s}
+#guide .g-pill button:hover{transform:scale(1.06)}
+#guide .g-pill button svg{position:absolute;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:opacity .25s,transform .35s}
+#guide .chk{opacity:0;transform:scale(.6)}
+#guide .spin{position:absolute;width:20px;height:20px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;opacity:0;animation:gspin .8s linear infinite}
+@keyframes gspin{to{transform:rotate(360deg)}}
+@keyframes gshake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+#guide .done-msg{position:absolute;left:24px;right:70px;top:50%;transform:translateY(-50%);font:600 15px var(--text);color:#ede7d8;opacity:0;pointer-events:none;transition:opacity .3s .1s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#guide .g-note{margin:14px 0 0;font-size:13.5px;color:#8f8a7c;min-height:1.2em}
+#guide form.is-busy .arr{opacity:0}#guide form.is-busy .spin{opacity:1}#guide form.is-busy input{opacity:.5}
+#guide form.is-done .g-pill{background:#2a2722}
+#guide form.is-done .env,#guide form.is-done input{opacity:0;pointer-events:none}
+#guide form.is-done .done-msg{opacity:1}
+#guide form.is-done button{background:#ede7d8;color:#111110}
+#guide form.is-done .arr,#guide form.is-done .spin{opacity:0}
+#guide form.is-done .chk{opacity:1;transform:none}
+#guide form.is-done .g-note{color:#ede7d8}
+#guide form.is-err .g-pill{animation:gshake .45s}
+#guide form.is-err .g-note{color:#f0a487;font-weight:600}
+#guide .g-more{display:inline-block;margin-top:6px;font:600 13.5px var(--text);color:#ede7d8;text-underline-offset:3px}
+
+/* fanned pages */
+#guide .g-fan{position:relative;z-index:1;height:clamp(320px,30vw,500px);perspective:1400px}
+#guide .g-fan img{position:absolute;top:50%;left:50%;width:clamp(170px,15vw,260px);aspect-ratio:8.5/11;object-fit:cover;border-radius:10px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06);
+  transform:translate(-50%,-50%) translate(var(--x,0),var(--y,0)) rotate(var(--r,0deg));
+  transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+#guide .g-fan .p1{--x:0;--y:0;--r:0deg;z-index:4}
+#guide .g-fan .p2,#guide .g-fan .p3,#guide .g-fan .p4{--x:0;--y:0;--r:0deg}
+#guide .g-fan.is-open .p2{--x:-42%;--y:4%;--r:-9deg;z-index:3}
+#guide .g-fan.is-open .p3{--x:42%;--y:4%;--r:9deg;z-index:3}
+#guide .g-fan.is-open .p4{--x:0;--y:-8%;--r:2deg;z-index:2}
+#guide .g-fan.is-open .p1{--y:6%}
+@media (hover:hover){#guide .g-card:hover .g-fan.is-open .p2{--x:-56%;--r:-13deg}#guide .g-card:hover .g-fan.is-open .p3{--x:56%;--r:13deg}}
+
+@media (max-width:900px){
+  #guide{padding-block:14vw}
+  #guide .g-card{grid-template-columns:1fr;text-align:left}
+  #guide .g-fan{order:-1;height:clamp(250px,64vw,360px)}
+  #guide .g-fan img{width:clamp(130px,36vw,200px)}
+}
+@media (max-width:420px){#guide .g-pill{height:58px;padding-left:18px}#guide .g-pill button{width:46px;height:46px}#guide .g-pill input[type=email]{font-size:16px}}
+@media (prefers-reduced-motion:reduce){#guide .g-fan img,#guide .g-card::before{transition:none}}

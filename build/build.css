@@ -194,7 +194,7 @@ a{color:inherit}
   .mark{margin-bottom:clamp(24px,5vh,56px)}
   .title{font-size:clamp(84px,8.4vw,138px)}
   .sub{margin-left:0}
-  .optin{margin-left:0}
+  .hero .optin{margin-left:0}
   .stage{margin-top:0;height:min(640px,78svh);width:100%}
   .fan{top:50%;width:clamp(240px,21vw,320px);transform:translate(-50%,-50%) rotateX(var(--rx,10deg)) rotateY(var(--ry,0deg))}
   .stage::after{display:none}
