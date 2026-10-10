@@ -107,15 +107,15 @@ window.BOOKS = [
     asin: "B0GL2ND3V6",
     cover: "",
     photo: "",
-    status: "reading",              // reading | done | queued
+    status: "done",                 // reading | done | queued
     started: "2026-09-30",
-    finished: "",
-    rating: 0,                      // out of 5, fill when done
+    finished: "2026-10-07",
+    rating: 2,                      // out of 5
     pages: 0,
     tags: ["Business", "Faith"],
-    verdict: "",                    // one sentence, shows on the card
-    report: "",                     // the paragraph, shows when opened
-    takeaways: [],                  // 3 lines max
+    verdict: "Real wisdom and a fine daily devotional, but read straight through in a week it did not teach me anything or keep me engaged.",
+    report: "This one did not land. There is real wisdom in it and the principles are sound, but it reads like a devotional, which is probably how it is meant to be used: a page in the morning, not a book you sit down and work through. Taken straight through in a week it did not teach me anything new and it never kept me engaged. If you want scripture applied to business in small daily doses, it does that well. If you want a book that changes how you operate, this is not the one. First 2 on the shelf, and an honest one.",
+    takeaways: [],                  // none given, book did not earn any
     quote: "",
     buy: "https://amzn.to/4xnP5CU"
   }

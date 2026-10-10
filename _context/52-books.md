@@ -1,6 +1,6 @@
 # /52 . 52 Books in a Year
 Context file for the reading challenge page. Read this before touching /52, js/books.js, or anything books related.
-Last updated 2026-09-23.
+Last updated 2026-10-10.
 
 LIVE at https://ryderschilling.com/52/
 
@@ -83,7 +83,7 @@ Promoted out of the queue into `window.BOOKS` as n:3 with `status:"reading"`, sa
 - **Queue is down to one book.** `52/index.html` line 134 said "These are the next few, in the order I will read them", which reads wrong with a single entry, so it became "This is what I am reading next." Change it back when the queue grows past one.
 - Covers checked 2026-09-23 by byte size: 173747574X = 26055 bytes, 1737475774 = 21925 bytes, B0GL2ND3V6 = 23428 bytes. All real images, none are the 43-byte placeholder.
 
-### Week 4 . 100 Bible Principles for Business . opened 2026-09-30
+### Week 4 . 100 Bible Principles for Business . OPENED 2026-09-30
 Book 3 logged and book 4 promoted in the same pass, on changeover Wednesday. Ryder gave a 5/5, a one line reaction and three raw takeaways, they were polished and written into `js/books.js`. No quote supplied, `quote` left empty. `pages` still 0, the count never came off the book.
 - The report and all three takeaways are built from his own words: shots on goal then gas on the fire, LTGP against CAC, and creativity because no two businesses advertise the same. The forest blindfolded line is his, keep it if the copy is ever rewritten.
 - **The queue is now EMPTY.** He confirmed Bible Principles as next but said he does not know what comes after it. `window.BOOKS_QUEUE = []`.
@@ -94,8 +94,19 @@ Book 3 logged and book 4 promoted in the same pass, on changeover Wednesday. Ryd
 - Book 4 `subtitle` left empty on purpose. The real subtitle was not known and `js/fiftytwo.js` renders subtitle conditionally, so an empty string is safe. Do not invent one.
 - No desk photo for book 4 yet. Book 3's `photo` was never filled, so unlike books 1 and 2 it leaves no dead file behind.
 
+### Week 4 . 100 Bible Principles for Business . CLOSED 2/5 . logged 2026-10-10
+Finished Wednesday 2026-10-07, logged Saturday 10-10. The check-in slipped three days: Hurricane Isaias forced an evacuation and the week got away from him.
+- **First non-5 on the shelf.** He called it a 2 without hedging: it would make a great devotional and there is real wisdom in it, but it did not teach him anything and did not keep him engaged. The report says that plainly. Do not walk it back toward a 3 if the copy is ever rewritten, and do not pad it.
+- **`takeaways` is deliberately `[]`.** He had none to give and inventing them for a 2/5 would be dishonest. The comment on the field says so. The drawer renders just the report.
+- `quote` empty. `pages` still 0, the count never came off the book.
+- `subtitle` still empty on purpose, same as when it was promoted. Do not invent one.
+- **Nothing is `status:"reading"` as of this log.** He has not picked book 5 yet, so On The Desk renders the "Between books." empty state. Correct, not a bug.
+- **The queue is still EMPTY**, so `#sec-queue` stays hidden and `52/index.html` line 134 ("This is what I am reading next.") stays untouched. Fix it the moment the queue holds two or more.
+- Verified by `node -e` against `js/books.js`: parses, 4 entries, all four `done`, 0 `reading`, queue 0. No em-dashes, grep clean across `js/books.js` and `52/index.html`.
+- **Pace note:** week 5 opened 10-07 with no book. The 52-in-52 target has no slack built in, so every bookless day is a day that has to come back out of a later week.
+
 ## Still open
-- **Queue is EMPTY as of 2026-09-30.** Book 4 is the last title he has named. Ask him for the next few before the 10-07 changeover, otherwise the Up next section stays hidden.
+- **Queue is EMPTY and nothing is being read as of 2026-10-10.** Book 4 was the last title he named and he is still deciding on book 5. Up next stays hidden and On The Desk sits on the empty state until he picks. This is the one thing blocking the page.
 - Page counts for 100 Bible Principles and $100M Leads, both sitting at 0.
 - Confirm the two Hormozi short links map correctly (assumed Offers = 4d4ysVN, Leads = 4ipLlgs).
 - Page count for $100M Offers. He finished it without giving the number, so it may stay 0 unless he goes back to the copy.
